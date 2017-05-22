@@ -16,6 +16,9 @@
 - C-n: open new tab
 - Tab: switch to next tab
 - C-w: close tab
+- gt/gT: change tab
+- uq: undo quit, restore tab
+- Alt-1/Alt-9: switch to tab N
 
 ### Navigation
 - h,i,j,k: navigation filesystem
@@ -26,6 +29,9 @@
 - n/N: next/previous
 - q: back from pager/quit pager
 
+### Help
+- 1? keybinding help
+- 2? command help
 
 ### On files
 - Enter: open with default program
@@ -37,3 +43,7 @@
 - ew: open in new tmux window
 - ef: split horizontal in tmux pane
 - ev: split verical in tmux pane
+
+### Marks
+- m<Char>: set mark 'Char'
+- '<Char>: jump to mark 'Char'
