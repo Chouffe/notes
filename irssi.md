@@ -66,3 +66,4 @@ Scroll down/up
 
 - tutorial: http://quadpoint.org/articles/irssi/
 - linode: https://www.linode.com/docs/applications/messaging/using-irssi-for-internet-relay-chat/
+- linode power user: https://www.linode.com/docs/applications/messaging/advanced-irssi-usage/#sph_using-plugins
