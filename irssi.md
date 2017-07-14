@@ -53,8 +53,11 @@ Save Layout
 ## Shortcuts
 
 Switching windows
+
 > Alt-[0-9]
 > Alt-[qwertyuiop]
+> C-p previous window
+> C-n next window
 
 Change servers
 > <C-X>
@@ -67,3 +70,4 @@ Scroll down/up
 - tutorial: http://quadpoint.org/articles/irssi/
 - linode: https://www.linode.com/docs/applications/messaging/using-irssi-for-internet-relay-chat/
 - linode power user: https://www.linode.com/docs/applications/messaging/advanced-irssi-usage/#sph_using-plugins
+- setup: http://www.antonfagerberg.com/blog/my-perfect-irssi-setup/
