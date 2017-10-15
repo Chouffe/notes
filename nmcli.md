@@ -42,5 +42,5 @@ Connect to a wifi access point specified by a SSID (EEE)
 
 ## Resources
 
-RedHat tutorial: https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Networking_Guide/sec-Using_the_NetworkManager_Command_Line_Tool_nmcli.html
-https://www.certdepot.net/rhel7-get-started-nmcli/
+* [RedHat tutorial](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Networking_Guide/sec-Using_the_NetworkManager_Command_Line_Tool_nmcli.html)
+* [Getting started tutorial](https://www.certdepot.net/rhel7-get-started-nmcli/)
