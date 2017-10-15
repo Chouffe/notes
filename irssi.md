@@ -3,71 +3,107 @@
 ## Commands
 
 Open an IRC Connection
-> /connect chat.freenode.net
+```
+/connect chat.freenode.net
+```
 
 Disconnect IRC Connection
-> /disconnect
+```
+/disconnect
+```
 
 Join channel
-> /join #haskell-beginners
+```
+/join #haskell-beginners
+```
 
 Close Window
-> /window close
-> /wc
+```
+/window close
+/wc
+```
 
 Send Private message
+```
 /query <nickname>
+```
 
 List users in the channel
-> /n
+```
+/n
+```
 
 Leave the channel
-> /part
+```
+/part
+```
 
 Change username
-> /nick <new-username>
+```
+/nick <new-username>
+```
 
 Get help
-> /help
+```
+/help
+```
 
 ## Windows
 
 Make window non sticky
-> /window stick off
+```
+/window stick off
+```
 
 Show Window
-> /window show i
+```
+/window show i
+```
 
 Close window
-> /window close i
+```
+/window close i
+```
 
 Grow window
-> /window grow i
+```
+/window grow i
+```
 
 Shrink window
-> /window shrink i
+```
+/window shrink i
+```
 
 Save Layout
-> /layout save
+```
+/layout save
+```
 
 ## Shortcuts
 
 Switching windows
 
-> Alt-[0-9]
-> Alt-[qwertyuiop]
-> C-p previous window
-> C-n next window
+```
+Alt-[0-9]
+Alt-[qwertyuiop]
+C-p previous window
+C-n next window
+```
 
 Change servers
-> <C-X>
+```
+<C-X>
+```
 
 Scroll down/up
-> Pg up/Pg dn
+```
+Pg up/Pg dn
+```
 
 ## Resources
 
-- tutorial: http://quadpoint.org/articles/irssi/
-- linode: https://www.linode.com/docs/applications/messaging/using-irssi-for-internet-relay-chat/
-- linode power user: https://www.linode.com/docs/applications/messaging/advanced-irssi-usage/#sph_using-plugins
-- setup: http://www.antonfagerberg.com/blog/my-perfect-irssi-setup/
+* [tutorial](http://quadpoint.org/articles/irssi/)
+* [linode](https://www.linode.com/docs/applications/messaging/using-irssi-for-internet-relay-chat/)
+* [linode power user](https://www.linode.com/docs/applications/messaging/advanced-irssi-usage/#sph_using-plugins)
+* [setup](http://www.antonfagerberg.com/blog/my-perfect-irssi-setup/)
