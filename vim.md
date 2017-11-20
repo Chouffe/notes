@@ -2,6 +2,10 @@
 
 ## Fugitive: GDiff
 
+### Resources
+
+* [VimCast](http://vimcasts.org/episodes/fugitive-vim-resolving-merge-conflicts-with-vimdiff/)
+
 ### Conventions and Naming
 
 * Target (HEAD): `//2` -> Left side

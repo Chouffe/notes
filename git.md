@@ -2,7 +2,7 @@
 
 ## Terms
 
-### Repository:
+### Repository
 
 A repository is a collection of commits, each of which is an archive of what the project’s working tree looked like at a past date, whether on your machine or someone else’s. It also defines HEAD (see below), which identifies the branch or commit the current working tree stemmed from. Lastly, it contains a set of branches and tags, to identify certain commits by name.
 
@@ -40,11 +40,11 @@ Git is a Content-addressabe filesystem: A simple key-value store.
 
 ### Resources
 
-- https://git-scm.com/book/en/v2/Git-Internals-Git-Objects
-- https://maryrosecook.com/blog/post/git-from-the-inside-out
-- https://jwiegley.github.io/git-from-the-bottom-up/
-- http://stefan.saasen.me/articles/git-clone-in-haskell-from-the-bottom-up/
-- http://vaibhavsagar.com/blog/2017/08/13/i-haskell-a-git/
+- [Git Internals Git Objects](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)
+- [Git from the inside out](https://maryrosecook.com/blog/post/git-from-the-inside-out)
+- [Git from the bottom up](https://jwiegley.github.io/git-from-the-bottom-up/)
+- [Git clone in Haskell](http://stefan.saasen.me/articles/git-clone-in-haskell-from-the-bottom-up/)
+- [I haskell a Git](http://vaibhavsagar.com/blog/2017/08/13/i-haskell-a-git/)
 
 ### Git Objects
 
@@ -77,18 +77,28 @@ committer Scott Chacon <schacon@gmail.com> 1243040974 -0700
 ### Commands
 
 Hash any content
-> git hash-object
+```
+git hash-object
+```
 
 Hash from --stdin and store it with -w
-> echo 'hello world' | git hash-object -w --stdin
+```
+echo 'hello world' | git hash-object -w --stdin
+```
 
 Hash from filepath and store it with -w
-> git hash-object -w test.txt
+```
+git hash-object -w test.txt
+```
 
 Cat pretty printed object
-> git cat-file -p <sha1>
+```
+git cat-file -p <sha1>
+```
 
 Object directory is located at `.git/objects`
 
 Return object type of any object
-> git cat-file -t <sha1>
+```
+git cat-file -t <sha1>
+```
