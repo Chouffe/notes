@@ -1,0 +1,104 @@
+# Jupyter Notebooks
+
+* Web application that combines markdown, math equations, code, visualizations
+
+## Command Line
+
+* Launch the notebook server
+```
+jupyter notebook
+```
+* Install Notebook Conda to help manage environments
+```
+conda install nb_conda
+```
+* List running servers with their tokens
+```
+jupyter notebook list
+```
+
+## UI
+
+### Command palette
+
+* It brings up a little pannel where commands can be searched
+
+### Modes
+
+* **Edit Mode**: Type into cells
+  * Left border is green
+* **Command Mode**: Execute commands
+  * Left border is blue
+
+### Keyboard Shortcuts
+
+#### Command Mode
+
+* `Enter/Esc`: Switch between edit/command modes
+* `Enter + Shift`: Go to next cell
+* `h`: List of shortcuts
+* `s`: Save notebook
+* `a`: Create cell above
+* `b`: Create cell below
+* `dD`: Delete cell
+* `y`: Change from markdown to code
+* `m`: Change from code to markdown
+* `p`: Access the command palette
+
+### Code Cells
+
+### Markdown Cells
+
+* cf markdow.md
+* Math expressions using LaTeX symbols
+  * Notebooks use MathJax to render the LaTeX symbols as math symbols
+
+## Magic Keywords
+
+* Special commands that lets you control the notebook itself, perform system calls
+* `%`: Line Magic
+* `%%`: Cell Magic
+
+### Python Kernel
+
+* [List of all magic commands](http://ipython.readthedocs.io/en/stable/interactive/magics.html)
+* Timing Code
+  * Function call: `%timeit f(*args)`
+  * Entire Cell: `%%timeit ...`
+* Embedding visualizations in notebooks: `%matplotlib`
+  * Inline: ` %matplotlib inline`
+  * High quality: `%config InlineBackend.figure_format = 'retina'`
+```
+%matplotlib inline
+%config InlineBackend.figure_format = 'retina'
+
+import numpy as np
+...
+
+plt.plot()
+```
+* Debugging in Notebooks: `%pdb`
+  * When an error occurs, variables, scopes can be inspected
+  * [pdb Documentation](https://docs.python.org/3/library/pdb.html)
+
+## Converting Notebooks
+
+* Default, big JSON files with `.ipynb` extension
+* Convert to HTML file
+```
+jupyter nbconvert --to html notebook.ipynb
+```
+* [nbconvert Documentation](https://nbconvert.readthedocs.io/en/latest/usage.html)
+
+## Slideshows
+
+* [Example](http://nbviewer.jupyter.org/format/slides/github/jorisvandenbossche/2015-PyDataParis/blob/master/pandas_introduction.ipynb#)
+* Regular notebooks, designate which cells are slides and the type of the slide cell
+* Export to slideshow
+```
+jupyter nbconvert notebook.ipynb --to slides
+```
+* Serve the presentation
+```
+jupyter nbconvert notebook.ipynb --to slides --post serve
+```
