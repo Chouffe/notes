@@ -40,7 +40,7 @@ jupyter notebook list
 * `s`: Save notebook
 * `a`: Create cell above
 * `b`: Create cell below
-* `dD`: Delete cell
+* `dd`: Delete cell
 * `y`: Change from markdown to code
 * `m`: Change from code to markdown
 * `p`: Access the command palette
