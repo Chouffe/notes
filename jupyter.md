@@ -8,6 +8,10 @@
 ```
 jupyter notebook
 ```
+* Launch the notebook server on AWS server
+```
+jupyter notebook --ip=0.0.0.0 --no-browser
+```
 * Install Notebook Conda to help manage environments
 ```
 conda install nb_conda
@@ -15,6 +19,10 @@ conda install nb_conda
 * List running servers with their tokens
 ```
 jupyter notebook list
+```
+* Setup a Jupyter Notebook Password
+```
+jupyter notebook password
 ```
 
 ## UI
@@ -80,6 +88,11 @@ plt.plot()
 * Debugging in Notebooks: `%pdb`
   * When an error occurs, variables, scopes can be inspected
   * [pdb Documentation](https://docs.python.org/3/library/pdb.html)
+  * [pdb commands](https://docs.python.org/3.5/library/pdb.html#debugger-commands)
+* Documentation: Prefix the method by `?`
+```python
+?str.replace()
+```
 
 ## Converting Notebooks
 
@@ -102,3 +115,7 @@ jupyter nbconvert notebook.ipynb --to slides
 ```
 jupyter nbconvert notebook.ipynb --to slides --post serve
 ```
+
+## Resources
+
+* [Tips and Tricks](https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/)
