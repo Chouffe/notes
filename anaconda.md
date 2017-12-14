@@ -84,6 +84,10 @@ conda env create -f environment.yaml
 ```
 conda env remove -n $env_name
 ```
+* Clone Environment
+```
+conda create --clone environment_name -n name_cloned_environment
+```
 
 ## Best practices
 
@@ -96,6 +100,10 @@ conda create -n py3 python=3
 ```
 * Create an environment for each project
 * Include a pip `requirements.txt` file using `pip freeze` for people not using anaconda
+* Install notebook conda package to manage packages from GUI
+```
+conda install nb_conda
+```
 
 ## Resources
 
