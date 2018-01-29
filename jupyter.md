@@ -93,6 +93,10 @@ plt.plot()
 ```python
 ?str.replace()
 ```
+* Time a cell
+```python
+%%time
+```
 
 ## Converting Notebooks
 
