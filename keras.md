@@ -10,6 +10,28 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=2)
 model.fit(X, y, validation_split=0.2, callbacks=[early_stopping])
 ```
 
+* Tensorboard Logging
+```python
+from keras.callbacks import TensorBoard
+
+tensorboard = TensorBoard(
+    log_dir='./logs',
+    write_graph=True,
+    write_images=True
+)
+```
+
+* Model Checkpointing
+```python
+modelCheckPoint = ModelCheckpoint(
+    './checkpoints/%s.hdf5' %  filename,
+    monitor='val_loss',
+    verbose=1,
+    save_best_only=True,
+    save_weights_only=False
+)
+```
+
 * Output of an intermediate layer
 ```python
 from keras.models import Model
