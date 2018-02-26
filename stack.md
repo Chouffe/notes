@@ -54,6 +54,7 @@ stack hoogle -- server --local --port=8080
 
 * `stack.yaml`
 * `project.cabal` OR `project.yaml` that generates the cabal file
+* [Online Documentation](https://docs.haskellstack.org/en/stable/yaml_configuration/)
 
 ## Editor Integration
 
