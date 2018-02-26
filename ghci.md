@@ -43,3 +43,7 @@ Interactive shell for the GHC compiler.
 | `+t` | Show types of evaluated expressions                     |
 | `+s` | Show timing and memory usage                            |
 | `+m` | Enable multi-line expression delimited by `:{` and `:}` |
+
+## Resources
+
+* [WIWIKWLH](http://dev.stephendiehl.com/hask/)
