@@ -2,6 +2,28 @@
 
 * Stack is a build tool
 * Stack is not a package manager
+* Curated package lists known to have no conflicts: `resolvers`
+* Sandbox builds by default
+* Reproducible builds
+
+## hpack
+
+* `package.yaml`
+* Other way to generate cabal config files
+  * Simplicity
+  * Focus on Essentials
+  * Less boilerplate
+
+* Generate `.cabal` file with hpack
+```
+hpack
+```
+
+## Cabal
+
+* Package and dependency manager
+* Organize package with .cabal file
+* Stack is a layer on top of cabal
 
 ## Resources
 
@@ -33,6 +55,23 @@ stack test --fast --haddock-deps
 * Rerun tests as code changes
 ```
 stack test --fast --haddock-deps --file-watch
+```
+
+* Force everything to be re-built, removes local cache
+```
+stack clean
+```
+
+## Execution
+
+* Run specified executable from latest build
+```
+stack exec name-exe
+```
+
+* Run ghci
+```
+stack ghci
 ```
 
 ## Documentation
