@@ -2,6 +2,31 @@
 
 * Web application that combines markdown, math equations, code, visualizations
 
+## AWS Jupyter Notebook for Deep Learning
+
+* Go to AWS Marketplace and select `Deep Learning AMI (Ubuntu) Version 8.0`
+* ssh into the instance using the pem file
+```
+ssh -i "pemfile.pem" ubuntu@ec2-1-2-3-4-5.compute-1.amazonaws.com
+```
+* Source the tensorflow environement
+```
+source activate tensorflow_p36
+```
+* Generate a Jupyter Notebook config file
+```
+jupyter notebook --generate-config
+```
+* Set a password for the notebook
+```
+jupyter notebook password
+```
+* Start the Jupyter Notebook
+```
+jupyter notebook --ip=0.0.0.0 --no-browser
+```
+
+
 ## Command Line
 
 * Launch the notebook server
