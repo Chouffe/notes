@@ -28,6 +28,22 @@ hpack
 ## Resources
 
 * [Guide to Haskell in 2018](https://lexi-lambda.github.io/blog/2018/02/10/an-opinionated-guide-to-haskell-in-2018/)
+* [Haskell Stack Mega-Tutorial](https://www.youtube.com/watch?v=sRonIB8ZStw)
+
+## New project
+
+* Creating new stack project
+```
+stack new project-name
+```
+* docker integration
+```
+# stack.yaml
+
+docker:
+  enable: true
+```
+
 
 ## Build
 
