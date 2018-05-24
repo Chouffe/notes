@@ -35,6 +35,10 @@ Interactive shell for the GHC compiler.
 ```
 :set prompt "> "
 ```
+* run main function with arguments from ghci
+```
+:main arg1 arg2
+```
 
 ## Language Extensions
 
