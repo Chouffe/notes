@@ -19,6 +19,10 @@ ghcid \
 # Specify which package targets to load
 # Specify the test-suite to run
 ```
+* Run test target
+```
+ghcid --command "stack ghci projectName:testSuiteName"
+```
 
 
 ## Commands

@@ -25,11 +25,6 @@ hpack
 * Organize package with .cabal file
 * Stack is a layer on top of cabal
 
-## Resources
-
-* [Guide to Haskell in 2018](https://lexi-lambda.github.io/blog/2018/02/10/an-opinionated-guide-to-haskell-in-2018/)
-* [Haskell Stack Mega-Tutorial](https://www.youtube.com/watch?v=sRonIB8ZStw)
-
 ## New project
 
 * Creating new stack project
@@ -117,3 +112,16 @@ stack hoogle -- server --local --port=8080
 ```
 stack build ghc-mod hlint hoogle
 ```
+
+## stack ghc
+
+* GHC will create a program if there is a module named `Main` and a `main` function. Otherwise use the `-is-main` ghc flag.
+```
+stack ghc -- -O2 src/Map.hs -main-is Map.main && src/Map
+```
+
+## Resources
+
+* [Guide to Haskell in 2018](https://lexi-lambda.github.io/blog/2018/02/10/an-opinionated-guide-to-haskell-in-2018/)
+* [Haskell Stack Mega-Tutorial](https://www.youtube.com/watch?v=sRonIB8ZStw)
+
