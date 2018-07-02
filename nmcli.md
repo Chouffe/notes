@@ -2,60 +2,64 @@
 
 ## Getting help
 
-Getting help:
+* Getting help:
 ```
 nmcli help
 ```
 
-Getting help on the general section:
+* Getting help on the general section:
 ```
 nmcli general help
 ```
 
 ## Connections
 
-Show all connections:
+* Show all connections:
 ```
 nmcli connection show
 ```
 
-Show all active connections:
+* Show all active connections:
 ```
 nmcli connection show --active
 ```
 
-Delete a network configuration:
+* Delete a network configuration:
 ```
 nmcli connection delete UUID
 ```
 
-Activate a connection
+* Activate a connection
 ```
 nmcli connection up UUID
 ```
 
 ## Devices
 
-List all the devices
+* List all the devices
 ```
 nmcli device
 ```
 
 ## How to connect to a wifi access point
 
-List all the available access point:
+* List all the available access point:
 ```
 nmcli device wifi
 ```
 
-Rescan for available access points:
+* Rescan for available access points:
 ```
 nmcli device wifi rescan
 ```
 
-Connect to a wifi access point specified by a SSID (EEE)
+* Connect to a wifi access point specified by a SSID (EEE)
 ```
 nmcli device wifi connect EEE password '123456...'
+```
+* Eg
+```
+nmcli device wifi connect "Vodafone Free WiFi"
 ```
 
 ## Resources
