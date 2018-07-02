@@ -25,18 +25,25 @@ hpack
 * Organize package with .cabal file
 * Stack is a layer on top of cabal
 
-## New project
+## Docker Integration
 
-* Creating new stack project
-```
-stack new project-name
-```
-* docker integration
 ```
 # stack.yaml
 
 docker:
   enable: true
+```
+* Pass environment variables to the docker container
+```
+stack ghci --docker-env "FOO=BAR"
+stack ghci --docker-env "FOO=BAR" --docker-env "BAZ=FOOZ"
+```
+
+## New project
+
+* Creating new stack project
+```
+stack new project-name
 ```
 
 
