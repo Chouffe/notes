@@ -6,6 +6,18 @@
 * Sandbox builds by default
 * Reproducible builds
 
+## Global
+
+* Install packages globally using a given resolver
+```
+# outside of any stack projects
+stack --resolver=lts-10.10 install hindent
+```
+* Common packages to install globally
+```
+stack --resolver=lts-10.10 install hlint hindent stylish-haskell
+```
+
 ## hpack
 
 * `package.yaml`
