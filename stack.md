@@ -139,8 +139,33 @@ stack build ghc-mod hlint hoogle
 stack ghc -- -O2 src/Map.hs -main-is Map.main && src/Map
 ```
 
+## GHC warnings
+
+* Incomplete Pattern Matching
+```
+-Wincomplete-uni-patterns
+```
+* Runtime Failable Record Update
+```
+-Wincomplete-record-updates
+```
+* Redundant Constraints
+```
+-Wredundant-constraints
+```
+* Missing Export List
+```
+-Wmissing-export-lists
+```
+* Treat Warnings as Errors (use in CI only)
+```
+-Werror
+```
+
+
 ## Resources
 
 * [Guide to Haskell in 2018](https://lexi-lambda.github.io/blog/2018/02/10/an-opinionated-guide-to-haskell-in-2018/)
 * [Haskell Stack Mega-Tutorial](https://www.youtube.com/watch?v=sRonIB8ZStw)
+* [GHC Warnings](https://medium.com/mercury-bank/enable-all-the-warnings-a0517bc081c3)
 
