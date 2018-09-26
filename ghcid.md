@@ -19,6 +19,9 @@ ghcid \
 # Specify which package targets to load
 # Specify the test-suite to run
 ```
+```
+ghcid --command "stack ghci server:lib server:server-test --ghci-options=-fobject-code" --test="main"
+```
 * Run test target
 ```
 ghcid --command "stack ghci projectName:testSuiteName"
