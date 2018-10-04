@@ -72,3 +72,10 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO readonly;
 ```
 DROP USER username;
 ```
+
+## Misc
+
+* By default, postgres tries to connect to a database with the same name as your user. To prevent this default behaviour, just specify user and database:
+```
+psql -U Username DatabaseName
+```
