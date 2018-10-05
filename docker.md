@@ -186,6 +186,45 @@ docker-compose up -d
 docker-compose down
 ```
 
+### Associated Makefile
+
+* Example
+```
+start-dev:
+  docker-compose up
+
+start-prod:
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+
+stop-compose:
+  @eval docker stop $$(docker ps -a -q)
+  docker-compose down
+
+ssh-nginx:
+  docker exec -it nginx_server bash
+
+ssh-django-web:
+  docker exec -it django_web bash
+
+ssh-db:
+  docker exec -it db bash
+
+ssh-es:
+  docker exec -it es bash
+
+ssh-kibana:
+  docker exec -it kibana bash
+
+check-network-config-details:
+  docker network inspect bookme_default
+
+build-prod:
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+
+build-dev:
+  docker-compose build
+```
+
 ### Volumes
 
 * Persistent storage for docker containers
@@ -219,3 +258,6 @@ services:
 * If no network is specified, all containers are in the same network
 * Containers can reference each others by names in the same network
 
+### Resources
+
+* [Setting up a simple Proxy Server Using Docker and Django](https://www.codementor.io/samueljames/nginx-setting-up-a-simple-proxy-server-using-docker-and-python-django-f7hy4e6jv)
