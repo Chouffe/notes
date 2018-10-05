@@ -38,6 +38,10 @@ docker run hello-world
 ```
 docker run -p 8083:80 friendlyhello:latest
 ```
+* Name a container with `--name`
+```
+docker run --name docker-nginx -p 80:80 nginx
+```
 * Run in detached mode `-d`
 ```
 docker run -d -p 4000:80 friendlyhello
@@ -143,3 +147,75 @@ docker swarm leave --force
 ```
 docker build -t friendlyhello .
 ```
+
+## Production
+
+* [Use Compose in Production](https://docs.docker.com/compose/production/)
+
+## Nginx and Docker
+
+* [Resource](https://www.digitalocean.com/community/tutorials/how-to-run-nginx-in-a-docker-container-on-ubuntu-14-04)
+* [Resource](https://dev.to/domysee/setting-up-a-reverse-proxy-with-nginx-and-docker-compose-29jg)
+* serve a index.html with Nginx and Docker on port 8765
+```
+docker run --name docker-nginx -v ~/docker/nginx-playground/html:/usr/share/nginx/html -p 8765:80 nginx
+```
+* Copy the default Nginx config on local volume
+```
+docker cp docker-nginx:/etc/nginx/conf.d/default.conf default.conf
+```
+* Run nginx with config file
+```
+docker run --name docker-nginx -p 80:80 -v ~/docker-nginx/html:/usr/share/nginx/html -v ~/docker-nginx/default.conf:/etc/nginx/conf.d/default.conf -d nginx
+```
+* Reloading the container is needed everytime the config file is updated
+```
+docker restart docker-nginx
+```
+
+## Docker Compose
+
+### CLI
+
+* Start docker compose
+```
+docker-compose up -d
+```
+* Stop docker compose
+```
+docker-compose down
+```
+
+### Volumes
+
+* Persistent storage for docker containers
+* 2 types of volumes
+  * One that maps a file or directory to one inside the container
+  * One that just make a file or directory persistent (named volumes) without making them accessible on the fs
+
+### Environment Variables
+
+* Specify a file that contains them. One declaration per line.
+```
+ENV=production
+APPLICATION_URL=http://ismydependencysafe
+```
+* Declaring them directly in docker-compose.yml
+```
+version: '3'
+services:
+  nginx:
+    ...
+    env_file:
+      - ./common.env
+    environment:
+      - ENV=development
+      - APPLICATION_URL=http://ismydependencysafe
+    ...
+```
+
+### Networks
+
+* If no network is specified, all containers are in the same network
+* Containers can reference each others by names in the same network
+
