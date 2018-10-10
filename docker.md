@@ -173,6 +173,14 @@ docker run --name docker-nginx -p 80:80 -v ~/docker-nginx/html:/usr/share/nginx/
 docker restart docker-nginx
 ```
 
+## Docker Multi Stage build
+
+* Can chain multiple FROM and ship a minimal image (getting rid of the build artifacts for instance)
+* Build up to the builder step and tag the image
+```
+docker build -t haskell-dev --target builder .
+```
+
 ## Docker Compose
 
 ### CLI
@@ -184,6 +192,10 @@ docker-compose up -d
 * Stop docker compose
 ```
 docker-compose down
+```
+* Restart only one service
+```
+docker-compose restart service1
 ```
 
 ### Associated Makefile
