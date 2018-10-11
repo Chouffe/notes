@@ -95,6 +95,30 @@ http {
 ```
 * Use multiple sibling contexts instead of if logic for processing
 
+## Redirect http to https
+
+```
+http {
+    ...
+    # Redirect http requests to https
+    server {
+        listen         80;
+        server_name    server_name.com;
+        return         301 https://$server_name$request_uri;
+    }
+
+    server {
+       listen 443 ssl;
+       server_name server_name.com;
+
+       ssl_certificate /etc/letsencrypt/live/server_name.com/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/server_name.com/privkey.pem;
+    ...
+    }
+...
+}
+```
+
 ## Misc
 
 * [Beware of the trailing slash in `proxy_pass` url](https://stackoverflow.com/questions/22759345/nginx-trailing-slash-in-proxy-pass-url)
