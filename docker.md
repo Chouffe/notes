@@ -181,6 +181,54 @@ docker restart docker-nginx
 docker build -t haskell-dev --target builder .
 ```
 
+## Tips
+
+* Inspect docker object sizes
+```
+docker system df
+```
+* Kill Running containers
+```
+docker kill $(docker ps -q)
+```
+* Delete old containers
+```
+docker ps -a | grep 'weeks ago' | awk '{print $1}' | xargs docker rm
+```
+* Delete dangling images
+```
+docker rmi $(docker images -q -f dangling=true)
+```
+* Cleaning APT in a RUN layer
+```
+RUN {apt commands} \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+```
+* Remove all untagged images
+```
+docker rmi $(docker images | grep "^" | awk '{split($0,a," "); print a[3]}')
+```
+* Remove all exited containers
+```
+docker rm -f $(docker ps -a | grep Exit | awk '{ print $1 }')
+```
+* Volumes can be files
+```
+# copy file from container
+docker run --rm httpd cat /usr/local/apache2/conf/httpd.conf > httpd.conf
+
+# edit file
+vim httpd.conf
+
+# start container with modified configuration
+docker run --rm -ti -v "$PWD/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro" -p "80:80" httpd
+```
+* Look at environment variables of an image
+```
+docker run --rm postgres:10.5 env
+```
+
 ## Docker Compose
 
 ### CLI
@@ -273,3 +321,4 @@ services:
 ### Resources
 
 * [Setting up a simple Proxy Server Using Docker and Django](https://www.codementor.io/samueljames/nginx-setting-up-a-simple-proxy-server-using-docker-and-python-django-f7hy4e6jv)
+* [Docker Cheatsheet](https://github.com/wsargent/docker-cheat-sheet)
