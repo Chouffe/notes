@@ -183,6 +183,11 @@ docker build -t haskell-dev --target builder .
 
 ## Tips
 
+* Inspect what volumes are mounted in a running container
+```
+docker inspect -f '{{ .Mounts }}' container-name
+```
+
 * Inspect docker object sizes
 ```
 docker system df
