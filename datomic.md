@@ -145,6 +145,13 @@
 ```
 * It reminds me of GraphQL syntax to pull data from the Database! Even more powerful!
 
+## Ops
+
+* Restore a DB
+```
+bin/datomic restore-db file:mbrainz-1968-1973 datomic:free://localhost:4334/mbrainz-1968-1973
+```
+
 ## Resources
 
 * [Day of Datomic](https://github.com/Datomic/day-of-datomic)
