@@ -72,6 +72,13 @@ docker container ls --all
 docker container ls -aq
 ```
 
+## Container
+
+* Execute command in a running container
+```
+docker exec -it datomic-free /bin/bash
+```
+
 ## Kill/Remove container
 
 * First list containers to get the `hash`
