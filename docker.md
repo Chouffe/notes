@@ -192,9 +192,16 @@ docker build -t haskell-dev --target builder .
 
 * Inspect what volumes are mounted in a running container
 ```
-docker inspect -f '{{ .Mounts }}' container-name
+docker inspect -f '{{ .Mounts }}' container-id-or-name
 ```
-
+* See open port for a given container
+```
+docker inspect --format='{{.Config.ExposedPorts}}' container-id-or-name
+```
+* Get IP address of a docker container
+```
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container-id-or-name
+```
 * Inspect docker object sizes
 ```
 docker system df
@@ -224,6 +231,10 @@ docker rmi $(docker images | grep "^" | awk '{split($0,a," "); print a[3]}')
 * Remove all exited containers
 ```
 docker rm -f $(docker ps -a | grep Exit | awk '{ print $1 }')
+```
+* Copy files from containers to Host
+```
+docker cp containerID:/backups/10-17-2018.tar.gz backups/
 ```
 * Volumes can be files
 ```
