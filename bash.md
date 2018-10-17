@@ -14,6 +14,22 @@ while [ "$d" != 2016-06-04 ]; do
 done
 ```
 
+## date
+
+* Get the formatted datetime - Can be used for daily backups for instance
+```
+NOW=$(date +"%m-%d-%Y")
+```
+* Example script
+```
+#!/bin/bash
+NOW=$(date +"%m-%d-%Y")
+FILE="backup.$NOW.tar.gz"
+echo "Backing up data to /nas42/backup.$NOW.tar.gz file, please wait..."
+# rest of script
+# tar xcvf /nas42/backup.$NOW.tar.gz /home/ /etc/ /var
+```
+
 ## mv
 
 * Move 1000 files from one directory to another
