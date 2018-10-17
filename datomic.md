@@ -472,9 +472,21 @@ db
 
 ## Ops
 
+* Backup URI
+  * Directory: file:/full/path/backup/dir
+  * S3: s3://bucket/prefix
+    * One needs to set appropriate IAM role for the peers doing the backups
 * Restore a DB
 ```
 bin/datomic restore-db file:mbrainz-1968-1973 datomic:free://localhost:4334/mbrainz-1968-1973
+```
+* List Bakups
+```
+bin/datomic list-backups backup-uri
+```
+* Backup a DB
+```
+
 ```
 
 ## Resources
