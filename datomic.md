@@ -9,7 +9,7 @@
 
 * [Schema Reference](https://docs.datomic.com/cloud/schema/schema-reference.html)
 * Example
-```
+```clojure
 (def schema
   [{:db/doc "A users email."
     :db/ident :user/email
@@ -70,6 +70,7 @@
 * `(create-database db-uri)`: creates database specified by URI
 * `(delete-database db-uri)`: deletes database specified by URI
 * `(connect db-uri)`: connects to the database specified by URI
+* `(release conn)`: releases the connection async. Returns immediately.
 * `(transact conn tx-data)`: submit a transaction to the DB for writing. Returns a future with the keys:
   * `:db-before`: DB value before the transaction
   * `:db-after`: DB value after the transaction
@@ -478,7 +479,11 @@ db
     * One needs to set appropriate IAM role for the peers doing the backups
 * Restore a DB
 ```
+# Example
 bin/datomic restore-db file:mbrainz-1968-1973 datomic:free://localhost:4334/mbrainz-1968-1973
+
+# General pattern
+bin/datomic restore-db from-backup-uri to-db-uri
 ```
 * List Bakups
 ```
@@ -486,7 +491,11 @@ bin/datomic list-backups backup-uri
 ```
 * Backup a DB
 ```
+# Example
+bin/datomic backup-db datomic:free://172.17.0.2:4334/mbrainz-1968-1973 backup-uri
 
+# General pattern
+bin/datomic backup-db from-db-uri to-backup-uri
 ```
 
 ## Resources
@@ -500,3 +509,4 @@ bin/datomic list-backups backup-uri
 * [Datomic Transaction Data Reference](https://docs.datomic.com/cloud/transactions/transaction-data-reference.html#lookup-ref)
 * [Datomic Data Model](https://docs.datomic.com/cloud/whatis/data-model.html)
 * [Datomic Web App a practical guide](https://vvvvalvalval.github.io/posts/2016-07-24-datomic-web-app-a-practical-guide.html)
+* [Datomic Backup Doc](https://docs.datomic.com/on-prem/backup.html)
