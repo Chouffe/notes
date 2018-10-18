@@ -15,6 +15,7 @@ sudo apt-get install netcat-openbsd tcpdump traceroute mtr
 | Port Number | Protocol |
 | ----------- | -------- |
 | 22          | SSH      |
+| 53          | DNS      |
 | 80          | HTTP     |
 | 443         | HTTPS    |
 
@@ -125,6 +126,14 @@ host -t aaaa google.com
 * DNS lookup utility
 * Less human readable but more usable for scripts
 
+## ip
+
+* show / manipulate routing, network devices, interfaces and tunnels
+* Find your default gateway
+```
+ip route show default
+```
+
 ## IP Address
 
 * `IPv4`: `32 = 4*8` bit numeric value
@@ -133,6 +142,7 @@ host -t aaaa google.com
   * Fewer than the number of people on the planet
 * Devices on the same network share a particular prefix
   * They can communicate with each other without going through a router
+* find my public IP address
 
 ## Network Block
 
@@ -146,3 +156,95 @@ host -t aaaa google.com
   * Eg. /24 network `255.255.255.0`
   * Eg. /16 network `255.255.0.0`
   * Eg. `ff.ff.ff.00` in hex
+
+## Interfaces
+
+* Interfaces have `0*n` addresses: `eth0`, `wlp2s0`, `lo`, `docker0`, ...
+* Multiple interfaces per host
+* Loopback interface `127.0.0.1/8`
+
+## Router
+
+* Device that connects two or more IP networks and acts as a gateway
+
+## netstat
+
+* Find the default gateway
+```
+netstat -nr
+```
+
+## NAT
+
+* `NAT`: Network Address Translation
+  * The router rewrites the routing between private internal network and outside public network
+  * The route maintains a mapping of ports and IPs
+* ISPs assign only one IP per household to circumvent the IP number problem
+* All devices hide behind only one IP
+* Private address netblocks
+  * `10.0.0.0/8`
+  * `172.16.0.0/12`
+  * `192.168.0.0/16`: Most common on home routers, default gateway `192.168.0.1`
+* NAT is a workaround not a solution
+* Millions of people in the world are using the same private IPs behind different NAT and routers
+
+## TCP
+
+* `What`
+  * Communicate between 2 hosts
+  * Multiple applications per host
+  * In order Delivery
+  * Lossless delivery
+  * Keeping connections distinct
+* `How`
+  * IP Layer (addresses + routing)
+  * Port Numbers
+  * Sequence Numbers
+  * Acknowlegment + retransmission
+  * Random initial sequence numbers
+* The OS sets aside a buffer to use in reassembling packet data
+* TCP Flags
+  * `[S]`: SYN (synchronize). Opening a new TCP session and a new initial sequence number
+  * `[S.]`
+  * `[.]`: ACK (acknowledge). It acknowledges that its sender has received data from the other endpoint.
+  * `[P.]`: PSH (push). End of a chunk of application data such as an HTTP request.
+  * `[F.]`: FIN (finish). Close a TCP connection. The sender is saying that they are finished sending but can still receive data from the other side
+  * `[U]`: URG (urgent)
+  * `[R]`: RST (reset)
+
+### TCP 3 way handshake
+
+* SYN `[S]`: client sends to a server to open a TCP connection. Contains a randomized sequence number `seq`
+* SYN-ACK `[S.]` from the server. It contains a different initial sequence number
+* SYN-ACK `[S.]` from the client
+
+### TCP 4 way teardown
+
+* FIN `[F.]` to indicate it is done sending from the client
+* ACK `[.]` from the other endpoint
+* FIN `[F.]` from the other endpoint
+* ACK `[.]` from the client
+
+## HTTP
+
+* `Sequence Diagrams` are used to represent network protocols
+* One exchange on the HTTP level can translate to multiple exchanges at the TCP level
+
+## tcpdump
+
+* Dump traffic on a network
+* Capture traffic between host and `8.8.8.8`
+```
+sudo tcpdump -n host 8.8.8.8
+```
+* monitor traffic on DNS
+```
+sudo tcpdump -n port 53
+
+# Then if you cause a dns lookup it will show up
+ping yahoo.com
+```
+* Monitor a webserver
+```
+sudo tcpdump -n port 80
+```
