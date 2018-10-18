@@ -40,3 +40,11 @@ echo "Backing up data to /nas42/backup.$NOW.tar.gz file, please wait..."
 ```bash
  mv -- prefix*([1, 1000]) /src/directory/
 ```
+
+## printf
+
+* Formats and prints data
+* similar to `echo` but can turn `\n` into actual line breaks and format data
+```
+printf 'HEAD / HTTP/1.1\r\nHost: en.wikipedia.org\r\n\r\n'
+```
