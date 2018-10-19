@@ -1,5 +1,16 @@
 # Network
 
+* `Bandwidth`: Maximum rate that information can be transferred. Measured in bits/second
+* `Throughput`: The actual rate that information is transferred
+* `Latency`: Delay between the sender and the receiver deconding it
+* Network speed is bound by the speed of light
+* `Bandwidth delay product (bits) = Bandwidth (bits/s) x Latency (s)`
+  * Amount of data that can be in transit through a connection
+  * `Analogy: Water Pipe`
+    * Bandwidth: Flow rate in a water pipe (liter/s)
+    * Latency: Time it takes to get the water from one end to an other of the pipe (s)
+    * Bandwidth Delay Product: Amount of water in the pipe (liter)
+
 ## Tools
 
 * Install tools
@@ -33,6 +44,8 @@ sudo apt-get install netcat-openbsd tcpdump traceroute mtr
   * The computer has Internet access
   * The computer at 8.8.8.8 is up and running
   * The ISP knows how to send traffic to 8.8.8.8
+* Return the round trip time elapsed for the ping/pong trip
+  * Measurement of performance and locality across the network
 
 ### Commands
 
@@ -46,6 +59,7 @@ ping -c3 8.8.8.8
 * Arbitrary TCP and UDP connections and listens
 * Thin wrapper around TCP and UDP
 * Network Swiss Army Knife
+* If it is not possible to get response from a port with `nc`, it will retry with exponential backoff until it exits
 
 ### Commands
 
@@ -248,3 +262,23 @@ ping yahoo.com
 ```
 sudo tcpdump -n port 80
 ```
+
+## Routers
+
+* They can drop packets if their are congested. That is why there are packet drops to signal congestion
+
+## traceroute
+
+* print the route packets trace to the network host
+* Built on top of TTL on the packet
+* Sends a packet with TTL 0 to get the first router and get an error message from the router
+* Sends a packet with TTL 1 ... TTL K until it reaches the host and get error messages from all routers in between client and host
+
+## Firewalls
+
+* Devices that filter traffic that's coming into or leaving their network
+* Common configuration: drop any configuration traffic except traffic to (host, port) pairs that are supposed to be receiving connections from the internet.
+
+## Resources
+
+* [Wikipedia: Network Perfomance](https://en.wikipedia.org/wiki/Network_performance)
