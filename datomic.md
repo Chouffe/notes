@@ -498,6 +498,24 @@ bin/datomic backup-db datomic:free://172.17.0.2:4334/mbrainz-1968-1973 backup-ur
 bin/datomic backup-db from-db-uri to-backup-uri
 ```
 
+## Indexes
+
+* Getting all datoms
+```
+(d/datoms db index)
+; index is an index type in #{:eavt :avet :vaet :aevt}
+```
+* `index-range`: match value range
+* `tx-range`: match time range in log
+
+## Filters
+
+* Filters are applied to db values that can then get passed to queries or raw indexes
+* `as-of`: how were things in the past?
+* `since`: how have things changed?
+* `history`: anything ~ git log
+* `(default)`: what is the current situation?
+
 ## Resources
 
 * [Day of Datomic](https://github.com/Datomic/day-of-datomic)
