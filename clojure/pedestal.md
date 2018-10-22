@@ -1,5 +1,16 @@
 # Pedestal
 
+## Repl Development
+
+* [Developing at the REPL](http://pedestal.io/guides/developing-at-the-repl)
+* Start a server in dev-mode - Re-require/reload the `service.clj` file will make all the necessary changes.
+```
+(dev serv (run-dev))
+
+; If you ever need to stop the server
+(server/stop serv)
+```
+
 ## Interceptors
 
 * [Parameters Reference](http://pedestal.io/reference/parameters)
