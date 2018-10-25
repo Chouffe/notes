@@ -8,6 +8,10 @@ pdftk <pdf.pdf> burst
 ```
 pdftk myDocument.pdf cat 1-9 26-end output removedPages.pdf
 ```
+* Joining files together: `cat` stands for concatenate
+```
+pdftk file1.pdf file2.pdf cat output newFile.pdf
+```
 
 ## Resources
 
