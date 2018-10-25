@@ -228,6 +228,22 @@ db
 9219
 ```
 * and clauses can only be used in not or or clauses. By default, and clauses are used when stacking up clauses
+* Passing collections as inputs behaves as a logical OR
+```
+(d/q '[:find (pull ?a [:artist/name])
+       :in $ [?c ...]
+       :where [?a :artist/country ?country]
+              [?country :country/name ?c]]
+     db ["Canada" "Japan"])
+
+;; Results
+[[{:artist/name "The Guess Who"}]
+ [{:artist/name "Whiskey Howl"}]
+ [{:artist/name "Yoko Ono"}]
+  ...
+ [{:artist/name "Asakawa Maki"}]]
+
+```
 
 ### Expression Clauses
 
@@ -434,6 +450,12 @@ db
 
 ### Pull Syntax
 
+* Pull vs Entity API
+  * pull eagerly returns raw data, i.e. maps and vectors.
+  * entity returns a map-like, lazily realized associative data structure.
+  * pull returns :db/ident values as maps, whereas entity returns them as keywords.
+
+
 * Instead of using `(d/entity eid)` to convert an eid to its attribute map, one can use the pull syntax directly in a Datalog Query
 * `(pull eid pull-pattern)`
 ```
@@ -518,6 +540,7 @@ bin/datomic backup-db from-db-uri to-backup-uri
 
 ## Resources
 
+* [Datomic Best Practices](https://docs.datomic.com/on-prem/best-practices.html)
 * [Day of Datomic](https://github.com/Datomic/day-of-datomic)
 * [Learn Datalog Today](http://www.learndatalogtoday.org/)
 * [Datomic Tutorial](https://github.com/ftravers/datomic-tutorial)
