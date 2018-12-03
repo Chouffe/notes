@@ -8,6 +8,13 @@
 * `stack`:
 * `task`: single container running in a service
 
+## Installation
+
+* From website: `https://get.docker.com/`
+```
+curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+```
+
 ## List Docker CLI commands
 
 ```
@@ -27,6 +34,87 @@ docker version
 ```
 ```
 docker info
+```
+
+## Container Commands
+
+* Start new container interactively
+```
+docker container run -it <name>
+```
+* Run additional command in existing container
+```
+docker container exec -it <name> <cmd>
+```
+* Start a stopped container interactively
+```
+docker container start -ai <name>
+```
+* List port routing of a running container
+```
+docker container port <name>
+```
+* Cleanup after running container
+```
+docker container run -it --rm
+```
+
+## Network Commands
+
+* show networks
+```
+docker network ls
+```
+* Inspect a network
+```
+docker network inspect <name>
+```
+* Create a network
+```
+docker network create --driver
+```
+* Attach a network to a container
+```
+docker network connect
+```
+* Detach a network from a container
+```
+docker container disconnect
+```
+
+## Image Commands
+
+* History of the image layers
+```
+docker image history nginx
+```
+* Inspect an image: returns metadata as JSON about the image
+```
+docker image inspect <name>
+```
+* Tag an image
+```
+docker image tag nginx chouffe/nginx
+docker image tag chouffe/nginx chouffe/nginx:testing
+```
+* Build an image in the current directory `.`
+```
+docker image build -t <tag-name> .
+```
+
+## Monitoring
+
+* process list in one container
+```
+docker container top <container-name/id>
+```
+* details of one container configs
+```
+docker container inspect <container-name/id>
+```
+* Performance stats for all containers
+```
+docker container stats
 ```
 
 ## Execute Docker image
@@ -254,19 +342,101 @@ docker run --rm postgres:10.5 env
 
 ## Docker Compose
 
+* Configure relationships between containers
+* Save docker container run settings in one file
+* Create one liner developer environment startups
+1. yaml file to specify containers, networks and volumes
+2. CLI tool `docker-compose` used for local dev/test automation with the yaml files
+* In production, use docker swarm (docker-compose.yml can be used with it)
+
+### YAML
+
+* `version`: if not specified, it defaults to version 1
+* `services`: containers configs
+  * `servicename`: DNS name inside network
+  * `image`
+  * `command`: replace the docker CMD specified by the image
+  * `environment`: same as -e in docker container run
+  * `volumes`: same as -v in docker container run
+  * `ports`: same as -p in docker container run
+* `volumes`: same as docker volume create
+* `networks`: same as docker network create
+
+```yaml
+version: '3.1'  # if no version is specificed then v1 is assumed. Recommend v2 minimum
+
+services:  # containers. same as docker run
+  servicename: # a friendly name. this is also DNS name inside network
+    image: # Optional if you use build:
+    command: # Optional, replace the default CMD specified by the image
+    environment: # Optional, same as -e in docker run
+    volumes: # Optional, same as -v in docker run
+  servicename2:
+
+volumes: # Optional, same as docker volume create
+
+networks: # Optional, same as docker network create
+```
+
+```yaml
+version: '2'
+
+services:
+
+  wordpress:
+    image: wordpress
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: example
+      WORDPRESS_DB_PASSWORD: examplePW
+    volumes:
+      - ./wordpress-data:/var/www/html
+
+  mysql:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: examplerootPW
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: example
+      MYSQL_PASSWORD: examplePW
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+```
+
 ### CLI
 
-* Start docker compose
+If all your projeccts had a Dockerfile and a docker-compose.yml, then new developer onboarding would be: `git clone ... && docker-compose up`
+
+* Start docker compose: setup volumes/networks and start all containers
 ```
 docker-compose up -d
 ```
-* Stop docker compose
+* Stop docker compose: stop all containers and remove volumes/networks
 ```
 docker-compose down
+```
+* Stop docker compose and tear down volumes
+```
+docker-compose down -v
+```
+* Stop docker compose and remove images
+```
+docker-compose down --rmi local
 ```
 * Restart only one service
 ```
 docker-compose restart service1
+```
+* Monitoring
+```
+docker-compose ps
+docker-compose top
 ```
 
 ### Associated Makefile
@@ -345,3 +515,130 @@ services:
 
 * [Setting up a simple Proxy Server Using Docker and Django](https://www.codementor.io/samueljames/nginx-setting-up-a-simple-proxy-server-using-docker-and-python-django-f7hy4e6jv)
 * [Docker Cheatsheet](https://github.com/wsargent/docker-cheat-sheet)
+
+## Docker Swarm
+
+* initialize a swarm
+  * PKI and security automation
+  * Raft DB created to store root CA, configs and secrets
+```
+docker swarm init
+```
+
+### Nodes
+
+* List nodes
+```
+docker node ls
+```
+
+### Service
+
+* Create a service
+```
+docker service create alpine ping 8.8.8.8
+```
+* Monitoring
+```
+docker service ps <name>
+```
+* Scale up a service. Look at `docker service update --help` for a list of options available
+```
+docker service update <name/id> --replicas 3
+```
+
+### Secrets Storage
+
+* Easiest secure solution for storing secrets in Swarm
+* What is a secret?
+  * Usernames and passwords
+  * TLS certificates and keys
+  * API key
+  * SSH keys
+  * Any data you would prefer not be "on front page of news"
+* Supports generic strings or binary contents up to 500Kb in size
+* Only stored on disk on Manager nodes
+* Secrets are assigned to Services (who is allowed to see/use the secrets)
+* They look like files in container but are actually in-memory fs
+  * `/run/secrets/<secret_name>`
+  * `/run/secrets/<secret_alias>`
+* Local `docker-compose` can use file-based secrets, but not secure
+
+* create a new secret
+```
+docker secret create psql_user psql_user.txt
+```
+* create a new secret from pipes
+```
+echo "myDBpassWORD" | docker secret create psql_pass -
+```
+* Eg
+```
+docker service create \
+  --name psql \
+  --secret psql_user \
+  --secret psql_pass \
+  -e POSTGRES_PASSWORD_FILE=/run/secrets/psql_pass \
+  -e POSTGRES_USER_FILE=/run/secrets/psql_user \
+  postgres
+```
+
+* In Docker Compose file
+```
+version: "3.1" # At least 3.1 to use Secrets with Stacks
+
+services:
+  psql:
+    image: postgres
+    secrets:
+      - psql_user
+      - psql_password
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/psql_password
+      POSTGRES_USER_FILE: /run/secrets/psql_user
+secrets:
+  psql_user:
+    file: ./psql_user.txt
+  psql_password:
+    file: ./psql_password.txt
+```
+* Check if the Secrets have been set properly
+```
+docker container exec <name> ls -l /run/secrets
+```
+* Local Secrets in Docker Compose for local development is done automatically: totally not secure but works out of the box
+  * Only works with file based one for now with the `file` key
+
+## Docker Stacks
+
+* Stacks accept Compose files for services, networks and volumes
+* Stack is only for one Swarm
+```
+docker stack deploy
+```
+* New `deploy` key in Compose file that is specific to Stacks
+* Cannot do the `build` command. It should not happen on your CI system anyway
+* Compose ignores `deploy`; Swarm ignores `build`
+* `docker-compose` cli not needed on Swarm server
+
+### Commands
+
+* List stacks
+```
+docker stack ls
+```
+* Remove a stack
+```
+docker stack rm <name>
+```
+* Deploy a stack
+```
+docker stack -c <config> <name>
+```
+* Monitoring
+```
+docker stack ps <name>
+```
+```
+docker stack services <name>
+```
