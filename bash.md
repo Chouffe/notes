@@ -48,3 +48,10 @@ echo "Backing up data to /nas42/backup.$NOW.tar.gz file, please wait..."
 ```
 printf 'HEAD / HTTP/1.1\r\nHost: en.wikipedia.org\r\n\r\n'
 ```
+
+## rsync
+
+* backup between different Hard Drives
+```
+rsync -av ./Backup\ Data1/ /media/chouffe/Backup\ Data
+```
