@@ -201,6 +201,54 @@ docker tag image username/repository:tag
 docker tag friendlyhello gordon/get-started:part2
 ```
 
+
+## HealthCheck
+
+* Default start time: 30s
+* 3 possible states for a container: starting, healthy, unhealthy
+
+### CLI
+
+* docker container cli
+```
+docker container run --name p2 --health-cmd="pg_isready -U postgres || exit 1"  -d postgres
+```
+* docker service cli
+```
+docker service create --name p2 --health-cmd="pg_isready -U postgres || exit 1"  -d postgres
+```
+
+### Compose File
+
+```yaml
+version: "2.1" # minimum version
+services:
+  web:
+    image: nginx
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3s
+      start_period: 1m
+```
+
+### Dockerfile
+
+```
+FROM nginx:1.3
+
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
+```
+
+```
+FROM postgres
+
+HEALTHCHECK --interval=5s --timeout=3s \
+  CMD pg_isready -U postgres || exit 1
+```
+
 ## Service
 
 * List tasks associated with an app
@@ -609,6 +657,17 @@ docker container exec <name> ls -l /run/secrets
 * Local Secrets in Docker Compose for local development is done automatically: totally not secure but works out of the box
   * Only works with file based one for now with the `file` key
 
+### Swarm Updates
+
+* Just update the image used to a newer version
+```
+docker service update --image myapp:1.2.1 <servicename>
+```
+* Adding an environment variable and remove a port
+```
+docker service update --env-add NODE_ENV=production --publish-rm 8080
+```
+
 ## Docker Stacks
 
 * Stacks accept Compose files for services, networks and volumes
@@ -641,4 +700,88 @@ docker stack ps <name>
 ```
 ```
 docker stack services <name>
+```
+
+## Full App Lifecycle with Compose
+
+* local `docker-compose up` for dev env
+* Remote `docker-compose up` for CI env
+* Remote `docker stack deploy` for prod env
+* The following docker-compose files can be created:
+  * `docker-compose.yml`
+  * `docker-compose.override.yml`: automatically gets applied to docker-compose
+  * `docker-compose.test.yml`
+  * `docker-compose.prod.yml`
+  * `Dockerfile`
+```
+docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d
+```
+* Look at the generated yaml config file
+```
+docker-compose -f docker-compose.yml -f docker-compose.test.yml config
+```
+* For creating and updating stacks one could use the following output.yml
+```
+docker-compose -f docker-compse.yml -f docker-compose.prod.yml config > output.yml
+```
+
+## Container Registries
+
+* Secure by default: Docker will not talk to registry without HTTPS
+* Except localhost `127.0.0.0/8`
+```
+# Local Container Registry
+docker container run -d -p 5000:5000 --name registry registry
+docker container run -d -p 5000:5000 --name registry -v $(pwd)/registry-data:/var/lib/registry registry
+```
+* One needs to tag the image with `host:port/container-name` scheme
+```
+docker tag hello-world 127.0.0.1:5000/hello-world
+```
+
+### Commands
+
+* Re-tag an image and push it to your new registry
+```
+docker tag hello-world 127.0.0.1:5000/hello-world
+docker push 127.0.0.1:5000/hello-world
+```
+* Remove image from local cache and pull it from new registry
+```
+docker image remove hello-world
+docker imgae remove 127.0.0.1:5000/hello-world
+docker pull 127.0.0.1:5000/hello-world
+```
+
+### Docker Hub
+
+* The Github of images
+* The most popular public image registry
+* It also includes some image building
+
+### Docker Store
+
+* The Apple Store of images
+* Download Docker "Editions"
+* Find certified Docker/Swarm plugins and commercial software
+
+### Docker Cloud
+
+* Web based Docker Swarm creation/management
+* CI/CD and Server Ops
+
+## Tips
+
+* Show docker disk usage
+```
+docker system df
+```
+* Remove unused data
+```
+# Remove everything that is not running
+docker system prune
+docker image prune
+docker container prune
+docker volume prune
+docker network prune
 ```
