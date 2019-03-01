@@ -4,7 +4,7 @@
 
 * Request a Staging Certificate
 ```
-sudo docker run -it --rm \
+sudo docker container run -it --rm \
   -v /docker-volumes/etc/letsencrypt:/etc/letsencrypt \
   -v /docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt \
   -v /docker/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt \
@@ -16,16 +16,30 @@ sudo docker run -it --rm \
   --staging \
   -d haskellbazaar.com -d www.haskellbazaar.com
 ```
+* With a TXT DNS challenge
+```
+sudo docker container run -it --rm \
+  -v /docker-volumes/etc/letsencrypt:/etc/letsencrypt \
+  -v /docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt \
+  -v /docker/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt \
+  -v "/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt" \
+  certbot/certbot \
+  certonly \
+  --manual \
+  --preferred-challenges dns \
+  -d haskellbazaar.com \
+  -d www.haskellbazaar.com
+```
 * Request a Production Certificate
 ```
-sudo docker run -it --rm \
+sudo docker container run -it --rm \
   -v /docker-volumes/etc/letsencrypt:/etc/letsencrypt \
   -v /docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt \
   -v /docker/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt \
   -v "/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt" \
   certbot/certbot \
   certonly --webroot \
-  --email chouffe.caillau@gmail.com --agree-tos --no-eff-email \
+  --email arthur@caillau.me --agree-tos --no-eff-email \
   --webroot-path=/data/letsencrypt \
   -d haskellbazaar.com -d www.haskellbazaar.com
 ```
@@ -53,15 +67,14 @@ server {
 ```
 * Renew certificate
 ```
-docker run --rm -it --name certbot \
+docker container run --rm -it --name certbot \
   -v "/docker-volumes/etc/letsencrypt:/etc/letsencrypt" \
   -v "/docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt" \
   -v "/docker-volumes/data/letsencrypt:/data/letsencrypt" \
   -v "/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt" \
   certbot/certbot renew \
-  --webroot -w /data/letsencrypt \
-  && docker kill \
-  --signal=HUP haskell-bazaar-nginx
+  --preferred-challenges dns \
+  --dry-run
 ```
 * Add a Cron job
 ```
