@@ -119,6 +119,36 @@ http {
 }
 ```
 
+## Proxy websocket connection
+
+```
+  location /sockjs-node {
+    proxy_pass http://client;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+  }
+```
+
+## Rewrite Rule
+
+* Rewrite /api/link to /link when passing it to http://api;
+```
+# Tell Nginx there is an 'upstream' server at server:3000
+upstream api {
+  server api:5000;
+}
+
+server {
+  listen 80;
+
+  location /api {
+    rewrite /api/(.*) /$1 break;
+    proxy_pass http://api;
+  }
+}
+```
+
 ## Misc
 
 * [Beware of the trailing slash in `proxy_pass` url](https://stackoverflow.com/questions/22759345/nginx-trailing-slash-in-proxy-pass-url)
@@ -127,3 +157,4 @@ http {
 
 * [Config file guide](https://www.digitalocean.com/community/tutorials/understanding-the-nginx-configuration-file-structure-and-configuration-contexts)
 * [Nginx configuration official documentation](http://nginx.org/en/docs/dirindex.html)
+* [Beginner's Guide](https://nginx.org/en/docs/beginners_guide.html#conf_structure)
