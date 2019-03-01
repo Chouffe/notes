@@ -440,6 +440,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_USER: example
       WORDPRESS_DB_PASSWORD: examplePW
+      WORDPRESS_SUPER_SECRET  # Taken from your computer at runtime
     volumes:
       - ./wordpress-data:/var/www/html
 
@@ -529,9 +530,17 @@ build-dev:
 ### Volumes
 
 * Persistent storage for docker containers
-* 2 types of volumes
+* 3 types of volumes
   * One that maps a file or directory to one inside the container
   * One that just make a file or directory persistent (named volumes) without making them accessible on the fs
+  * One for bookmarking a directory in the docker container
+
+```
+volumes:
+  - nginx/config:/etc/nginx/config
+  - psql-data:/var/lib/postgres/data
+  - /app/node_modules
+```
 
 ### Environment Variables
 
@@ -539,6 +548,7 @@ build-dev:
 ```
 ENV=production
 APPLICATION_URL=http://ismydependencysafe
+SECRET_KEY  # Taken from the computer at runtime
 ```
 * Declaring them directly in docker-compose.yml
 ```
