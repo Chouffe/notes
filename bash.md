@@ -55,3 +55,10 @@ printf 'HEAD / HTTP/1.1\r\nHost: en.wikipedia.org\r\n\r\n'
 ```
 rsync -av ./Backup\ Data1/ /media/chouffe/Backup\ Data
 ```
+
+## Misc
+
+* Kill a process listening on a given port
+```
+kill -9 $(lsof -t -i:8080)
+```
