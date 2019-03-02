@@ -1,5 +1,12 @@
 # Git
 
+## Commands
+
+* Squash last 5 commits
+```
+git rebase -i HEAD~5
+```
+
 ## Terms
 
 ### Repository
