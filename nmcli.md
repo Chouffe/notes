@@ -14,6 +14,14 @@ nmcli general help
 
 ## Connections
 
+* Turn on wifi
+```
+nmcli radio wifi on
+```
+* Turn off wifi
+```
+nmcli radio wifi off
+```
 * Show all connections:
 ```
 nmcli connection show
