@@ -6,6 +6,10 @@
 ```
 git rebase -i HEAD~5
 ```
+* Preview git stash
+```
+git stash show -p
+```
 
 ## Terms
 
