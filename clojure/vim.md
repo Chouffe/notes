@@ -1,5 +1,11 @@
 # Clojure and Vim
 
+## Piggieback
+
+nREPL middleware that enables the use of a ClojureScript REPL on top of an nREPL session.
+
+* [Piggieback repo](https://github.com/nrepl/piggieback)
+
 ## Parinfer
 
 * [Parinfer Demo](https://shaunlebron.github.io/parinfer/)
