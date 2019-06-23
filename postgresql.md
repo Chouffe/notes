@@ -30,6 +30,10 @@
 ```
 * List roles
 ```
+\dg
+```
+* List users
+```
 \du
 ```
 * Connect to a DB
