@@ -30,7 +30,23 @@ pass generate Email/abc@gmail
 ```
 pass generate Email/abc@gmail 25
 ```
+* grep the password store
+```
+pass grep accountId
+```
+* list files
+```
+pass ls internet/
+```
+* find a file by name
+```
+pass find filename
+```
 
 ## Utils
 
 * [Utils](https://gist.github.com/Chouffe/973328010ad8adaff0bd839ed488b1fe) to query password store from CLI
+
+## Resources
+
+* https://andythemoron.com/blog/2017-08-01/Pass-For-Password-Management
