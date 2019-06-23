@@ -42,6 +42,10 @@ pass ls internet/
 ```
 pass find filename
 ```
+* Reencrypting the files in the pass store
+```
+pass init <NEW-GPG-KEY-ID>
+```
 
 ## Utils
 
