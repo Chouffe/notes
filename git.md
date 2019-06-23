@@ -10,6 +10,10 @@ git rebase -i HEAD~5
 ```
 git stash show -p
 ```
+* Initialize git submodules
+```
+git submodule update --init --recursive
+```
 
 ## Terms
 
