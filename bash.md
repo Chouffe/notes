@@ -62,3 +62,4 @@ rsync -av ./Backup\ Data1/ /media/chouffe/Backup\ Data
 ```
 kill -9 $(lsof -t -i:8080)
 ```
+* [The Art of the command line](https://github.com/jlevy/the-art-of-command-line)
