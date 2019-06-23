@@ -1,5 +1,12 @@
 # Bash
 
+## Cheatsheet
+
+* Get some command examples
+```
+curl cheat.sh/command
+```
+
 ## Tips and Tricks
 
 * Loop through dates
