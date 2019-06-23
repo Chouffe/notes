@@ -11,3 +11,7 @@ gpg --armor --export-secret-keys YOUREMAILADDRESS | gpg --armor --symmetric --ou
 # Transfer it with any method you want and then remove the file
 rm mykey.sec.asc
 ```
+
+## Resources
+
+* https://www.openkeychain.org/faq/
