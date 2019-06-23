@@ -1,5 +1,14 @@
 # GPG
 
+* Listing public keys - metadata only
+```
+gpg --list-public-keys
+```
+* Listing private keys - metadata only
+```
+gpg --list-secret-keys
+```
+
 * How to export a gpg secret key from one device to another
 ```bash
 # Generate a random password to encrypt key
@@ -15,3 +24,4 @@ rm mykey.sec.asc
 ## Resources
 
 * https://www.openkeychain.org/faq/
+* https://medium.com/@acparas/gpg-quickstart-guide-d01f005ca99
