@@ -8,10 +8,34 @@ gpg --list-public-keys
 ```
 gpg --list-secret-keys
 ```
+* Encrypt a file in binary
+```
+# Creates a message.txt.gpg file that is encrypted
+gpg --encrypt --recipient 'YOUREMAILGPGKEY' message.txt
+```
+* Encrypt a file in ascii armor
+```
+# Creates a message.txt.asc that is encrypted
+gpg --encrypt --armor --recipient 'foo@bar.quux' message.txt
+```
+* Decrypt a binary/ascii armor file
+```
+gpg --decrypt message.txt.gpg
+gpg --decrypt message.txt.asc
+```
+* Signing a file
+```
+# WARNING: THIS DOES NOT ENCRYPT THE FILE
+gpg --sign <file>
+```
+* Verify a file
+```
+gpg --verify file
+```
 
 * How to export a gpg secret key from one device to another
 ```bash
-# Generate a random password to encrypt key
+# Generate a random password to encrypt key (use it in the next step)
 gpg --armor --gen-random 1 20
 
 # Export the encrypted secret key
