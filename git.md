@@ -14,6 +14,20 @@ git stash show -p
 ```
 git submodule update --init --recursive
 ```
+* Reset the git history of a repo
+```
+## Remove the history from
+rm -rf .git
+
+## recreate the repos from the current content only
+git init
+git add .
+git commit -m "Initial commit"
+
+## push to the github remote repos ensuring you overwrite history
+git remote add origin git@github.com:<YOUR ACCOUNT>/<YOUR REPOS>.git
+git push -u --force origin master
+```
 
 ## Terms
 
