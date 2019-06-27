@@ -64,3 +64,5 @@ $ shred --remove A85EA103-private-subkey.gpg
 * https://www.openkeychain.org/faq/
 * https://medium.com/@acparas/gpg-quickstart-guide-d01f005ca99
 * https://oguya.ch/posts/2016-04-01-gpg-subkeys/
+* https://help.github.com/en/articles/associating-an-email-with-your-gpg-key
+* https://help.github.com/en/articles/generating-a-new-gpg-key
