@@ -51,6 +51,14 @@ $ gpg2 --import A85EA103-private-subkey.gpg
 $ shred --remove A85EA103-private-subkey.gpg
 ```
 
+## Yubikey setup
+
+* https://www.preining.info/blog/2016/04/gnupg-subkeys-yubikey/
+* https://www.preining.info/blog/2016/05/yubikey-neo/
+* https://www.preining.info/blog/2018/03/replacing-a-lost-yubikey/
+* https://ocramius.github.io/blog/yubikey-for-ssh-gpg-git-and-local-login/
+* https://support.yubico.com/support/solutions/articles/15000006419
+
 ## Resources
 
 * https://www.openkeychain.org/faq/
