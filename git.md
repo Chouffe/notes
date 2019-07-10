@@ -31,6 +31,7 @@ git push -u --force origin master
 * Add signing key to git
 ```
 $ gpg --list-keys --keyid-format long
+$ git config --global commit.gpgsign true
 $ git config --global user.signingkey <KEYID>
 ```
 
