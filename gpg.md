@@ -52,8 +52,43 @@ $ shred --remove A85EA103-private-subkey.gpg
 ```
 * Create a new master key with GPG
 ```
-gpg --gen-key
+gpg --full-generate-key
 ```
+* Generate a revokation certificate in case it gets lost or compromised
+```
+gpg --gen-revoke $KEYID > $KEYID-revoke.txt
+```
+* Save a copy of the private key
+```
+gpg --armor --export-secret-keys $KEYID > $KEYID-master.key
+```
+* Edit key to add subkeys
+```
+gpg --expert --edit-key KEYID
+```
+
+* Delete a secret-key: WARNING!! Make sure you have a backup
+
+## Yubikey
+
+I routinely swap between two YubiKeys, the Nano in my docking station and the Neo on my keychain.
+
+I have the same encryption and authentication keys on both YubiKeys and distinct signing keys on each.
+
+In order to swap between which YubiKey I want to use, I do the following:
+
+1. `killall gpg-agent`
+2. `rm -r ~/.gnupg/private-keys-v1.d/`
+3. Plug in the new YubiKey
+4. `gpg --card-edit`
+
+(Make sure the card is visible, also notifies gpg which keys are available for current card)
+
+Now the alternate card should be usable. If it's not, unplug the YubiKey and repeat steps 1-4 again, it should work the second time.
+
+I've found the command gpg-connect-agent updatestartuptty /bye can also be helpful.
+
+This process should help you when you are trying to create the YubiKeys as well.
 
 ## Yubikey setup
 
