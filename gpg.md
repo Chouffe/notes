@@ -50,6 +50,10 @@ rm mykey.sec.asc
 $ gpg2 --import A85EA103-private-subkey.gpg
 $ shred --remove A85EA103-private-subkey.gpg
 ```
+* Create a new master key with GPG
+```
+gpg --gen-key
+```
 
 ## Yubikey setup
 
@@ -61,6 +65,7 @@ $ shred --remove A85EA103-private-subkey.gpg
 
 ## Resources
 
+* https://riseup.net/en/security/message-security/openpgp/best-practices
 * https://www.openkeychain.org/faq/
 * https://medium.com/@acparas/gpg-quickstart-guide-d01f005ca99
 * https://oguya.ch/posts/2016-04-01-gpg-subkeys/
