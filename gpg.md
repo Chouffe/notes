@@ -71,3 +71,4 @@ gpg --gen-key
 * https://oguya.ch/posts/2016-04-01-gpg-subkeys/
 * https://help.github.com/en/articles/associating-an-email-with-your-gpg-key
 * https://help.github.com/en/articles/generating-a-new-gpg-key
+* https://developers.yubico.com/PGP/Card_edit.html
