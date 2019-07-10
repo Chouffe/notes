@@ -28,6 +28,11 @@ git commit -m "Initial commit"
 git remote add origin git@github.com:<YOUR ACCOUNT>/<YOUR REPOS>.git
 git push -u --force origin master
 ```
+* Add signing key to git
+```
+$ gpg --list-keys --keyid-format long
+$ git config --global user.signingkey <KEYID>
+```
 
 ## Terms
 
