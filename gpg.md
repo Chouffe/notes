@@ -97,6 +97,8 @@ This process should help you when you are trying to create the YubiKeys as well.
 * https://www.preining.info/blog/2018/03/replacing-a-lost-yubikey/
 * https://ocramius.github.io/blog/yubikey-for-ssh-gpg-git-and-local-login/
 * https://support.yubico.com/support/solutions/articles/15000006419
+* https://www.linode.com/docs/security/authentication/gpg-key-for-ssh-authentication/
+* https://mlohr.com/gpg-agent-ssh-gnome/
 
 ## Resources
 
