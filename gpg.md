@@ -116,6 +116,20 @@ This process should help you when you are trying to create the YubiKeys as well.
 ```
 ykman openpgp set-touch sig on
 ```
+* Encryption
+```
+ykman openpgp set-touch enc on
+```
+* Authentication
+```
+ykman openpgp set-touch aut on
+```
+* Turn it off: `on -> off`
+```
+ykman openpgp set-touch sig off
+ykman openpgp set-touch enc off
+ykman openpgp set-touch aut off
+```
 
 ### Setup
 
