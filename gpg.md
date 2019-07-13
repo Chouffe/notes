@@ -66,8 +66,26 @@ gpg --armor --export-secret-keys $KEYID > $KEYID-master.key
 ```
 gpg --expert --edit-key KEYID
 ```
-
 * Delete a secret-key: WARNING!! Make sure you have a backup
+```
+gpg --delete-secret-keys KEYID
+```
+* Encrypt a message to your own key (useful for storing passwords and credentials)
+```
+echo "test message string" | gpg --encrypt --armor --recipient $KEYID -o encrypted.txt
+```
+* Decrypt message
+```
+gpg --decrypt --armor encrypted.txt
+```
+* Sign a message
+```
+echo "test message string" | gpg --armor --clearsign > signed.txt
+```
+* Verify the signature
+```
+gpg --verify signed.txt
+```
 
 ## Yubikey
 
@@ -90,7 +108,16 @@ I've found the command gpg-connect-agent updatestartuptty /bye can also be helpf
 
 This process should help you when you are trying to create the YubiKeys as well.
 
-## Yubikey setup
+## Yubikey
+
+### Require Touch
+
+* Signing
+```
+ykman openpgp set-touch sig on
+```
+
+### Setup
 
 * https://www.preining.info/blog/2016/04/gnupg-subkeys-yubikey/
 * https://www.preining.info/blog/2016/05/yubikey-neo/
