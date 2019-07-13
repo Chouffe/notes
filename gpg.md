@@ -99,6 +99,7 @@ This process should help you when you are trying to create the YubiKeys as well.
 * https://support.yubico.com/support/solutions/articles/15000006419
 * https://www.linode.com/docs/security/authentication/gpg-key-for-ssh-authentication/
 * https://mlohr.com/gpg-agent-ssh-gnome/
+* https://github.com/drduh/YubiKey-Guide
 
 ## Resources
 
