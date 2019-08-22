@@ -63,6 +63,13 @@ printf 'HEAD / HTTP/1.1\r\nHost: en.wikipedia.org\r\n\r\n'
 rsync -av ./Backup\ Data1/ /media/chouffe/Backup\ Data
 ```
 
+## nc
+
+* Listen to an UDP connection on port 8125 (datadog agent)
+```
+nc -u -l 8125
+```
+
 ## Misc
 
 * Kill a process listening on a given port
