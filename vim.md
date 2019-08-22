@@ -1,5 +1,99 @@
 # VIM
 
+## The vim way
+
+* Dot formula: one keystroke to move, on keystroke to execute
+
+## Overview
+
+* Start vim without loading the vimrc
+```
+vim -u NONE -N
+```
+* Start with minimal built-in vim plugings
+```
+# vim file to source vim/essential.vim
+set nocompatible
+filetype plugin on
+
+# Source with
+vim -u vim/essential.vim
+```
+
+### Normal Mode
+
+* Jump to last edited position: `g;`
+
+### Insert Mode
+
+* `<C-h>` Delete back one character
+* `<C-w>` Delete back one word
+* `<C-u>` Delete back to start of the line
+
+### Insert Normal mode
+
+One needs to run a normal command when in insert mode and get back to insert mode right after.
+When in insert mode, type `<C-o>`.
+
+* Center buffer when in insert mode: `<C-o>zz`
+* Yank a pasted word from insert mode: `<C-r>0`
+
+### Yank
+
+* Previous yanked words are rotated into registered `0-9`
+```
+# Paste last yanked thing
+Normal mode: 0p
+Insert Mode: <C-r>0
+```
+
+### Substitutions
+
+* When searching, `\n` is a newline
+* When replacing, `\r` is a newline
+
+* Perform substitution
+```
+:s/target/replacement
+```
+* Repeat
+```
+&
+```
+* Reverse
+```
+u
+```
+* Confirm a substitution
+```
+:s/target/replacement/gc
+```
+
+### `<C-r>` Mechanism
+
+#### Normal Mode
+
+Redo
+
+#### Insert or Command mode
+
+One can continue with a numbered or named registered:
+
+* `a - z` the named registers
+* `"` the unnamed register, containing the text of the last delete or yank
+* `%` the current file name
+* `#` the alternate file name
+* `*` the clipboard contents (X11: primary selection)
+* `+` the clipboard contents
+* `/` the last search pattern
+* `:` the last command-line
+* `.` the last inserted text
+* `-` the last small (less than a line) delete
+* `=5*5` insert 25 into text (mini-calculator)
+
+To list registers: `:reg` or `:registers` or `:di`
+
+
 ## Fugitive: GDiff
 
 ### Resources
