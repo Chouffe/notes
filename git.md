@@ -38,6 +38,10 @@ $ git config --global user.signingkey <KEYID>
 ```
 git commit -S -m "your commit message"
 ```
+* Get one file from another branch - filename.txt from feature1 branch
+```
+git checkout feature1 -- filename.txt
+```
 
 ## Terms
 
