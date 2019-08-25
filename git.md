@@ -42,6 +42,56 @@ git commit -S -m "your commit message"
 ```
 git checkout feature1 -- filename.txt
 ```
+* git reset
+```
+# Same as git reset --mixed HEAD
+git reset
+# --soft: only commit history
+# --mixed: staged snapshot and commit history
+# --hard: working directory and staged snapshot and commit history
+```
+* git revert
+```
+# Changes to be reverted BCD
+A <-- B <-- C <-- D
+# Solution 1
+git revert --no-commit D
+git revert --no-commit C
+git revert --no-commit B
+git commit -m "the commit message"
+# Solution 2 - assuming the branch is `feature`
+# The beginning of the range is exclusive
+git revert feature~3..feature
+# Solution 3
+git revert --no-commit HEAD~3..
+```
+* git log - 3 most recent commits
+```
+git log -3
+```
+* git log - by date
+```
+git log --after="2019-1-1"
+git log --after="yesterday"
+git log --after="2014-7-1" --before="2014-7-4"
+```
+* git log - by author
+```
+git log --author="Chouffe"
+```
+* git log - by message
+```
+git log --grep="JRA-224:"
+```
+* git log - by file
+```
+git log -- foo.py bar.py
+```
+* git log - by content
+```
+git log -S"Hello, World!"
+```
+
 
 ## Terms
 
