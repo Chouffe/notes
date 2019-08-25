@@ -195,3 +195,11 @@ Return object type of any object
 ```
 git cat-file -t <sha1>
 ```
+
+## Resources
+
+* [Git Reset Tutorial](https://www.atlassian.com/git/tutorials/undoing-changes/git-reset)
+* [Tutorial: Learn how to undo changes in Git](https://www.atlassian.com/git/tutorials/learn-undoing-changes-with-bitbucket)
+* [Tutorial: Rewriting history](https://www.atlassian.com/git/tutorials/rewriting-history)
+* [Tutorial: Rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
+* [Tutorial: Reflogs](https://www.atlassian.com/git/tutorials/rewriting-history/git-reflog)
