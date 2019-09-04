@@ -10,6 +10,10 @@ git rebase -i HEAD~5
 ```
 git stash show -p
 ```
+* Stash files that are not in the index
+```
+git stash --keep-index
+```
 * Initialize git submodules
 ```
 git submodule update --init --recursive
