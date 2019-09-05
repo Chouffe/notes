@@ -1,5 +1,12 @@
 # AWS
 
+## CloudFront
+
+* Edge Location: Location where the content will be cached
+* Origin: origin of all the files the CDN will distribute (S3 bucket, Route53, EC2 instance, ...)
+* Objects are cached for TTL
+* Cache invalidation can be performed (charges apply)
+
 ## S3
 
 * Files can be from 0 Bytes to 5 TB
