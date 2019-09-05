@@ -1,5 +1,17 @@
 # AWS
 
+## EBS
+
+* Elastic Block Store: Virtual Hard disk
+* EBS Snapshots
+  * Point in time copy of a disk
+  * Live on S3
+  * Incremental
+* AMIs can be created from Volumes and Snapshots
+* EBS volumes can be changed on the fly
+  * Storage type
+  * Storage size
+
 ## CloudFront
 
 * Edge Location: Location where the content will be cached
