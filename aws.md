@@ -1,5 +1,44 @@
 # AWS
 
+## EC2
+
+### Placement Groups
+
+* Clustered: single AZ - low network latency, high throughput
+* Spread: each instance is placed on distinct underlying hardware - protect from hardware failures for individual critical EC2 instances
+* Partitioned: same as spread but with partitions - protect from failures for multiple Ec2 instances (HDFS, HBase, Cassandra)
+
+### Instance meta data
+
+* When sshed into an EC2 instance, one can run the following command to get instance metadata and user-data
+```
+$ curl http://169.254.169.254/latest/user-data/
+$ curl http://169.254.169.254/latest/meta-data/
+ami-id
+ami-launch-index
+ami-manifest-path
+block-device-mapping/
+events/
+hostname
+identity-credentials/
+instance-action
+instance-id
+instance-type
+local-hostname
+local-ipv4
+mac
+metrics/
+network/
+placement/
+profile
+public-hostname
+public-ipv4
+public-keys/
+reservation-id
+security-groups
+services/
+```
+
 ## EBS
 
 * Elastic Block Store: Virtual Hard disk
@@ -11,6 +50,13 @@
 * EBS volumes can be changed on the fly
   * Storage type
   * Storage size
+
+## EFS
+
+* Elastic File System: Storage service for EC2 instances
+  * This can be mounted on different EC2 instances unlike EBS
+  * Storage capacity grow/shring automatically
+* Read after write consitency
 
 ## CloudFront
 
