@@ -1,5 +1,20 @@
 # AWS
 
+## RDS
+
+* SQL, MySQL, PostgreSQL, Oracle, Aurora, MariaDB
+* Multi-AZ: for disaster recovery
+* Read Replicas - for performance
+
+## Redshift
+
+* Online Analytics Processing (OLAP) with Redshift: Data warehouse solution
+* Used for Business Intelligence or Data Warehousing
+
+## ElastiCache
+
+* In memory cache in the cloud - Redis, Memcached
+
 ## EC2
 
 ### Placement Groups
