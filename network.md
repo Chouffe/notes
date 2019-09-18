@@ -282,3 +282,4 @@ sudo tcpdump -n port 80
 ## Resources
 
 * [Wikipedia: Network Perfomance](https://en.wikipedia.org/wiki/Network_performance)
+* [CIDR and IP address vizualizer](http://cidr.xyz)
