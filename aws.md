@@ -1,5 +1,53 @@
 # AWS
 
+## Lambda
+
+* Billing: per request + compute time
+
+### Serverless
+
+* Setup for profile `serverless-admin`
+```
+serverless config credentials --provider aws --key $ACCESS_KEY --secret $SECRET_ACCESS_KEY --profile serverless-admin
+```
+* Add provider information in `serverless.yml`
+```
+provider:
+  name: aws
+  runtime: python2.7
+  profile: serverless-admin
+  region: us-east-1
+  ...
+```
+* Create from a template
+```
+sls create --template aws-python --path hello-world-python
+```
+* Deploy the stack
+```
+sls deploy -v
+```
+* Deploy only the function
+```
+sls deploy -f function-name
+```
+* Invoke
+```
+sls invoke -f function-name
+```
+* Retrieve logs
+```
+sls logs -f hello
+```
+* Retrive and tail logs
+```
+sls logs -f hello -t
+```
+* Remove function
+```
+sls remove
+```
+
 ## RDS
 
 * SQL, MySQL, PostgreSQL, Oracle, Aurora, MariaDB
