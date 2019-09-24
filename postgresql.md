@@ -2,6 +2,7 @@
 
 ## Commands
 
+* [Cheatsheet](https://postgrescheatsheet.com/#/tables)
 * Getting Help of SQL commands
 ```
 \h
