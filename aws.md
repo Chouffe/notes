@@ -1,5 +1,24 @@
 # AWS
 
+## CloudFormation
+
+### Drift
+
+We can find out if a resource has been manually changed (from outside CF itself).
+
+### Helper Scripts
+
+* `cfn-init`: retrieve and interpret the resource metadata, installing packages, creating files and starting services
+* `cfn-signal`: signal a CF CreationPolicy or WaitCondition to synchronize other resources in the stack
+* `cfn-get-metadata`: retrieve all metadata defined for a resource
+* `cfn-hup`: daemon to check for updates to metadata and execute custom hooks when changes are detected
+
+The metadata: `AWS::CloudFormation::Init` allows to define groups, users, create files (and then be called by `cfn-init`)
+
+Logs are kept on the instance in:
+* `/var/log/cloud-init-output.log` for `ec2-user-data`
+* `/var/log/cfn-init.log` for `cfn-init`
+
 ## Lambda
 
 * Billing: per request + compute time
