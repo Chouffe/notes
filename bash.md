@@ -20,6 +20,10 @@ while [ "$d" != 2016-06-04 ]; do
   d=$(date -I -d "$d + 1 day")
 done
 ```
+* Generate a UUID
+```bash
+uuidgen
+```
 
 ## date
 
