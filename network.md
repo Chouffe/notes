@@ -263,6 +263,14 @@ ping yahoo.com
 sudo tcpdump -n port 80
 ```
 
+## Edit local DNS
+
+```
+sudo vim /ect/hosts
+
+# Add the required mappings
+```
+
 ## Routers
 
 * They can drop packets if their are congested. That is why there are packet drops to signal congestion
