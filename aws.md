@@ -278,3 +278,48 @@ services/
   ]
 }
 ```
+
+## VPC
+
+* When creating a VPC from the web console, it creates also the following resources
+  * Default security group
+  * Default Route table
+  * Default Network ACL
+* It will not create any subnets nor will it create a default internet gateway
+* Amazon always reserve 5 IP addresses within a subnet
+* Only 1 internet gateway per VPC
+
+### Security Groups
+
+* To allow ping from one instance to another, enable ICMP for the given subnet
+
+### NAT instances (obsolete) & NAT gateways
+
+* When creating a private subnet in a VPC, we could still want the instance to have access to the internet (downloading software) and still making it not possible to ssh into directly
+* NAT instances and gateways must be in a public subnet
+* There must be a route out of the private subnet to the NAT instance or gateway
+
+### ACLs
+
+* ACL: Access Control List
+  * List of DENY/ALLOW rules executed in order
+* Default VPC comes with a default ACL which allows all outbound and inbound traffic
+* IP addresses can be blocked with ACLs (not with Security Groups)
+* A subnet can only be associated with one ACL at a time
+* Network ACLs are stateless: responses to allowed inbound traffic are subject to the rules for outbound traffic
+
+### ALB
+
+* At least two public subnets are required to launch an ALB
+
+### VPC Flow logs
+
+* Capture information about the IP traffic going to and from the VPC. Flow log data is stored using Amazon CloudWatch Logs or S3 bucket
+* Can be created at 3 levels
+  * VPC
+  * Subnet
+  * Network Interface
+
+### Bastions
+
+A bastion is used to securely administer EC2 instances (using SSH). They are also called jump boxes.
