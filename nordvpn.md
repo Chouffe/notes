@@ -48,5 +48,7 @@ nordvpn countries
 nordvpn help
 man nordvpn
 ```
-
-
+* Use pi-hole and nordvpn altogether by setting the pi-hole DNS server with nordvpn
+```
+nordvpn set dns 192.168.0.96
+```
