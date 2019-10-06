@@ -2,6 +2,24 @@
 
 ## CloudFormation
 
+### Best practices
+
+* Use cross stack references to reference a VPC or subnets
+* Make sure the CF template is environment (dev, prod) and region agnostic
+* Never encode credentials in a CF template (use KMS or parameters)
+* use CFN init
+* Validate templates
+* Do not do anything manually
+* Verify changes with changesets
+* Use DeletionPolicy to prevent valuable components from being deleted
+* Get inspiration from: https://github.com/awslabs/aws-cloudformation-templates
+
+### DeletionPolicy
+
+* `Delete`: AWS deletes the resource and all its content (does not apply to S3)
+* `Retain`: AWS keeps the resource without deleting it
+* `Snapshot`: AWS creates a snapshot for the resource before deleting it (works for some stateful resources)
+
 ### Drift
 
 We can find out if a resource has been manually changed (from outside CF itself).
@@ -18,6 +36,10 @@ The metadata: `AWS::CloudFormation::Init` allows to define groups, users, create
 Logs are kept on the instance in:
 * `/var/log/cloud-init-output.log` for `ec2-user-data`
 * `/var/log/cfn-init.log` for `cfn-init`
+
+### Former2
+
+* Generate CF templates from existing resources: https://former2.com/
 
 ## Lambda
 
