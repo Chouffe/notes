@@ -74,6 +74,17 @@ rsync -av ./Backup\ Data1/ /media/chouffe/Backup\ Data
 nc -u -l 8125
 ```
 
+## Cron
+
+* Add a Cron job
+```
+sudo crontab -e
+```
+* Restart cron daemon with latest data
+```
+service crond restart
+```
+
 ## Misc
 
 * Kill a process listening on a given port
