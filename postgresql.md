@@ -19,6 +19,10 @@
 ```
 \dn
 ```
+* Set schema to another one
+```
+SET SEARCH_PATH TO "temp-arthur-dev"
+```
 * List tables
 ```
 \dt
