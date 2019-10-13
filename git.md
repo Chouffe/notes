@@ -224,6 +224,30 @@ Return object type of any object
 git cat-file -t <sha1>
 ```
 
+## Extras - git-extras
+
+* sed in git grep
+```
+git sed old-value new-value
+```
+* Undo the last N commit - moving them to the staging area
+```
+git undo    # Undo the last commit and add changes to staging
+git undo N  # Undo N commits
+```
+* Completely remove a file from the repository
+```
+git obliterate filename
+```
+* Does a hard reset and deletes all untracked files from the working directory, including those in .gitignore.
+```
+git clear
+```
+* Add an entry into gitignore
+```
+git gitignore DS_Store
+```
+
 ## Resources
 
 * [Git Reset Tutorial](https://www.atlassian.com/git/tutorials/undoing-changes/git-reset)

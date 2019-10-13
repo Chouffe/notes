@@ -287,6 +287,17 @@ sudo vim /ect/hosts
 * Devices that filter traffic that's coming into or leaving their network
 * Common configuration: drop any configuration traffic except traffic to (host, port) pairs that are supposed to be receiving connections from the internet.
 
+## Misc
+
+* Restart the NetworkManager Service when DNS not working
+```
+sudo systemctl restart network-manager.service
+```
+* Show interfaces
+```
+ip a
+```
+
 ## Resources
 
 * [Wikipedia: Network Perfomance](https://en.wikipedia.org/wiki/Network_performance)
