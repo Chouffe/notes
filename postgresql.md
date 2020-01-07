@@ -84,11 +84,19 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO readonly;
 DROP USER username;
 ```
 
+## JSON
+
+* [Cheatsheet](https://devhints.io/postgresql-json)
+
 ## Misc
 
 * By default, postgres tries to connect to a database with the same name as your user. To prevent this default behaviour, just specify user and database:
 ```
 psql -U Username DatabaseName
+```
+* Check that the database is ready
+```
+pg_isready --dbname=pitch --host=localhost --port=63333
 ```
 
 ## Monitoring
