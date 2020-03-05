@@ -247,6 +247,10 @@ git clear
 ```
 git gitignore DS_Store
 ```
+* Diff with current merged master
+```
+git diff `git merge-base master HEAD`
+```
 
 ## Resources
 
