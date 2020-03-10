@@ -251,6 +251,10 @@ git gitignore DS_Store
 ```
 git diff `git merge-base master HEAD`
 ```
+* Prevent pushing to master
+```
+git config --local branch.master.pushRemote no_push
+```
 
 ## Resources
 
