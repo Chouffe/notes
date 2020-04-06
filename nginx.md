@@ -149,6 +149,17 @@ server {
 }
 ```
 
+## Commands
+
+* Test config files loaded
+```
+nginx -t
+```
+* Show nginx version and command that was used to launch it
+```
+nginx -V
+```
+
 ## Misc
 
 * [Beware of the trailing slash in `proxy_pass` url](https://stackoverflow.com/questions/22759345/nginx-trailing-slash-in-proxy-pass-url)
