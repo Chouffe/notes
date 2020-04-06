@@ -163,6 +163,7 @@ nginx -V
 ## Misc
 
 * [Beware of the trailing slash in `proxy_pass` url](https://stackoverflow.com/questions/22759345/nginx-trailing-slash-in-proxy-pass-url)
+* [Nginx Index of Variables](http://nginx.org/en/docs/varindex.html)
 
 ## Resources
 
