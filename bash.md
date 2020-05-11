@@ -9,6 +9,29 @@ curl cheat.sh/command
 
 ## Tips and Tricks
 
+* [Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/): always start your scripts with the following
+```
+#!/usr/bin/env bash
+set -euo pipefail
+```
+* Situated bash scripts
+```
+#!/usr/bin/env bash
+set -euo pipefail && cd "$(dirname "${BASH_SOURCE[0]}")/.."
+```
+* Generate a UUID
+```
+id="$(python -c 'import uuid; print uuid.uuid4()')"
+```
+* Verify that an env variable is set
+```
+[[ -z "${MY_VAR-}" ]] && { echo You need to set MY_VAR >&2; exit 1; }
+```
+* Verify that a command is installed
+```
+command -v wget >/dev/null 2>&1 || { echo "Command wget is not installed." >&2; exit 1; }
+```
+
 * Loop through dates
 
 ```bash
@@ -92,3 +115,4 @@ service crond restart
 kill -9 $(lsof -t -i:8080)
 ```
 * [The Art of the command line](https://github.com/jlevy/the-art-of-command-line)
+* [Blissful Bash](https://github.com/pesterhazy/blissful-bash)
