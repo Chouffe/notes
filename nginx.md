@@ -151,6 +151,10 @@ server {
 
 ## Commands
 
+* Restart nginx
+```
+sudo /usr/sbin/nginx -s reload
+```
 * Test config files loaded
 ```
 nginx -t
