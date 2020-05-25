@@ -116,3 +116,6 @@ kill -9 $(lsof -t -i:8080)
 ```
 * [The Art of the command line](https://github.com/jlevy/the-art-of-command-line)
 * [Blissful Bash](https://github.com/pesterhazy/blissful-bash)
+* [Pure bash bible](https://github.com/dylanaraps/pure-bash-bible)
+* [Bash Handbook](https://github.com/denysdovhan/bash-handbook)
+* [Bash Guide](https://github.com/Idnan/bash-guide)
