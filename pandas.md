@@ -29,3 +29,16 @@ pd.set_option('display.max_colwidth', -1)
 ```python
 df.sample(frac=1, random_state=0)
 ```
+
+* Rename column names
+```
+df.rename(columns={'foo bar': 'foo_bar', 'qu ux': 'quux'}
+
+# Renaming in Batch
+renamed_labels = [label.replace(' ', '_') for label in df.columns]
+df.columns = renamed_labels
+```
+* Split a column in two columns
+```
+df['first_name'], df['last_name'] = df['name'].str.split(' ', 1).str
+```
