@@ -84,6 +84,26 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO readonly;
 DROP USER username;
 ```
 
+## Arrays
+
+* They are 1-indexed
+* Retrieve one element from an array
+```
+-- Retrieve the first element
+arr[1]
+```
+
+## REGEXES
+
+* REGEXP_MATCHES for extracting part of a string
+```sql
+-- g to convert to an array (global)
+SELECT
+  REGEXP_MATCHES(data::TEXT, '.*editor-id","~u(.{36})"', 'g') AS data_editor_id
+  ...
+```
+
+
 ## JSON
 
 * [Cheatsheet](https://devhints.io/postgresql-json)
