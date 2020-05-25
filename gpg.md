@@ -104,7 +104,7 @@ In order to swap between which YubiKey I want to use, I do the following:
 
 Now the alternate card should be usable. If it's not, unplug the YubiKey and repeat steps 1-4 again, it should work the second time.
 
-I've found the command gpg-connect-agent updatestartuptty /bye can also be helpful.
+I've found the command `gpg-connect-agent updatestartuptty /bye` can also be helpful.
 
 This process should help you when you are trying to create the YubiKeys as well.
 
