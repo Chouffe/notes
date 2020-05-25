@@ -176,3 +176,4 @@ To list registers: `:reg` or `:registers` or `:di`
 ## Resources
 
 * [Vim Lists](https://noahfrederick.com/log/a-list-of-vims-lists)
+* [Vim Cheatsheet](https://vim.rtorr.com/)
