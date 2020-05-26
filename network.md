@@ -139,6 +139,14 @@ host -t aaaa google.com
 
 * DNS lookup utility
 * Less human readable but more usable for scripts
+* Query the MX Records
+```
+dig update.pitch.com MX
+```
+* Query all DNS Records
+```
+dig google.com ANY +noall +answer
+```
 
 ## ip
 
