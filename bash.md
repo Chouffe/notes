@@ -119,14 +119,29 @@ python -m base64 -e <<< "sample string"
 python -m base64 -d <<< "dGhpcyBpcyBlbmNvZGVkCg=="
 ```
 
+## htop
+
+* [htop explained](https://peteris.rocks/blog/htop/)
+* Memory Usage
+  * Green: Used memory
+  * Blue: Buffer
+  * Orange: Cache
+* Virtual Image, VIRT - not a useful number most of the time
+> The total amount of virtual memory used by the task. It includes all code, data and shared libraries plus pages that have been swapped out and pages that have been mapped but not used.
+
+* Sort by CPU, MEMORY, TIME: `P, M, T`
+
 ## Misc
 
 * Kill a process listening on a given port
 ```
 kill -9 $(lsof -t -i:8080)
 ```
+* [Newbie Traps](https://wiki.bash-hackers.org/scripting/newbie_traps)
 * [The Art of the command line](https://github.com/jlevy/the-art-of-command-line)
 * [Blissful Bash](https://github.com/pesterhazy/blissful-bash)
 * [Pure bash bible](https://github.com/dylanaraps/pure-bash-bible)
 * [Bash Handbook](https://github.com/denysdovhan/bash-handbook)
 * [Bash Guide](https://github.com/Idnan/bash-guide)
+* [ShellGuide](https://google.github.io/styleguide/shellguide.html)
+* [The Bash Hacker Wiki](https://wiki.bash-hackers.org/start)
