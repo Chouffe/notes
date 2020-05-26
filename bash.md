@@ -108,6 +108,17 @@ sudo crontab -e
 service crond restart
 ```
 
+## Base64
+
+* Encode base64
+```
+python -m base64 -e <<< "sample string"
+```
+* Decode base64
+```
+python -m base64 -d <<< "dGhpcyBpcyBlbmNvZGVkCg=="
+```
+
 ## Misc
 
 * Kill a process listening on a given port
