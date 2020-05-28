@@ -97,6 +97,24 @@ rsync -av ./Backup\ Data1/ /media/chouffe/Backup\ Data
 nc -u -l 8125
 ```
 
+## ss
+
+Socket Stats
+* Get stats about open ports by type
+```
+$ ss -s
+Total: 167 (kernel 0)
+TCP:   22356 (estab 66, closed 22272, orphaned 0, synrecv 0, timewait 22271/0), ports 0
+
+Transport Total     IP        IPv6
+*         0         -         -
+RAW       0         0         0
+UDP       16        11        5
+TCP       84        72        12
+INET      100       83        17
+FRAG      0         0         0
+```
+
 ## Cron
 
 * Add a Cron job
