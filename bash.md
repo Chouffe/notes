@@ -114,6 +114,11 @@ TCP       84        72        12
 INET      100       83        17
 FRAG      0         0         0
 ```
+* List all socket connections
+```
+ss -tan state time-wait
+```
+* [TCP TIME-WAIT guide](https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux)
 
 ## Cron
 
