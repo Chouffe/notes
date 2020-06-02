@@ -174,3 +174,4 @@ nginx -V
 * [Config file guide](https://www.digitalocean.com/community/tutorials/understanding-the-nginx-configuration-file-structure-and-configuration-contexts)
 * [Nginx configuration official documentation](http://nginx.org/en/docs/dirindex.html)
 * [Beginner's Guide](https://nginx.org/en/docs/beginners_guide.html#conf_structure)
+* [Nginx tuning for best performance](https://github.com/denji/nginx-tuning#nolimit-without-systemd)
