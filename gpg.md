@@ -95,10 +95,12 @@ I have the same encryption and authentication keys on both YubiKeys and distinct
 
 In order to swap between which YubiKey I want to use, I do the following:
 
-1. `killall gpg-agent`
-2. `rm -r ~/.gnupg/private-keys-v1.d/`
-3. Plug in the new YubiKey
-4. `gpg --card-edit`
+```
+killall gpg-agent
+rm -r ~/.gnupg/private-keys-v1.d/
+# Plug in the new YubiKey
+gpg --card-edit
+```
 
 (Make sure the card is visible, also notifies gpg which keys are available for current card)
 
