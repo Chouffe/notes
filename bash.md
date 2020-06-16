@@ -74,6 +74,23 @@ echo "Backing up data to /nas42/backup.$NOW.tar.gz file, please wait..."
 ```bash
  mv -- prefix*([1, 1000]) /src/directory/
 ```
+* Rename file `filename.init` to `filename.final`
+```
+mv filename.{init,final}
+```
+* Move multiple files to a directory
+```
+mv file1 file2 file3 directory
+```
+
+## echo
+
+Echo does nothing more than echo its arguments
+```
+# Useful for experimenting with pattern matching
+$ echo picture*
+picture1 picture2 picture3
+```
 
 ## printf
 
