@@ -99,3 +99,71 @@ command1
 command2
 command3
 EOF
+```
+
+### Built in Variables
+
+| Variable | Description                                     |
+| -------- | ----------------------------------------------- |
+| `$#`     | Number of arguments                             |
+| `$*`     | All arguments to shell                          |
+| `$@`     | All arguments to shell                          |
+| `$-`     | Options supplied to shell                       |
+| `$?`     | Return value of the last command executed       |
+| `$$`     | Process ID of the shell                         |
+| `$!`     | Process ID of the last command started with `&` |
+
+### Signals
+
+| Signal Name | Signal Number | Description                                                                                         |
+| ----------- | ------------- | --------------------------------------------------------------------------------------------------- |
+| SIGHUP      | 1             | Hang up detected on controlling terminal or death of controlling process                            |
+| SIGINT      | 2             | Issued if the user sends an interrupt signal (Ctrl + C)                                             |
+| SIGQUIT     | 3             | Issued if the user sends a quit signal (Ctrl + D)                                                   |
+| SIGFPE      | 8             | Issued if an illegal mathematical operation is attempted                                            |
+| SIGKILL     | 9             | If a process gets this signal it must quit immediately and will not perform any clean-up operations |
+| SIGALRM     | 14            | Alarm clock signal (used for timers)                                                                |
+| SIGTERM     | 15            | Software termination signal (sent by kill by default)                                               |
+
+```
+$ kill -l          # HUP INT QUIT ILL TRAP ABRT BUS FPE KILL USR1 SEGV USR2 PIPE ALRM TERM STKFLT CHLD CONT STOP TSTP TTIN TTOU URG XCPU XFSZ VTALRM PROF WINCH POLL PWR SYS
+$ kill -l SIGHUP   # 1
+$ kill -l 1        # SIGHUP
+```
+
+* Send signals to a process
+```
+# kill -signal pid
+$ kill -9 12345
+$ kill -kill 12345
+```
+
+* Set a trap which, on shell error or shell exit, deletes a temporary file `xyz$$`.
+```
+trap 'rm -f /tmp/xyz$$; exit' ERR EXIT
+```
+* Set a trap which, on shell exit, kills the last command executed with `&`.
+```
+trap 'kill $!' EXIT
+```
+
+* trap full example
+```
+#!/bin/sh
+
+trap cleanup 1 2 3 6
+
+cleanup()
+{
+  echo "Caught Signal ... cleaning up."
+  rm -rf /tmp/temp_*.$$
+  echo "Done cleanup ... quitting."
+  exit 1
+}
+
+### main script
+for i in *
+do
+  sed s/FOO/BAR/g $i > /tmp/temp_${i}.$$ && mv /tmp/temp_${i}.$$ $i
+done
+```
