@@ -98,8 +98,9 @@ In order to swap between which YubiKey I want to use, I do the following:
 ```
 killall gpg-agent
 rm -r ~/.gnupg/private-keys-v1.d/
-# Plug in the new YubiKey
-gpg --card-edit
+# Plug in the new YubiKey to load the keys
+gpg --card-status
+# gpg --card-edit
 ```
 
 (Make sure the card is visible, also notifies gpg which keys are available for current card)
