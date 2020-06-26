@@ -2,6 +2,17 @@
 
 ## Commands
 
+* Remove hunks interactively from the worktree
+```
+# All files
+git checkout -p
+# Only filename
+git checkout -p filename
+```
+* Add hunks interactively from the worktree
+```
+git add -p
+```
 * Squash last 5 commits
 ```
 git rebase -i HEAD~5
