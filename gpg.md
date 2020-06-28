@@ -111,6 +111,11 @@ I've found the command `gpg-connect-agent updatestartuptty /bye` can also be hel
 
 This process should help you when you are trying to create the YubiKeys as well.
 
+The gpg-agent keeps track of the yubikey card id, to tell `gpg-agent` to relearn the serial number on the smartcard
+```
+gpg-connect-agent "scd serialno" "learn --force" /bye
+```
+
 ## Yubikey
 
 ### Require Touch
