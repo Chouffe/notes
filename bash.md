@@ -104,7 +104,9 @@ printf 'HEAD / HTTP/1.1\r\nHost: en.wikipedia.org\r\n\r\n'
 
 * backup between different Hard Drives
 ```
+# rync SRC DEST
 rsync -av ./Backup\ Data1/ /media/chouffe/Backup\ Data
+rsync -av /media/chouffe/Backup\ Data /media/chouffe/Backup\ Data1
 ```
 
 ## nc
