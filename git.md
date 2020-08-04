@@ -106,6 +106,10 @@ git log -- foo.py bar.py
 ```
 git log -S"Hello, World!"
 ```
+* Browse git stashes
+```
+tig stash
+```
 
 ## Hooks
 
