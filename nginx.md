@@ -175,3 +175,5 @@ nginx -V
 * [Nginx configuration official documentation](http://nginx.org/en/docs/dirindex.html)
 * [Beginner's Guide](https://nginx.org/en/docs/beginners_guide.html#conf_structure)
 * [Nginx tuning for best performance](https://github.com/denji/nginx-tuning#nolimit-without-systemd)
+* [Inside NGINX](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/)
+* [The Architecture of NGINX](https://www.aosabook.org/en/nginx.html)
