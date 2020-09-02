@@ -110,6 +110,10 @@ git log -S"Hello, World!"
 ```
 tig stash
 ```
+* List all files that were changed in the branch
+```
+git diff --name-only "$(git merge-base master HEAD)"
+```
 
 ## Hooks
 
