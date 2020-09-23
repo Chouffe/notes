@@ -1,5 +1,7 @@
 # Python numpy
 
+![Numpy concepts](../images/numpy-visual.png)
+
 * Filter
 ```
 # 1. Using generators
