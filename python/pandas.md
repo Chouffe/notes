@@ -42,3 +42,11 @@ df.columns = renamed_labels
 ```
 df['first_name'], df['last_name'] = df['name'].str.split(' ', 1).str
 ```
+* Convert column values with a mapping
+```
+df["category"] = df["category"].replace({0: 'cat', 1: 'dog'})
+```
+
+## Resources
+
+* [Pandas mask](https://pythonhealthcare.org/2018/04/07/30-using-masks-to-filter-data-and-perform-search-and-replace-in-numpy-and-pandas/)
