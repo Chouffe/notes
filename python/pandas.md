@@ -46,6 +46,17 @@ df['first_name'], df['last_name'] = df['name'].str.split(' ', 1).str
 ```
 df["category"] = df["category"].replace({0: 'cat', 1: 'dog'})
 ```
+* Convert column values with a mapping
+```
+level_map = {1: 'high', 2: 'medium', 3: 'low'}
+df['c_level'] = df['c'].map(level_map)
+```
+* Check value distributions
+```
+df['c'].value_counts()
+df['c'].value_counts(normalize=True) # To check for frequency instead of raw counts
+df['c'].value_counts(dropna=False)   # To include the missing values in the counts
+```
 
 ## Resources
 
