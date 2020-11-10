@@ -61,3 +61,5 @@ df['c'].value_counts(dropna=False)   # To include the missing values in the coun
 ## Resources
 
 * [Pandas mask](https://pythonhealthcare.org/2018/04/07/30-using-masks-to-filter-data-and-perform-search-and-replace-in-numpy-and-pandas/)
+* [Filtering Data in Pandas](https://levelup.gitconnected.com/filtering-data-in-pandas-c7b60d1e1301)
+* [My Python Pandas Cheat Sheet](https://towardsdatascience.com/my-python-pandas-cheat-sheet-746b11e44368)
