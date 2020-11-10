@@ -18,6 +18,18 @@ const y = tf.tidy(() => {
 });
 ```
 * Precision: on mobile devices, only 16bit floating point textures are supported
+* Compilation of shaders happen on the CPU on the main thread and can be slow - this is why the first inference is often slow. Waermup may be necessary if one cares about the latency of the first inference.
+```
+const model = await tf.loadLayersModel(modelUrl);
+
+// Warmup the model before using real data.
+const warmupResult = model.predict(tf.zeros(inputShape));
+warmupResult.dataSync();
+warmupResult.dispose();
+
+// The second predict() will be much faster
+const result = model.predict(userData);
+```
 
 * [Resource](https://www.tensorflow.org/js/guide/platform_environment#webgl_backend)
 
