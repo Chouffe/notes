@@ -1,5 +1,53 @@
 # Python pandas
 
+### Importing
+
+* Build sample data frame
+```python
+df = pd.DataFrame([[1,'Bob', 'Builder'],
+                  [2,'Sally', 'Baker'],
+                  [3,'Scott', 'Candle Stick Maker']],
+columns=['id','name', 'occupation'])
+```
+
+### Viewing and Inspecting
+
+* Get dataframe info
+```python
+df.info()
+```
+* Get statistics
+```python
+df.describe()
+```
+* Check value distributions
+```python
+df['c'].value_counts()
+df['c'].value_counts(normalize=True) # To check for frequency instead of raw counts
+df['c'].value_counts(dropna=False)   # To include the missing values in the counts
+```
+* Count unique rows
+```
+len(ratings['user_id'].unique())
+```
+* Get a list of column values
+```python
+df.columns.tolist()
+```
+
+### Combining
+
+* Concatenate dataframes ~ SQL UNION
+```python
+pd.concat([df1, df2], ignore_index=True)
+```
+* Merge dataframes ~ SQL LEFT JOIN
+```python
+df1.merge(df2, left_on='user_id', right_on='user_id', suffixes=('_left', '_right'))
+```
+
+### Transforming
+
 * Derive new column from current using arbitrary function
 ```python
 def f(string):
@@ -8,28 +56,26 @@ def f(string):
 
 df['B'] = df['A'].apply(f)
 ```
-
 * Derive new column from current using logical operators
 ```python
 df['B'] = df.A < threshold
 ```
-
 ```python
-import numpy as np
-
 df['B'] = np.where(df['A'] < 3, 1, 0)
 ```
-
-* No truncated text
+* Split a column in two columns
 ```python
-pd.set_option('display.max_colwidth', -1)
+df['first_name'], df['last_name'] = df['name'].str.split(' ', 1).str
 ```
-
-* Shuffle Dataframe
+* Convert column values with a mapping
 ```python
-df.sample(frac=1, random_state=0)
+df["category"] = df["category"].replace({0: 'cat', 1: 'dog'})
 ```
-
+* Convert column values with a mapping
+```python
+level_map = {1: 'high', 2: 'medium', 3: 'low'}
+df['c_level'] = df['c'].map(level_map)
+```
 * Rename column names
 ```
 df.rename(columns={'foo bar': 'foo_bar', 'qu ux': 'quux'}
@@ -38,24 +84,77 @@ df.rename(columns={'foo bar': 'foo_bar', 'qu ux': 'quux'}
 renamed_labels = [label.replace(' ', '_') for label in df.columns]
 df.columns = renamed_labels
 ```
-* Split a column in two columns
+
+### Filtering
+
+* Create a new dataframe from a subset of columns
+```python
+df[['user_id', 'name', rating']]
 ```
-df['first_name'], df['last_name'] = df['name'].str.split(' ', 1).str
+* Drop specified columns
+```python
+df.drop(['user_id', 'name'], axis=1)
 ```
-* Convert column values with a mapping
+* Retrieve rows by numbered index values
+```python
+df.iloc[0:3]
 ```
-df["category"] = df["category"].replace({0: 'cat', 1: 'dog'})
+* Retrieve rows where a column's value is in a given list
+```python
+df[df['type'].isin(['TV', 'Movie'])
 ```
-* Convert column values with a mapping
+* Filter by value
+```python
+df[df['rating'] > 8]
 ```
-level_map = {1: 'high', 2: 'medium', 3: 'low'}
-df['c_level'] = df['c'].map(level_map)
+
+### Sorting
+
+* Sort a dataframe by values in a column
+```python
+df.sort_values('rating', ascending=False)
 ```
-* Check value distributions
+
+### Aggregating
+
+* Count number of records for each disting value in a column
+```python
+df.groupby('type').count()
 ```
-df['c'].value_counts()
-df['c'].value_counts(normalize=True) # To check for frequency instead of raw counts
-df['c'].value_counts(dropna=False)   # To include the missing values in the counts
+* Aggregate columns in different ways
+```python
+df.groupby(["type"]).agg({
+  "rating": "sum",
+  "episodes": "count",
+  "name": "last"
+}).reset_index() # needed otherwise the type column becomes the index column
+```
+
+### Cleaning
+
+* Set NaN cells to some values
+```python
+df.fillna(0)
+```
+
+### Misc
+
+* Sample a dataframe
+```python
+df.sample(frac=0.25)
+```
+* Shuffle a dataframe
+```python
+df.sample(frac=1, random_state=0)
+```
+* Iterate over indices and rows
+```python
+for idx, row in df.iterrows():
+    pass
+```
+* No truncated text
+```python
+pd.set_option('display.max_colwidth', -1)
 ```
 
 ## Resources
