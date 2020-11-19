@@ -8,3 +8,4 @@ An LSTM (Long Short Term Memory) cell is made of a series of gates to decide whi
 ## Resources
 
 * [Understanding LSTM Networks](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+* [Coursera: LSTM video by Andrew Ng](https://www.coursera.org/learn/nlp-sequence-models/lecture/KXoay/long-short-term-memory-lstm)
