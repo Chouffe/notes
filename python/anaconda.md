@@ -60,6 +60,10 @@ conda create -n $env_name python=3.3
 ```
 conda create -n $env_name python=3
 ```
+* Cloning an environment
+```
+conda create --name tensorflow_p36_clone --clone tensorflow_p36
+```
 * List environments
 ```
 conda env list
