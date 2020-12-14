@@ -93,6 +93,13 @@ conda env remove -n $env_name
 conda create --clone environment_name -n name_cloned_environment
 ```
 
+## Jupyter
+
+* Register the conda environment to the kernel
+```
+python -m ipykernel install --name=<$NAME>
+```
+
 ## Best practices
 
 * Use separate environments for python 2 and python 3
