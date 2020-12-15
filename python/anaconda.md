@@ -99,6 +99,14 @@ conda create --clone environment_name -n name_cloned_environment
 ```
 python -m ipykernel install --name=<$NAME>
 ```
+* List all kernels
+```
+python -m jupyter kernelspec list
+```
+* Remove a kernel
+```
+python -m jupyter kernelspec uninstall <$NAME>
+```
 
 ## Best practices
 
