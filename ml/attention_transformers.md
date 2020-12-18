@@ -41,6 +41,15 @@ It is similar to the regular attention mechanism but done multiple time in paral
 
 It adds a Position Encoding module to treat the input tokens in order (not just bag of words) The position can be either learned or fixed. It lets the model reason about the relative position of every tokens.
 
+## LSH based Self-Attention
+
+## Transformer
+
+### Reformer improvement
+
+To be able to run a Transformer on a large context vector (million tokens) we need to make it memory an compute efficient.
+* __Reversible Layers__ are used to make the Transformer more memory efficient as we do not need to store the forward pass activations to compute the backward pass and gradients.
+* __Locality Sensitive Hashing (LSH)__ is used to reduce the compute of the Dot Product attention for large input sizes.
 
 ## Resources
 
