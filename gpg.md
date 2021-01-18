@@ -116,7 +116,15 @@ The gpg-agent keeps track of the yubikey card id, to tell `gpg-agent` to relearn
 gpg-connect-agent "scd serialno" "learn --force" /bye
 ```
 
-## Yubikey
+### Yubikey with OpenKeyChain and Password Store
+
+1. Export the public key as a file
+```
+gpg --armor --export arthur@caillau.me > mykey.asc
+```
+2. Transfer the file to your Android phone
+3. Import the key via UI - the key is now loaded into the app, it cannot be used yet as we need to let OpenKeyChain know that it is on the yubikey
+4. import Key from yubikey - this will make the imported key available for other apps like Password Store
 
 ### Require Touch
 
