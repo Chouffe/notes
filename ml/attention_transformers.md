@@ -64,3 +64,4 @@ To be able to run a Transformer on a large context vector (million tokens) we ne
 * [How GPT3 Works - Visualizations and Animations](http://jalammar.github.io/how-gpt3-works-visualizations-animations/)
 * [LSTM is dead. Long Live Transformers!](https://www.youtube.com/watch?v=S27pHKBEp30)
 * [Attn: Illustrated Attention](https://towardsdatascience.com/attn-illustrated-attention-5ec4ad276ee3)
+* [Transformers beyond NLP: OpenAI Jukebox](https://openai.com/blog/jukebox/)
