@@ -97,6 +97,9 @@ conda create --clone environment_name -n name_cloned_environment
 
 * Register the conda environment to the kernel
 ```
+# Install the ipykernel package
+pip install ipykernel
+# Register it from withing the activated env
 python -m ipykernel install --name=<$NAME>
 ```
 * List all kernels
@@ -106,6 +109,19 @@ python -m jupyter kernelspec list
 * Remove a kernel
 ```
 python -m jupyter kernelspec uninstall <$NAME>
+```
+
+## SageMaker JupyterLab
+
+* Create a conda environment from yaml file
+```
+bash
+cd /folder/containing/environment.yaml
+conda env create -f environment.yaml
+# Install the ipykernel package if not already installed
+pip install ipykernel
+# Register it as a Kernel
+python -m ipykernel install --name=<$NAME>
 ```
 
 ## Best practices
