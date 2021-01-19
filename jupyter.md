@@ -92,6 +92,11 @@ jupyter notebook password
 * `%`: Line Magic
 * `%%`: Cell Magic
 
+Make autocomplete work again in Jupyter Notebooks - https://stackoverflow.com/a/64554305/791795
+```
+%config Completer.use_jedi = False
+```
+
 ### Python Kernel
 
 * [List of all magic commands](http://ipython.readthedocs.io/en/stable/interactive/magics.html)
