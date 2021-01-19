@@ -118,9 +118,10 @@ python -m jupyter kernelspec uninstall <$NAME>
 bash
 cd /folder/containing/environment.yaml
 conda env create -f environment.yaml
+conda activate <$ENV_NAME>
 # Install the ipykernel package if not already installed
 pip install ipykernel
-# Register it as a Kernel
+# Register it as a Kernel - may need to "sudo"
 python -m ipykernel install --name=<$NAME>
 ```
 
