@@ -173,6 +173,27 @@ To list registers: `:reg` or `:registers` or `:di`
 | First buffer           | `:bf[irst] / [B*`    |
 | Last buffer            | `:bl[ast] / ]B*`     |
 
+
+### Python integration
+
+Neovim needs the `neovim` and `pynvm` packages available to function properly.
+Here is how to configure an environment and make it available to neovim:
+1. Create a conda environment
+```
+$ conda create -n pynvim python=3.7
+```
+2. Install the dependencies
+```
+$ conda activate pynvim
+$ conda install pynvim neovim
+```
+3. Set the `python3_host_prog` neovim variable to the env path:
+```
+$ which python
+let g:python3_host_prog='RESULT_OF_PREVIOUS_COMMAND'
+```
+
+
 ## Resources
 
 * [Vim Lists](https://noahfrederick.com/log/a-list-of-vims-lists)
