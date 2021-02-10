@@ -130,6 +130,11 @@ SELECT nspname || '.' || relname AS "relation",
   ORDER BY pg_total_relation_size(C.oid) DESC
   LIMIT 20;
 ```
+* Sample a percentage of rows with specified random seed
+```
+-- sample a percentage of rows with specified random seed
+TABLESAMPLE BERNOULLI ({sample_percentage}) REPEATABLE (42)
+```
 
 ## Monitoring
 
