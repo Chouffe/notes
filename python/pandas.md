@@ -20,6 +20,10 @@ df.info()
 ```python
 df.describe()
 ```
+* Get 10 quantiles statistics
+```
+df.describe(percentiles=np.arange(0, 1, 0.1))
+```
 * Check value distributions
 ```python
 df['c'].value_counts()
@@ -85,7 +89,7 @@ renamed_labels = [label.replace(' ', '_') for label in df.columns]
 df.columns = renamed_labels
 ```
 
-### Filtering
+## Filtering
 
 * Create a new dataframe from a subset of columns
 ```python
@@ -106,6 +110,11 @@ df[df['type'].isin(['TV', 'Movie'])
 * Filter by value
 ```python
 df[df['rating'] > 8]
+```
+* Filter by ranges (between)
+```
+df[(df.price >= 2) & (df.price <= 4)]
+df[df.price.between(2, 4)]
 ```
 
 ### Sorting
