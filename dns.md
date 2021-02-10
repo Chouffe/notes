@@ -22,3 +22,9 @@ $IP_ADDR $DNS
 192.168.0.97 pi.hole
 ```
 * Test that it works: browser/ping
+
+## Restart DNS and clear the cache
+
+```
+sudo /etc/init.d/networking restart
+```
