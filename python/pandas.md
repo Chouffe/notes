@@ -155,6 +155,7 @@ df.sample(frac=0.25)
 * Shuffle a dataframe
 ```python
 df.sample(frac=1, random_state=0)
+df.sample(n=10, random_state=0).reset_index(drop=True)
 ```
 * Iterate over indices and rows
 ```python
