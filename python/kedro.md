@@ -13,7 +13,7 @@ from kedro.framework.session.session import _activate_session
 current_dir = Path.cwd()
 project_path = current_dir
 project_path
-session = KedroSession.create("aws_rekognition_ocr", project_path)
+session = KedroSession.create("slide_types", project_path)
 _activate_session(session)
 context = session.load_context()
 ```
