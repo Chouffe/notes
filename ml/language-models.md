@@ -11,3 +11,9 @@ $$P(W) = \sqrt[N]{\prod_{i=1}^{N} \frac{1}{P(w_i| w_1,...,w_{n-1})}}$$
 ```
 
 In practice, one uses the log of the formula for numerical stability.
+
+## BERT
+
+## Resources
+
+* [Richer Sentence Embeddings using BERT](https://medium.com/genei-technology/richer-sentence-embeddings-using-sentence-bert-part-i-ce1d9e0b1343)

@@ -42,7 +42,6 @@ Neural net training fails silently as opposed to regular software development. A
   * **ensembles**. A pretty much guaranteed 2% accurcay gain.
   * **leave it training**.
 
-
 ## Resources
 
 - [Andrej Karpathy blog - A Recipe for Training Neural Networks](http://karpathy.github.io/2019/04/25/recipe/)
