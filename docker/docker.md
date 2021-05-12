@@ -81,6 +81,9 @@ docker network connect
 ```
 docker container disconnect
 ```
+* Connect to the localhost from inside a docker container:
+  1. Solution 1: Use `--network="host"` in your docker run command, then `127.0.0.1` in your docker container will point to your docker host.
+  2. Solution 2: If you are using Docker-for-Linux 20.10.0+, you can also use the host `host.docker.internal` if you started your Docker container with the `--add-host host.docker.internal:host-gateway` option.
 
 ## Image Commands
 
