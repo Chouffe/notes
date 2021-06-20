@@ -147,6 +147,34 @@ ykman openpgp set-touch enc off
 ykman openpgp set-touch aut off
 ```
 
+### SSH setup
+
+* [Github now supports SSH security keys](https://www.yubico.com/blog/github-now-supports-ssh-security-keys/)
+
+* Generating an SSH key using a resident key - it will require you to touch the yubikey to confirm
+```
+ssh-keygen -t ecdsa-sk -O resident
+```
+The resident key can be loaded directly form the security key.
+* To use the SSH key on a new computer until it is rebooted
+```
+ssh-add -K
+```
+* To permanently import the key permanently
+```
+ssh-keygen -K
+```
+And then move the two generated files `id_ecdsa_sk_rk` and `id_ecdsa_sk_rk.pub` to your ssh directory
+
+### Github setup
+
+* Go to the config file in the `.git` folder of the project and change the https:// to:
+```
+[remote "origin"]
+  url = git@github.com:<repo-path>
+```
+
+
 ### Setup
 
 * https://www.preining.info/blog/2016/04/gnupg-subkeys-yubikey/
@@ -167,3 +195,4 @@ ykman openpgp set-touch aut off
 * https://help.github.com/en/articles/associating-an-email-with-your-gpg-key
 * https://help.github.com/en/articles/generating-a-new-gpg-key
 * https://developers.yubico.com/PGP/Card_edit.html
+* [Yubikey Guide](https://github.com/drduh/YubiKey-Guide)
