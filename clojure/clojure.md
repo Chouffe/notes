@@ -4,6 +4,7 @@
 
 * [Clojure Style Guide](https://github.com/Chouffe/clojure-style-guide)
 * [Clojure How to ns](https://stuartsierra.com/2016/clojure-how-to-ns.html)
+* [Clojure Namespace Aliases](https://stuartsierra.com/2015/05/10/clojure-namespace-aliases)
 
 ## Development
 
