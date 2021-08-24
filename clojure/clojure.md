@@ -3,11 +3,11 @@
 ## Style Guide
 
 * [Clojure Style Guide](https://github.com/Chouffe/clojure-style-guide)
+* [Clojure How to ns](https://stuartsierra.com/2016/clojure-how-to-ns.html)
 
 ## Development
 
 ### Vim Plugin
-
 
 #### Vim s-exp
 
@@ -49,6 +49,17 @@ cse[/cse]
 * Surround element in braces
 ```
 cse{/cse}
+```
+
+#### nvim Conjure
+
+* Evaluate s-expression under cursor
+```
+,ee
+```
+* Evaluate s-expression at mark `F`
+```
+,emF
 ```
 
 #### Vim Fireplace
