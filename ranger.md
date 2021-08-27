@@ -96,6 +96,9 @@ Shortcut | Description
 `n` | next match
 `N` | prev match
 `<delete>` | Delete
+`zf` + expression | setting a filter list
+`zf` + Enter | Reset filter list
+`v` | select everything
 
 
 ### Commands
