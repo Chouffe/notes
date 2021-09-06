@@ -114,6 +114,10 @@ tig stash
 ```
 git diff --name-only "$(git merge-base master HEAD)"
 ```
+* Find the 10 files taking up the most space in the repo
+```
+git ls-files | xargs ls -l | sort -nrk5 | head -n 10
+```
 
 ## Hooks
 
@@ -277,10 +281,14 @@ git config --local branch.master.pushRemote no_push
 
 ## Git LFS
 
-Install Git LFS
+* Install Git LFS
 ```
 $ sudo apt-get install git-lfs
 $ git lfs install
+```
+Clone repo without LFS objects
+```
+$ GIT_LFS_SKIP_SMUDGE=1 git clone REPO_URL
 ```
 
 ## Resources
