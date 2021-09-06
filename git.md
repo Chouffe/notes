@@ -275,6 +275,14 @@ git diff `git merge-base master HEAD`
 git config --local branch.master.pushRemote no_push
 ```
 
+## Git LFS
+
+Install Git LFS
+```
+$ sudo apt-get install git-lfs
+$ git lfs install
+```
+
 ## Resources
 
 * [Git Reset Tutorial](https://www.atlassian.com/git/tutorials/undoing-changes/git-reset)
