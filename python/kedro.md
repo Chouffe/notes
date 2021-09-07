@@ -1,5 +1,24 @@
 # Kedro
 
+* Setup an env for a kedro project
+```
+conda create --name project-env python=3.7 -y
+pip install kedro
+# Install some linters and checkers
+conda install black flake8
+```
+
+* Create a new project
+```
+kedro new
+```
+* Install dependencies
+```
+# From a fresh new command
+kedro install
+# Rebuild dependencies
+kedro install --build-reqs
+```
 * Run a pipeline by name:
 ```
 kedro run --pipeline ds
