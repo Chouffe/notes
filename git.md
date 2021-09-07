@@ -283,12 +283,24 @@ git config --local branch.master.pushRemote no_push
 
 * Install Git LFS
 ```
-$ sudo apt-get install git-lfs
-$ git lfs install
+sudo apt-get install git-lfs
+git lfs install
 ```
-Clone repo without LFS objects
+* Clone repo without LFS objects
 ```
-$ GIT_LFS_SKIP_SMUDGE=1 git clone REPO_URL
+GIT_LFS_SKIP_SMUDGE=1 git clone REPO_URL
+```
+* List lfs files in a repo
+```
+git lfs ls-files
+```
+* Invalidate the local LFS cache
+```
+git lfs prune
+```
+* Migrate a file to LFS
+```
+git lfs migrate import --yes --no-rewrite "<your-file>"
 ```
 
 ## Resources
@@ -298,3 +310,6 @@ $ GIT_LFS_SKIP_SMUDGE=1 git clone REPO_URL
 * [Tutorial: Rewriting history](https://www.atlassian.com/git/tutorials/rewriting-history)
 * [Tutorial: Rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
 * [Tutorial: Reflogs](https://www.atlassian.com/git/tutorials/rewriting-history/git-reflog)
+* [Git Large File Storage](https://docs.gitlab.com/ee/topics/git/lfs/)
+* [Git LFS official documentation](https://git-lfs.github.com/)
+* [Git LFS: Why and How to use?](https://mydeveloperplanet.com/2018/10/31/git-lfs-why-and-how-to-use/)
