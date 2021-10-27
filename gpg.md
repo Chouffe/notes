@@ -149,6 +149,11 @@ ykman openpgp set-touch aut off
 
 ### SSH setup
 
+* To use a GPG key instead of an SSH one, one can follow the instructions [there](https://github.com/drduh/YubiKey-Guide#create-configuration)
+* If the agent complains that it can't `sign_and_send_pubkey: signing failed...`, run this and try again:
+```
+gpg-connect-agent updatestartuptty /bye
+```
 * [Github now supports SSH security keys](https://www.yubico.com/blog/github-now-supports-ssh-security-keys/)
 
 * Generating an SSH key using a resident key - it will require you to touch the yubikey to confirm
