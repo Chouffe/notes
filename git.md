@@ -313,3 +313,4 @@ git lfs migrate import --yes --no-rewrite "<your-file>"
 * [Git Large File Storage](https://docs.gitlab.com/ee/topics/git/lfs/)
 * [Git LFS official documentation](https://git-lfs.github.com/)
 * [Git LFS: Why and How to use?](https://mydeveloperplanet.com/2018/10/31/git-lfs-why-and-how-to-use/)
+* [Stack Overflow: Sparse Checkout](https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934)
