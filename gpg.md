@@ -135,6 +135,7 @@ gpg-connect-agent "scd serialno" "learn --force" /bye
 ```
 gpg --armor --export arthur@caillau.me > mykey.asc
 ```
+1. Or: share with QR code scanning option from the OpenKeyChain Android App
 2. Transfer the file to your Android phone
 3. Import the key via UI - the key is now loaded into the app, it cannot be used yet as we need to let OpenKeyChain know that it is on the yubikey
 4. import Key from yubikey - this will make the imported key available for other apps like Password Store
