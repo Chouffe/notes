@@ -3,11 +3,24 @@
 * Listing public keys - metadata only
 ```
 gpg --list-public-keys
+gpg -k
 ```
+
+`pub`: your public key info
+`sub`: your public subkey info
+
 * Listing private keys - metadata only
 ```
 gpg --list-secret-keys
+gpg -K
 ```
+
+`sec`: the master/primary secret key. There is key size, keyid, creation date, expiration date and fingerprint information displayed.
+`ssb`: secret subkeys. These can be your sub signing key, encryption key or authentication key. You can have multiple subkeys.
+`uid`: this is the user information associated with the secret key. You can have multiple uids.
+`sec#`: # after sec means that your secret key is missing from the machine. But it has a reference to the secret key.
+`ssb>`: > after ssb means that your subkeys are not the machine. Instead they are on a smartcard.
+
 * Encrypt a file in binary
 ```
 # Creates a message.txt.gpg file that is encrypted
