@@ -1,5 +1,7 @@
 # GPG
 
+## Commands
+
 * Listing public keys - metadata only
 ```
 gpg --list-public-keys
@@ -99,6 +101,12 @@ echo "test message string" | gpg --armor --clearsign > signed.txt
 ```
 gpg --verify signed.txt
 ```
+
+### Renew sub-keys
+
+1. Setup the environment with the loaded master key in an airgapped system: https://github.com/drduh/YubiKey-Guide#setup-environment
+
+2. Edit the expiry date and export the public key: https://github.com/drduh/YubiKey-Guide#renewing-sub-keys
 
 ## Yubikey
 
