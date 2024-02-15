@@ -223,3 +223,4 @@ And then move the two generated files `id_ecdsa_sk_rk` and `id_ecdsa_sk_rk.pub` 
 * https://help.github.com/en/articles/generating-a-new-gpg-key
 * https://developers.yubico.com/PGP/Card_edit.html
 * [Yubikey Guide](https://github.com/drduh/YubiKey-Guide)
+* https://devhints.io/gnupg
