@@ -18,3 +18,7 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 ```
 ssh-add -L
 ```
+* Use a bastion host to scp files
+```
+scp -o ProxyCommand="ssh user@bastion  nc localhost 22" files_to_scp $remote_host:$remote_host_path
+```
