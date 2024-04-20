@@ -184,14 +184,19 @@ ssh-keygen -t ecdsa-sk -O resident
 ```
 The resident key can be loaded directly form the security key.
 * To use the SSH key on a new computer until it is rebooted
-```
+```sh
 ssh-add -K
 ```
 * To permanently import the key permanently
-```
+```sh
 ssh-keygen -K
 ```
 And then move the two generated files `id_ecdsa_sk_rk` and `id_ecdsa_sk_rk.pub` to your ssh directory
+
+* Display the ssh public key:
+```sh
+ssh-add -L
+``
 
 ### Github setup
 
