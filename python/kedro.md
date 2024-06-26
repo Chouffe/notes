@@ -1,29 +1,37 @@
 # Kedro
 
-* Setup an env for a kedro project
-```
+* Setup an env for a kedro project:
+
+```sh
 conda create --name project-env python=3.7 -y
 pip install kedro
 # Install some linters and checkers
 conda install black flake8
 ```
 
-* Create a new project
-```
+* Create a new project:
+
+```sh
 kedro new
 ```
-* Install dependencies
-```
+
+* Install dependencies:
+
+```sh
 # From a fresh new command
 kedro install
 # Rebuild dependencies
 kedro install --build-reqs
 ```
+
 * Run a pipeline by name:
-```
+
+```sh
 kedro run --pipeline ds
 ```
-* Load manually the kedro `context`
+
+* Load manually the kedro `context`:
+
 ```py
 from pathlib import Path
 from kedro.framework.session import KedroSession

@@ -2,7 +2,8 @@
 
 ### Importing
 
-* Build sample data frame
+* Build sample data frame:
+
 ```python
 df = pd.DataFrame([[1,'Bob', 'Builder'],
                   [2,'Sally', 'Baker'],
@@ -12,47 +13,62 @@ columns=['id','name', 'occupation'])
 
 ### Viewing and Inspecting
 
-* Get dataframe info
+* Get dataframe info:
+
 ```python
 df.info()
 ```
-* Get statistics
+
+* Get statistics:
+
 ```python
 df.describe()
 ```
-* Get 10 quantiles statistics
-```
+
+* Get 10 quantiles statistics:
+
+```python
 df.describe(percentiles=np.arange(0, 1, 0.1))
 ```
-* Check value distributions
+
+* Check value distributions:
+
 ```python
 df['c'].value_counts()
 df['c'].value_counts(normalize=True) # To check for frequency instead of raw counts
 df['c'].value_counts(dropna=False)   # To include the missing values in the counts
 ```
-* Count unique rows
-```
+
+* Count unique rows:
+
+```python
 len(ratings['user_id'].unique())
 ```
-* Get a list of column values
+
+* Get a list of column values:
+
 ```python
 df.columns.tolist()
 ```
 
 ### Combining
 
-* Concatenate dataframes ~ SQL UNION
+* Concatenate dataframes ~ SQL UNION:
+
 ```python
 pd.concat([df1, df2], ignore_index=True)
 ```
-* Merge dataframes ~ SQL LEFT JOIN
+
+* Merge dataframes ~ SQL LEFT JOIN:
+
 ```python
 df1.merge(df2, left_on='user_id', right_on='user_id', suffixes=('_left', '_right'))
 ```
 
 ### Transforming
 
-* Derive new column from current using arbitrary function
+* Derive new column from current using arbitrary function:
+
 ```python
 def f(string):
     ...
@@ -60,28 +76,39 @@ def f(string):
 
 df['B'] = df['A'].apply(f)
 ```
-* Derive new column from current using logical operators
+
+* Derive new column from current using logical operators:
+
 ```python
 df['B'] = df.A < threshold
 ```
+
 ```python
 df['B'] = np.where(df['A'] < 3, 1, 0)
 ```
-* Split a column in two columns
+
+* Split a column in two columns:
+
 ```python
 df['first_name'], df['last_name'] = df['name'].str.split(' ', 1).str
 ```
-* Convert column values with a mapping
+
+* Convert column values with a mapping:
+
 ```python
 df["category"] = df["category"].replace({0: 'cat', 1: 'dog'})
 ```
-* Convert column values with a mapping
+
+* Convert column values with a mapping:
+
 ```python
 level_map = {1: 'high', 2: 'medium', 3: 'low'}
 df['c_level'] = df['c'].map(level_map)
 ```
-* Rename column names
-```
+
+* Rename column names:
+
+```python
 df.rename(columns={'foo bar': 'foo_bar', 'qu ux': 'quux'}
 
 # Renaming in Batch
@@ -91,46 +118,61 @@ df.columns = renamed_labels
 
 ## Filtering
 
-* Create a new dataframe from a subset of columns
+* Create a new dataframe from a subset of columns:
+
 ```python
 df[['user_id', 'name', rating']]
 ```
-* Drop specified columns
+
+* Drop specified columns:
+
 ```python
 df.drop(['user_id', 'name'], axis=1)
 ```
-* Retrieve rows by numbered index values
+
+* Retrieve rows by numbered index values:
+
 ```python
 df.iloc[0:3]
 ```
-* Retrieve rows where a column's value is in a given list
+
+* Retrieve rows where a column's value is in a given list:
+
 ```python
 df[df['type'].isin(['TV', 'Movie'])
 ```
-* Filter by value
+
+* Filter by value:
+
 ```python
 df[df['rating'] > 8]
 ```
-* Filter by ranges (between)
-```
+
+* Filter by ranges (between):
+
+```python
 df[(df.price >= 2) & (df.price <= 4)]
 df[df.price.between(2, 4)]
 ```
 
 ### Sorting
 
-* Sort a dataframe by values in a column
+* Sort a dataframe by values in a column:
+
 ```python
 df.sort_values('rating', ascending=False)
 ```
 
 ### Aggregating
 
-* Count number of records for each disting value in a column
+* Count number of records for each disting value in a column:
+
 ```python
 df.groupby('type').count()
 ```
-* Aggregate columns in different ways
+
+* Aggregate columns in different ways:
+
 ```python
 df.groupby(["type"]).agg({
   "rating": "sum",
@@ -141,28 +183,36 @@ df.groupby(["type"]).agg({
 
 ### Cleaning
 
-* Set NaN cells to some values
+* Set NaN cells to some values:
+
 ```python
 df.fillna(0)
 ```
 
 ### Misc
 
-* Sample a dataframe
+* Sample a dataframe:
+
 ```python
 df.sample(frac=0.25)
 ```
-* Shuffle a dataframe
+
+* Shuffle a dataframe:
+
 ```python
 df.sample(frac=1, random_state=0)
 df.sample(n=10, random_state=0).reset_index(drop=True)
 ```
-* Iterate over indices and rows
+
+* Iterate over indices and rows:
+
 ```python
 for idx, row in df.iterrows():
     pass
 ```
-* No truncated text
+
+* No truncated text:
+
 ```python
 pd.set_option('display.max_colwidth', -1)
 ```

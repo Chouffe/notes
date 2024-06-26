@@ -286,7 +286,6 @@ docker stack rm <name>
 docker swarm leave --force
 ```
 
-
 ## Build
 
 * Create image using current directory's Dockerfile
@@ -798,3 +797,7 @@ docker container prune
 docker volume prune
 docker network prune
 ```
+
+## Resources
+
+- [AWS and Docker Tutorial beginner](https://docker-curriculum.com/)

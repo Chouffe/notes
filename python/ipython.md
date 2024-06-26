@@ -3,72 +3,102 @@
 ## Extensions
 
 * Introduction and overview of IPython's features
-```
+
+```sh
 ?
 ```
+
 * Detail about `object`
-```
+
+```sh
 object?
 ```
+
 * Extra detail about `object`
-```
+
+```sh
 object??
 ```
 
 ## Magic commands
 
-* List all the magic commands available
-```
+* List all the magic commands available:
+
+```sh
 %lsmagic
 ```
-* Show a quickreference sheet
-```
+
+* Show a quickreference sheet:
+
+```sh
 %quickref
 ```
-* Reload all modules every time before executing the Python code typed
-```
+
+* Reload all modules every time before executing the Python code typed:
+
+```sh
 %load_ext autoreload
 %autoreload 2
 ```
-* List the commands ran during the session
-```
+
+* List the commands ran during the session:
+
+```sh
 %history
 %hist
 ```
-* List environment variables
-```
+
+* List environment variables:
+
+```sh
 %env
 ```
-* Set environment variables
-```
+
+* Set environment variables:
+
+```sh
 %set_env ENV_NAME=ENV_VALUE
 ```
-* Time execution of a python statement
-```
+
+* Time execution of a python statement:
+
+```sh
 %time
 ```
-* Run the pip package manager within the current kernel
-```
+
+* Run the pip package manager within the current kernel:
+
+```sh
 %pip
 ```
-* Print all interactive variables
-```
+
+* Print all interactive variables:
+
+```sh
 %who
 ```
-* Run external python file
-```
+
+* Run external python file:
+
+```sh
 %run filename.py
 ```
-* Display the content of external file
-```
+
+* Display the content of external file:
+
+```sh
 %pycat filename.py
 ```
-* Object detailed information
-```
+
+* Object detailed information:
+
+```sh
 a = "hello world"
 %pinfo a
 ```
-* Paste multiple lines as a block
-```
+
+* Paste multiple lines as a block:
+
+```sh
 %paste
 ```

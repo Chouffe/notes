@@ -2,6 +2,92 @@
 
 ## CloudFormation
 
+AWS CloudFormation is a service that helps you model and set up your
+AWS resources so that you can spend less time managing those resources
+and more time focusing on your applications that run in AWS. You create
+a template that describes all the AWS resources that you want (like
+Amazon EC2 instances or Amazon RDS DB instances), and CloudFormation
+takes care of provisioning and configuring those resources for you.
+
+### Templates
+
+A template is a declaration of the AWS resources that make up a stack.
+The template is stored as a text file whose format complies with the
+JavaScript Object Notation (JSON) or YAML standard.
+
+The anatomy of a template is [documented here](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html).
+The following example shows a yaml formatted template fragment:
+
+```yaml
+---
+AWSTemplateFormatVersion: "version date"
+
+Description:
+  String
+
+Metadata:
+  template metadata
+
+Parameters:
+  set of parameters
+
+Rules:
+  set of rules
+
+Mappings:
+  set of mappings
+
+Conditions:
+  set of conditions
+
+Transform:
+  set of transforms
+
+Resources:
+  set of resources
+
+Outputs:
+  set of outputs
+```
+
+The `Resources` section is the only one required section.
+
+- __Format Version:__ string and version date.
+- __Description:__ string describing the template.
+- __Metadata:__ Objects that provide additional information about the template.
+- __Parameters:__ Values to pass to your template at runtime. They can be referred from the `Resources` and `Outputs` sections.
+- __Rules:__ Validates a parameter or a combination of parameters passed to a template.
+- __Mappings:__ a mapping of keys and associated values that you can use to specify conditional parameter values, like a lookup table. `Fn::FindInMap` is used from the `Resources` and `Outputs` sections.
+- __Conditions:__ controls to create certain resources. Eg. Conditionally create a resource that depends on whether the stack is for production or test.
+- __Transform:__ For serverless applications, specifies the version of the AWS Serverless Application Model to use.
+- __Resources:__ Specifies the stack resources and their properties, such as EC2, RDS, S3, etc.
+- __Outputs:__ Describes the values that are returned whenever you view your stack's properties. Eg. S3 bucket URI, RDS URI, etc.
+
+### Parameters
+
+Examples:
+
+```yaml
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access into the WordPress web server
+    Type: AWS::EC2::KeyPair::KeyName
+  WordPressUser:
+    Default: admin
+    NoEcho: true
+    Description: The WordPress database admin account user name
+    Type: String
+    MinLength: 1
+    MaxLength: 16
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+  WebServerPort:
+    Default: 8888
+    Description: TCP/IP port for the WordPress web server
+    Type: Number
+    MinValue: 1
+    MaxValue: 65535
+```
+
 ### Best practices
 
 * Use cross stack references to reference a VPC or subnets
@@ -240,7 +326,7 @@ services/
 
 ### Dockerrun.aws.json
 
-* At least one `containerDefintions` must be marked as essential
+* At least one `containerDefinitions` must be marked as essential
 ```json
 {
   "AWSEBDockerrunVersion": 2,
@@ -323,3 +409,7 @@ services/
 ### Bastions
 
 A bastion is used to securely administer EC2 instances (using SSH). They are also called jump boxes.
+
+### Resources & Documentations
+
+- [Get Started](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/gettingstarted.templatebasics.html)

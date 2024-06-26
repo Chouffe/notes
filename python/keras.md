@@ -2,7 +2,8 @@
 
 ## Callbacks
 
-* Interrupt training when the validation loss is not decreasing anymore
+* Interrupt training when the validation loss is not decreasing anymore:
+
 ```python
 from keras.callbacks import EarlyStopping
 
@@ -10,7 +11,8 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=2)
 model.fit(X, y, validation_split=0.2, callbacks=[early_stopping])
 ```
 
-* Tensorboard Logging
+* Tensorboard Logging:
+
 ```python
 from keras.callbacks import TensorBoard
 
@@ -21,7 +23,8 @@ tensorboard = TensorBoard(
 )
 ```
 
-* Model Checkpointing
+* Model Checkpointing:
+
 ```python
 modelCheckPoint = ModelCheckpoint(
     './checkpoints/%s.hdf5' %  filename,
@@ -32,7 +35,8 @@ modelCheckPoint = ModelCheckpoint(
 )
 ```
 
-* Output of an intermediate layer
+* Output of an intermediate layer:
+
 ```python
 from keras.models import Model
 

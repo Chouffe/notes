@@ -22,9 +22,9 @@ if __name__ == '__main__':     # Runs main() if file wasn't imported.
     main()
 ```
 
-
 List
 ----
+
 ```python
 <list> = <list>[from_inclusive : to_exclusive : ±step_size]
 ```
@@ -91,6 +91,7 @@ value = <dict>.pop(key)                         # Removes item or raises KeyErro
 ```
 
 ### Counter
+
 ```python
 >>> from collections import Counter
 >>> colors = ['blue', 'blue', 'blue', 'red', 'red']
@@ -101,9 +102,9 @@ Counter({'blue': 3, 'red': 2, 'yellow': 1})
 ('blue', 3)
 ```
 
-
 Set
 ---
+
 ```python
 <set> = set()
 ```
@@ -129,8 +130,10 @@ Set
 ```
 
 ### Frozen Set
+
 * **Is immutable and hashable.**
 * **That means it can be used as a key in a dictionary or as an element in a set.**
+
 ```python
 <frozenset> = frozenset(<collection>)
 ```
@@ -138,7 +141,9 @@ Set
 
 Tuple
 -----
+
 **Tuple is an immutable and hashable list.**
+
 ```python
 <tuple> = ()
 <tuple> = (<el>, )
@@ -146,6 +151,7 @@ Tuple
 ```
 
 ### Named Tuple
+
 **Tuple's subclass with named elements.**
 
 ```python
@@ -163,9 +169,9 @@ Point(x=1, y=2)
 ('x', 'y')
 ```
 
-
 Range
 -----
+
 ```python
 <range> = range(to_exclusive)
 <range> = range(from_inclusive, to_exclusive)
@@ -177,17 +183,17 @@ from_inclusive = <range>.start
 to_exclusive   = <range>.stop
 ```
 
-
 Enumerate
 ---------
+
 ```python
 for i, el in enumerate(<collection> [, i_start]):
     ...
 ```
 
-
 Iterator
 --------
+
 ```python
 <iter> = iter(<collection>)                 # `iter(<iter>)` returns unmodified iterator.
 <iter> = iter(<function>, to_exclusive)     # A sequence of return values until 'to_exclusive'.
@@ -196,6 +202,7 @@ Iterator
 ```
 
 ### Itertools
+
 ```python
 from itertools import count, repeat, cycle, chain, islice
 ```
@@ -216,9 +223,9 @@ from itertools import count, repeat, cycle, chain, islice
 <iter> = islice(<collection>, from_inclusive, to_exclusive [, +step_size])
 ```
 
-
 Generator
 ---------
+
 * **Any function that contains a yield statement returns a generator.**
 * **Generators and iterators are interchangeable.**
 
@@ -235,9 +242,9 @@ def count(start, step):
 (10, 12, 14)
 ```
 
-
 Type
 ----
+
 * **Everything is an object.**
 * **Every object has a type.**
 * **Type and class are synonymous.**
@@ -253,12 +260,16 @@ Type
 ```
 
 #### Some types do not have built-in names, so they must be imported:
+
 ```python
 from types import FunctionType, MethodType, LambdaType, GeneratorType
 ```
 
 ### Abstract Base Classes
-**Each abstract base class specifies a set of virtual subclasses. These classes are then recognized by isinstance() and issubclass() as subclasses of the ABC, although they are really not.**
+
+**Each abstract base class specifies a set of virtual subclasses. These classes
+are then recognized by isinstance() and issubclass() as subclasses of the ABC,
+although they are really not.**
 
 ```python
 >>> from collections.abc import Sequence, Collection, Iterable
@@ -294,9 +305,9 @@ True
 +--------------------+----------+----------+----------+----------+----------+
 ```
 
-
 String
 ------
+
 ```python
 <str>  = <str>.strip()                       # Strips all whitespace characters from both ends.
 <str>  = <str>.strip('<chars>')              # Strips all passed characters from both ends.
@@ -330,6 +341,7 @@ String
 * **Also: `'lower()'`, `'upper()'`, `'capitalize()'` and `'title()'`.**
 
 ### Property Methods
+
 ```text
 +---------------+----------+----------+----------+----------+----------+
 |               | [ !#$%…] | [a-zA-Z] |  [¼½¾]   |  [²³¹]   |  [0-9]   |
@@ -341,11 +353,13 @@ String
 | isdecimal()   |          |          |          |          |   yes    |
 +---------------+----------+----------+----------+----------+----------+
 ```
+
 * **Also: `'isspace()'` checks for `'[ \t\n\r\f\v…]'`.**
 
 
 Regex
 -----
+
 ```python
 import re
 <str>   = re.sub(<regex>, new, text, count=0)  # Substitutes all occurrences with 'new'.
@@ -364,6 +378,7 @@ import re
 * **Add `'?'` after an operator to make it non-greedy.**
 
 ### Match Object
+
 ```python
 <str>   = <Match>.group()                      # Returns the whole match. Also group(0).
 <str>   = <Match>.group(1)                     # Returns part in the first bracket.
@@ -373,23 +388,27 @@ import re
 ```
 
 ### Special Sequences
-* **By default digits, alphanumerics and whitespaces from all alphabets are matched, unless `'flags=re.ASCII'` argument is used.**
+
+* **By default digits, alphanumerics and whitespaces from all alphabets are
+matched, unless `'flags=re.ASCII'` argument is used.**
 * **Use a capital letter for negation.**
+
 ```python
 '\d' == '[0-9]'                                # Matches any digit.
 '\w' == '[a-zA-Z0-9_]'                         # Matches any alphanumeric.
 '\s' == '[ \t\n\r\f\v]'                        # Matches any whitespace.
 ```
 
-
 Format
 ------
+
 ```python
 <str> = f'{<el_1>}, {<el_2>}'
 <str> = '{}, {}'.format(<el_1>, <el_2>)
 ```
 
 ### Attributes
+
 ```python
 >>> from collections import namedtuple
 >>> Person = namedtuple('Person', 'name height')
@@ -401,6 +420,7 @@ Format
 ```
 
 ### General Options
+
 ```python
 {<el>:<10}                                     # '<el>      '
 {<el>:^10}                                     # '   <el>   '
@@ -410,7 +430,10 @@ Format
 ```
 
 ### Strings
-**`'!r'` calls object's [repr()](#class) method, instead of [str()](#class), to get a string.**
+
+**`'!r'` calls object's [repr()](#class) method, instead of [str()](#class), to
+get a string.**
+
 ```python
 {'abcde'!r:10}                                 # "'abcde'   "
 {'abcde':10.3}                                 # 'abc       '
@@ -418,6 +441,7 @@ Format
 ```
 
 ### Numbers
+
 ```python
 { 123456:10,}                                  # '   123,456'
 { 123456:10_}                                  # '   123_456'
@@ -428,6 +452,7 @@ Format
 ```
 
 ### Floats
+
 ```python
 {1.23456:10.3}                                 # '      1.23'
 {1.23456:10.3f}                                # '     1.235'
@@ -435,7 +460,8 @@ Format
 {1.23456:10.3%}                                # '  123.456%'
 ```
 
-#### Comparison of presentation types:
+#### Comparison of presentation types
+
 ```text
 +---------------+-----------------+-----------------+-----------------+-----------------+
 |               |    {<float>}    |   {<float>:f}   |   {<float>:e}   |   {<float>:%}   |
@@ -466,16 +492,18 @@ Format
 ```
 
 ### Ints
+
 ```python
 {90:c}                                   # 'Z'
 {90:b}                                   # '1011010'
 {90:X}                                   # '5A'
 ```
 
-
 Numbers
 -------
+
 ### Types
+
 ```python
 <int>      = int(<float/str/bool>)       # Or: math.floor(<float>)
 <float>    = float(<int/str/bool>)       # Or: <real>e±<int>
@@ -483,11 +511,13 @@ Numbers
 <Fraction> = fractions.Fraction(0, 1)    # Or: Fraction(numerator=0, denominator=1)
 <Decimal>  = decimal.Decimal(<str/int>)  # Or: Decimal((sign, digits, exponent))
 ```
+
 * **`'int(<str>)'` and `'float(<str>)'` raise ValueError on malformed strings.**
 * **Decimal numbers can be represented exactly, unlike floats where `'1.1 + 2.2 != 3.3'`.**
 * **Precision of decimal operations is set with: `'decimal.getcontext().prec = <int>'`.**
 
 ### Basic Functions
+
 ```python
 <num> = pow(<num>, <num>)                # Or: <num> ** <num>
 <num> = abs(<num>)                       # <float> = abs(<complex>)
@@ -495,6 +525,7 @@ Numbers
 ```
 
 ### Math
+
 ```python
 from math import e, pi, inf, nan, isinf, isnan
 from math import cos, acos, sin, asin, tan, atan, degrees, radians
@@ -502,11 +533,13 @@ from math import log, log10, log2
 ```
 
 ### Statistics
+
 ```python
 from statistics import mean, median, variance, stdev, pvariance, pstdev
 ```
 
 ### Random
+
 ```python
 from random import random, randint, choice, shuffle
 <float> = random()
@@ -516,6 +549,7 @@ shuffle(<list>)
 ```
 
 ### Bin, Hex
+
 ```python
 <int> = ±0b<bin>                         # Or: ±0x<hex>
 <int> = int('±<bin>', 2)                 # Or: int('±<hex>', 16)
@@ -524,6 +558,7 @@ shuffle(<list>)
 ```
 
 ### Bitwise Operators
+
 ```python
 <int> = <int> & <int>                    # And
 <int> = <int> | <int>                    # Or
@@ -532,9 +567,9 @@ shuffle(<list>)
 <int> = ~<int>                           # Not (also: -<int> - 1)
 ```
 
-
 Combinatorics
 -------------
+
 * **Every function returns an iterator.**
 * **If you want to print the iterator, you need to pass it to the list() function first!**
 
@@ -574,9 +609,9 @@ from itertools import product, combinations, combinations_with_replacement, perm
  ('c', 'a'), ('c', 'b')]
 ```
 
-
 Datetime
 --------
+
 * **Module 'datetime' provides 'date' `<D>`, 'time' `<T>`, 'datetime' `<DT>` and 'timedelta' `<TD>` classes. All are immutable and hashable.**
 * **Time and datetime objects can be 'aware' `<a>`, meaning they have defined timezone, or 'naive' `<n>`, meaning they don't.**
 * **If object is naive, it is presumed to be in the system's timezone.**
@@ -587,6 +622,7 @@ from dateutil.tz import UTC, tzlocal, gettz, resolve_imaginary
 ```
 
 ### Constructors
+
 ```python
 <D>  = date(year, month, day)
 <T>  = time(hour=0, minute=0, second=0, microsecond=0, tzinfo=None, fold=0)
@@ -599,6 +635,7 @@ from dateutil.tz import UTC, tzlocal, gettz, resolve_imaginary
 * **`'<DTa> = resolve_imaginary(<DTa>)'` fixes DTs that fall into the missing hour.**
 
 ### Now
+
 ```python
 <D/DTn>  = D/DT.today()                     # Current local date or naive datetime.
 <DTn>    = DT.utcnow()                      # Naive datetime from current UTC time.
@@ -607,6 +644,7 @@ from dateutil.tz import UTC, tzlocal, gettz, resolve_imaginary
 * **To extract time use `'<DTn>.time()'`, `'<DTa>.time()'` or `'<DTa>.timetz()'`.**
 
 ### Timezone
+
 ```python
 <tzinfo> = UTC                              # UTC timezone. London without DST.
 <tzinfo> = tzlocal()                        # Local timezone. Also gettz().
@@ -616,6 +654,7 @@ from dateutil.tz import UTC, tzlocal, gettz, resolve_imaginary
 ```
 
 ### Encode
+
 ```python
 <D/T/DT> = D/T/DT.fromisoformat('<iso>')    # Object from ISO string. Raises ValueError.
 <DT>     = DT.strptime(<str>, '<format>')   # Datetime from str, according to format.
@@ -623,10 +662,13 @@ from dateutil.tz import UTC, tzlocal, gettz, resolve_imaginary
 <DTn>    = DT.fromtimestamp(<real>)         # Local time DTn from seconds since Epoch.
 <DTa>    = DT.fromtimestamp(<real>, <tz.>)  # Aware datetime from seconds since Epoch.
 ```
-* **ISO strings come in following forms: `'YYYY-MM-DD'`, `'HH:MM:SS.ffffff[±<offset>]'`, or both separated by an arbitrary character. Offset is formatted as: `'HH:MM'`.**
+* **ISO strings come in following forms: `'YYYY-MM-DD'`,
+`'HH:MM:SS.ffffff[±<offset>]'`, or both separated by an arbitrary character.
+Offset is formatted as: `'HH:MM'`.**
 * **Epoch on Unix systems is: `'1970-01-01 00:00 UTC'`, `'1970-01-01 01:00 CET'`, ...**
 
 ### Decode
+
 ```python
 <str>    = <D/T/DT>.isoformat(sep='T')      # Also timespec='auto/hours/minutes/seconds'.
 <str>    = <D/T/DT>.strftime('<format>')    # Custom string representation.
@@ -636,6 +678,7 @@ from dateutil.tz import UTC, tzlocal, gettz, resolve_imaginary
 ```
 
 ### Format
+
 ```python
 >>> from datetime import datetime
 >>> dt = datetime.strptime('2015-05-14 23:39:00.00 +0200', '%Y-%m-%d %H:%M:%S.%f %z')
@@ -646,6 +689,7 @@ from dateutil.tz import UTC, tzlocal, gettz, resolve_imaginary
 * **For abbreviated weekday and month use `'%a'` and `'%b'`.**
 
 ### Arithmetics
+
 ```python
 <D/DT>   = <D/DT>   ± <TD>                  # Returned datetime can fall into missing hour.
 <TD>     = <D/DTn>  - <D/DTn>               # Returns the difference, ignoring time jumps.
@@ -653,10 +697,11 @@ from dateutil.tz import UTC, tzlocal, gettz, resolve_imaginary
 <TD>     = <DT_UTC> - <DT_UTC>              # Convert DTs to UTC to get the actual delta.
 ```
 
-
 Arguments
 ---------
+
 ### Inside Function Call
+
 ```python
 <function>(<positional_args>)                  # f(0, 0)
 <function>(<keyword_args>)                     # f(x=0, y=0)
@@ -664,17 +709,21 @@ Arguments
 ```
 
 ### Inside Function Definition
+
 ```python
 def f(<nondefault_args>):                      # def f(x, y):
 def f(<default_args>):                         # def f(x=0, y=0):
 def f(<nondefault_args>, <default_args>):      # def f(x, y=0):
 ```
 
-
 Splat Operator
 --------------
+
 ### Inside Function Call
-**Splat expands a collection into positional arguments, while splatty-splat expands a dictionary into keyword arguments.**
+
+**Splat expands a collection into positional arguments, while splatty-splat
+expands a dictionary into keyword arguments.**
+
 ```python
 args   = (1, 2)
 kwargs = {'x': 3, 'y': 4, 'z': 5}
@@ -682,12 +731,16 @@ func(*args, **kwargs)
 ```
 
 #### Is the same as:
+
 ```python
 func(1, 2, x=3, y=4, z=5)
 ```
 
 ### Inside Function Definition
-**Splat combines zero or more positional arguments into a tuple, while splatty-splat combines zero or more keyword arguments into a dictionary.**
+
+**Splat combines zero or more positional arguments into a tuple, while
+splatty-splat combines zero or more keyword arguments into a dictionary.**
+
 ```python
 def add(*a):
     return sum(a)
@@ -698,7 +751,8 @@ def add(*a):
 6
 ```
 
-#### Legal argument combinations:
+#### Legal argument combinations
+
 ```python
 def f(x, y, z):                # f(x=1, y=2, z=3) | f(1, y=2, z=3) | f(1, 2, z=3) | f(1, 2, 3)
 def f(*, x, y, z):             # f(x=1, y=2, z=3)
@@ -727,6 +781,7 @@ def f(x, *args, z, **kwargs):  # f(x=1, y=2, z=3) | f(1, y=2, z=3) | f(1, 2, z=3
 ```
 
 ### Other Uses
+
 ```python
 <list>  = [*<collection> [, ...]]
 <set>   = {*<collection> [, ...]}
@@ -738,16 +793,18 @@ def f(x, *args, z, **kwargs):  # f(x=1, y=2, z=3) | f(1, y=2, z=3) | f(1, 2, z=3
 head, *body, tail = <collection>
 ```
 
-
 Inline
 ------
+
 ### Lambda
+
 ```python
 <function> = lambda: <return_value>
 <function> = lambda <argument_1>, <argument_2>: <return_value>
 ```
 
 ### Comprehensions
+
 ```python
 <list> = [i+1 for i in range(10)]                   # [1, 2, ..., 10]
 <set>  = {i for i in range(10) if i > 5}            # {6, 7, 8, 9}
@@ -759,7 +816,8 @@ Inline
 out = [i+j for i in range(10) for j in range(10)]
 ```
 
-#### Is the same as:
+#### Is the same as
+
 ```python
 out = []
 for i in range(10):
@@ -768,6 +826,7 @@ for i in range(10):
 ```
 
 ### Map, Filter, Reduce
+
 ```python
 from functools import reduce
 <iter> = map(lambda x: x + 1, range(10))            # (1, 2, ..., 10)
@@ -776,12 +835,14 @@ from functools import reduce
 ```
 
 ### Any, All
+
 ```python
 <bool> = any(<collection>)                          # False if empty.
 <bool> = all(el[1] for el in <collection>)          # True if empty.
 ```
 
 ### If - Else
+
 ```python
 <obj> = <expression_if_true> if <condition> else <expression_if_false>
 ```
@@ -792,6 +853,7 @@ from functools import reduce
 ```
 
 ### Namedtuple, Enum, Dataclass
+
 ```python
 from collections import namedtuple
 Point     = namedtuple('Point', 'x y')
@@ -810,9 +872,9 @@ Creature  = make_dataclass('Creature', ['location', 'direction'])
 creature  = Creature(Point(0, 0), Direction.n)
 ```
 
-
 Closure
 -------
+
 **We have a closure in Python when:**
 * **A nested function references a value of its enclosing function and then**
 * **the enclosing function returns the nested function.**
@@ -834,6 +896,7 @@ def get_multiplier(a):
 * **To dynamically access function's first free variable use `'<function>.__closure__[0].cell_contents'`.**
 
 ### Partial
+
 ```python
 from functools import partial
 <function> = partial(<function> [, <arg_1>, <arg_2>, ...])
@@ -849,7 +912,9 @@ from functools import partial
 * **A few examples being: `'defaultdict(<function>)'`, `'iter(<function>, to_exclusive)'` and dataclass's `'field(default_factory=<function>)'`.**
 
 ### Non-Local
-**If variable is being assigned to anywhere in the scope, it is regarded as a local variable, unless it is declared as a 'global' or a 'nonlocal'.**
+
+**If variable is being assigned to anywhere in the scope, it is regarded as a
+local variable, unless it is declared as a 'global' or a 'nonlocal'.**
 
 ```python
 def get_counter():
@@ -867,9 +932,9 @@ def get_counter():
 (1, 2, 3)
 ```
 
-
 Decorator
 ---------
+
 **A decorator takes a function, adds some functionality and returns it.**
 
 ```python
@@ -879,6 +944,7 @@ def function_that_gets_passed_to_decorator():
 ```
 
 ### Debugger Example
+
 **Decorator that prints function's name every time it gets called.**
 
 ```python
@@ -895,10 +961,13 @@ def debug(func):
 def add(x, y):
     return x + y
 ```
-* **Wraps is a helper decorator that copies the metadata of the passed function (func) to the function it is wrapping (out).**
+
+* **Wraps is a helper decorator that copies the metadata of the passed function
+(func) to the function it is wrapping (out).**
 * **Without it `'add.__name__'` would return `'out'`.**
 
 ### LRU Cache
+
 **Decorator that caches function's return values. All function's arguments must be hashable.**
 
 ```python
