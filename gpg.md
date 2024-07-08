@@ -202,6 +202,14 @@ gpg --armor --export arthur@caillau.me > mykey.asc
 4. import Key from yubikey - this will make the imported key available for
    other apps like Password Store
 
+### Change Admin PIN
+
+One can change PIN and Admin PIN using this command:
+
+```sh
+gpg --change-pin
+```
+
 ### Require Touch
 
 * Signing
