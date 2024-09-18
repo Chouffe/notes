@@ -219,3 +219,145 @@ str(qs.query)
 ## Admin
 
 The admin panel is available at `localhost:8000/admin/`.
+
+Models need to be registered in their associated apps:
+
+```python
+from django.contrib import admin
+
+admin.site.register(Model)
+```
+
+Forms are automatically generated from the `Model` fields.
+
+## Views
+
+A view is a type of web page that generally serves a specific function and has
+a specific template.
+In Django, web pages and other content are delivered by views. A view is
+represented by a python function. URLs are matched to the requested views.
+
+### Templates
+
+Jinja templates can be used for server side rendering.
+Example of template filename: `myapp/templates/myapp/mytemplate.html`
+
+Documentation [here](https://docs.djangoproject.com/en/5.1/topics/templates/).
+
+A template is rendered with a `context`. Rendering remplaces variables with
+their values, which are looked up in the context, and executes tags. Everything
+else is output as is.
+
+#### Variables
+
+Variables are surrounded by `{{` and `}}`.
+
+```jinja
+My first name is {{ first_name }}. My last name is {{ last_name }}.
+```
+
+Dictionnary lookup, attribute lookup and list-index lookups are implemented
+with a dot notation.
+
+```jinja
+{{ my_dict.key }}
+{{ my_object.attribute }}
+{{ my_list.0 }}
+```
+
+If a variable resolves to a callable, the template system calls it with no
+argument and use its result instead of the callable.
+
+#### Tags
+
+Tags provide arbitrary logic in the rendering process: output content, serve as
+a control structure, grab content from a database, enable access to other
+template tags, etc.
+
+```jinja
+{% csrf_token %}
+```
+
+```jinja
+{% if user.is_authenticated %}Hello, {{ user.username }}.{% endif %}
+```
+
+Reference of built-in tags [here](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#ref-templates-builtins-tags).
+It is also possible to [write custom tags](https://docs.djangoproject.com/en/5.1/howto/custom-template-tags/#howto-writing-custom-template-tags).
+
+##### Common tags
+
+`url`: it uses the `name` parameter from the `path` call.
+
+```jinja
+<li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
+```
+
+It is common to namespace URLs by providing the `app_name` variable in `myapp/urls.py`.
+Then it becomes possible to namespace the URL like so:
+
+```jinja
+<li><a href="{% url 'myapp:detail' question.id %}">{{ question.question_text }}</a></li>
+```
+
+__Note__: It removes the hardcoded link and use the urlpatterns provided in the
+configuration.
+
+#### Filters
+
+Filters transform the values of variables and tag arguments.
+
+```jinja
+{{ django|title }}
+```
+
+Some filters can take an argument:
+
+```jinja
+{{ my_date|date:"Y-m-d" }}
+```
+
+Reference of built-in filters [here](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#ref-templates-builtins-filters).
+It is also possible to [write custom filters](https://docs.djangoproject.com/en/5.1/howto/custom-template-tags/#howto-writing-custom-template-filters).
+
+#### Comments
+
+single line comment
+
+```jinja
+{# this won't be rendered #}
+```
+
+multi line comment
+
+```jinja
+{% comment "Optional note" %}
+  <p>Commented out text.</p>
+{% endcomment %}
+```
+
+### Shorcuts
+
+- `django.shortcut.render`:
+
+```python
+from django.shorcuts import render
+
+def index(request):
+    ...
+    context = { "x": 42, "y": "hello world" }
+    return render(request=request, template_name="myapp/mytemplate.html", context=context)
+```
+
+- `get_object_or_404()`:
+
+```python
+from django.shorcuts import get_object_or_404
+
+def detail(request, id):
+    obj = get_object_or_404(Model, pk=id)
+    return render(...)
+```
+
+__Note__: `get_list_or_404` works similarly except using `filter` instead of
+`get`.
