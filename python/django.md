@@ -230,6 +230,84 @@ admin.site.register(Model)
 
 Forms are automatically generated from the `Model` fields.
 
+### Customizing admin forms
+
+slight customization can happen by subclassing an `admin.ModelAdmin`:
+
+```python
+from django.contrib import admin
+
+from .models import Question
+
+class QuestionAdmin(admin.ModelAdmin):
+    # Allows ordering the fields in the order desired for instance.
+    # fields = ["pub_date", "question_text"]
+
+    fieldsets = [
+        (None, {"fields": ["question_text"]}),
+        ("Date information", {"fields": ["pub_date"]}),
+    ]
+
+admin.site.register(Question, QuestionAdmin)
+```
+
+#### Adding related objects
+
+It is possible (and often better) to allow the creation of related objects from
+the same admin form. Using `admin.StackedInline` or `admin.TabularInline` makes
+it possible.
+
+```python
+from .models import Choice, Question
+
+class ChoiceInline(admin.StackedInline):
+    model = Choice
+    extra = 3
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    fieldsets = ...
+    inlines = [ChoiceInline]
+```
+
+### Change List
+
+By default Django displays the `str()` of each object. But sometimes, it would
+be more useful to display individual fields. Using the `list_display` admin
+option lets one just do this. It is also possible to display the method calls.
+
+```python
+class QuestionAdmin(admin.ModelAdmin):
+    ...
+    list_display = ["question_text", "pub_date", "was_published_recently"]
+```
+
+It is also possible to override the default method str by decorating the model method:
+
+```python
+class Question(models.Model):
+
+    ...
+    @admin.display(
+        boolean=True,
+        ordering="pub_date",
+        description="Published recently?",
+    )
+    def was_published_recently(self) -> bool:
+        ...
+```
+
+### Filters
+
+It is possible to add filters to the List View by specifying field attributes
+in `list_filter`:
+
+```python
+class QuestionAdmin(admin.ModelAdmin):
+    ...
+    list_filter = ["pub_date"]
+```
+
 ## Views
 
 A view is a type of web page that generally serves a specific function and has
@@ -460,3 +538,14 @@ from django.test.utils import setup_test_environment
 __Note__: `setup_test_environment` installs a template renderer which allows
 one to examine additional attributes on responses. Especially
 `response.context` which is the context dictionnary used in the template.
+
+## Static Files
+
+The `staticfiles` app collects static files from each application into a single
+location that can easily be served in production.
+
+create a `static` directory in `myapp`: `myapp/static/myapp/`.
+one can serve anything from stylesheets to images.
+
+Documentation for managing static files in Django
+[here](https://docs.djangoproject.com/en/5.1/howto/static-files/).
