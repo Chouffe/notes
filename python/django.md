@@ -239,8 +239,31 @@ represented by a python function. URLs are matched to the requested views.
 
 ### Generic Views
 
+Documentation on generic views [here](https://docs.djangoproject.com/en/5.1/topics/class-based-views/).
+
 `ListView` and `DetailView` generic views abstract the concept of displaying a
 list of objects and displaying a detail page for a particular type of object.
+
+A generic view needs to know what model it will be acting upon. It is provided
+either with the `model` attribute or the `get_queryset()` method.
+By default, the template used is `myapp/model_name_detail.html` or
+`myapp/model_name_index.html`. Specify the `template_name` attribute to
+override it.
+
+The default `context_object_name` is `model_name_list`. To override it, specify
+a value for `context_object_name`.
+
+```python
+from django.views import generic
+
+class IndexView(generic.ListView):
+    template_name = "polls/index.html"
+    context_object_name = "latest_question_list"
+
+    def get_queryset(self):
+        """Returns the last five published questions."""
+        return Question.objects.order_by("-pub_date")[:5]
+```
 
 ### Templates
 
