@@ -404,3 +404,59 @@ Request and response objects [documentation](https://docs.djangoproject.com/en/5
 by key name. Values are always strings.
 `KeyError` is raised if the key is not present in the POST dictionnary like
 object.
+
+## Tests
+
+Documentation for testing in Django [here](https://docs.djangoproject.com/en/5.1/topics/testing/):
+
+- [Writing tests](https://docs.djangoproject.com/en/5.1/topics/testing/overview/)
+- [Running tests](https://docs.djangoproject.com/en/5.1/topics/testing/overview/#running-tests)
+- [Testing tools](https://docs.djangoproject.com/en/5.1/topics/testing/tools/)
+
+run tests for the app `myapp`:
+
+```bash
+python manage.py test myapp
+```
+
+run all the tests of the django project:
+
+```bash
+python manage.py test
+```
+
+run all test tests in the `animals.tests` module:
+
+```bash
+python manage.py test animals.tests
+```
+
+run just one test method:
+
+```bash
+python manage.py test animals.test.AnimalTestCase.test_animals_can_speak
+```
+
+run tests for files that match a specific pattern:
+
+```bash
+./manage.py test --pattern="tests_*.py"
+```
+
+Django provides a test `client` to simulate a user interacting with the code at
+the view level. It can be used in test files and also in the `shell`.
+
+```python
+from django.test import Client
+client = Client()
+
+client.get("/polls/results")
+```
+
+```python
+from django.test.utils import setup_test_environment
+```
+
+__Note__: `setup_test_environment` installs a template renderer which allows
+one to examine additional attributes on responses. Especially
+`response.context` which is the context dictionnary used in the template.
