@@ -2,10 +2,6 @@
 
 Personal notes about the Django Web Framework.
 
-## Resources
-
-- [Official Tutorials](https://docs.djangoproject.com/en/5.1/intro/tutorial01/)
-
 ## Project structure
 
 - `settings.py`: Settings/configuration for the Django project.
@@ -549,3 +545,29 @@ one can serve anything from stylesheets to images.
 
 Documentation for managing static files in Django
 [here](https://docs.djangoproject.com/en/5.1/howto/static-files/).
+
+## Third Party Packages
+
+Third party packages that integrate with Django need some post installation
+setup to integrate them into the project. Often, it is required to add the
+package to the list of `INSTALLED_APPS` setting. Some packages may need other
+changes like additions to the URLconf.
+
+## Resources
+
+- [Official Tutorials](https://docs.djangoproject.com/en/5.1/intro/tutorial01/)
+- [Django Documentation](https://docs.djangoproject.com/en/5.1/genindex/)
+- [Using Django - Tutorials by topics](https://docs.djangoproject.com/en/5.1/topics/)
+  - [Performance and Optimization](https://docs.djangoproject.com/en/5.1/topics/performance/)
+  - [Cache framework](https://docs.djangoproject.com/en/5.1/topics/cache/)
+  - [User authentication](https://docs.djangoproject.com/en/5.1/topics/auth/)
+  - [Managing files](https://docs.djangoproject.com/en/5.1/topics/files/)
+  - [DB Migrations](https://docs.djangoproject.com/en/5.1/topics/migrations/)
+  - [Working with forms](https://docs.djangoproject.com/en/5.1/topics/forms/)
+  - [Handling HTTP requests](https://docs.djangoproject.com/en/5.1/topics/http/)
+  - [Models and databases](https://docs.djangoproject.com/en/5.1/topics/db/)
+- [How to guides](https://docs.djangoproject.com/en/5.1/howto/)
+  - [How to create a django admin command](https://docs.djangoproject.com/en/5.1/howto/custom-management-commands/)
+  - [How to upgrade Django to a newer version](https://docs.djangoproject.com/en/5.1/howto/upgrade-version/)
+  - [How to provide initial data for models](https://docs.djangoproject.com/en/5.1/howto/initial-data/)
+  - [How to override templates](https://docs.djangoproject.com/en/5.1/howto/overriding-templates/)
