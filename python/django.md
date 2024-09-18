@@ -237,6 +237,11 @@ a specific template.
 In Django, web pages and other content are delivered by views. A view is
 represented by a python function. URLs are matched to the requested views.
 
+### Generic Views
+
+`ListView` and `DetailView` generic views abstract the concept of displaying a
+list of objects and displaying a detail page for a particular type of object.
+
 ### Templates
 
 Jinja templates can be used for server side rendering.
@@ -287,7 +292,7 @@ It is also possible to [write custom tags](https://docs.djangoproject.com/en/5.1
 
 ##### Common tags
 
-`url`: it uses the `name` parameter from the `path` call.
+- `url`: it uses the `name` parameter from the `path` call.
 
 ```jinja
 <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
@@ -302,6 +307,10 @@ Then it becomes possible to namespace the URL like so:
 
 __Note__: It removes the hardcoded link and use the urlpatterns provided in the
 configuration.
+
+- `for`: for loop to iterate over an iterable
+
+one can access the for loop index using the following variable: ```{{ forloop.counter }}```
 
 #### Filters
 
@@ -361,3 +370,14 @@ def detail(request, id):
 
 __Note__: `get_list_or_404` works similarly except using `filter` instead of
 `get`.
+
+## request
+
+Request and response objects [documentation](https://docs.djangoproject.com/en/5.1/ref/request-response/).
+
+### POST
+
+`request.POST` is a dictionnary-like object that lets one access submitted data
+by key name. Values are always strings.
+`KeyError` is raised if the key is not present in the POST dictionnary like
+object.
