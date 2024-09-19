@@ -572,15 +572,93 @@ generation, etc.
 - __Scheduling task execution at a specific time__, sometimes as recurring
 events.
 
+The protocol used by celery is called __AMQP__: Advanced Message Queuing
+Protocol.
+Redis and RabbitMQ can communicate with this protocol.
+
+### Database Backend
+
+Django config to setup the database backend:
+
+```python
+CELERY_BROKER_URL = "redis://localhost:6379"
+# CELERY_BROKER_URL = "amqp://myuser:mypassword@localhost:5672/myvhost"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+```
+
 ### Celery Workers
 
 worker processes that run tasks independently from one another and outside of
 the context of the main service.
 
+start a celery worker using the `django_celery` app:
+
+```bash
+python -m celery -A django_celery worker
+```
+
+__Note__: One needs to set up a celery app in the Django project to make it
+work.
+
+Add a `celery.py` module in the project. This is where the celery tasks are
+defined and configured.
+
+### Tasks
+
+Handing a task to Celery revolves around creating functions decorated with `@shared_task`:
+
+```python
+# feedback/tasks.py
+from time import sleep
+
+from celery import shared_task
+from django.core.mail import send_mail
+
+
+@shared_task
+def send_feedback_email(email_address: str, message: str) -> None:
+    """Send an email when the feedback form has been submitted."""
+    sleep(20)  # Simulate expensive operations that freeze Django
+    send_mail(
+        subject="Your Feedback",
+        message=f"\t{message}\n\nThank you!",
+        from_email="support@example.com",
+        recipient_list=[email_address],
+        fail_silently=False,
+    )
+```
+
+Then calling the task from the django codebase - using `delay` or `apply_async`:
+
+```python
+send_feedback_email_task.delay(
+    self.cleaned_data["email"],
+    self.cleaned_data["message"],
+)
+
+send_feedback_email_task.apply_async(args=[
+        self.cleaned_data["email"],
+        self.cleaned_data["message"],
+    ]
+)
+```
+
+- `delay`: provides a shortcut to apply_sync without many configuration options
+- `apply_async`: many execution options like `retry`, `countdown`, etc,
+
+__Note__: Celery workers need to be restarted as it loads the code in memory.
+Some autoreloading options are available.
+
+The Celery process outputs some logs about the task handling.
+
 ### Celery Beat
 
 A scheduler that orchestrates when to run tasks. Can be used to schedule
 periodic tasks as well. It adds a time based scheduler for Celery workers.
+
+### Documentation
+
+- [Using Celery with Django](https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html#using-celery-with-django)
 
 ## Resources
 
