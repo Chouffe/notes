@@ -462,38 +462,63 @@ volumes:
 
 ### CLI
 
-If all your projeccts had a Dockerfile and a docker-compose.yml, then new developer onboarding would be: `git clone ... && docker-compose up`
+If all your projeccts had a Dockerfile and a docker-compose.yml, then new
+developer onboarding would be: `git clone ... && docker-compose up`
 
-* Start docker compose: setup volumes/networks and start all containers
-```
+* Start docker compose: setup volumes/networks and start all containers:
+
+```bash
 docker-compose up -d
 ```
+
 * Stop docker compose: stop all containers and remove volumes/networks
-```
+
+```bash
 docker-compose down
 ```
+
 * Stop docker compose and tear down volumes
-```
+
+```bash
 docker-compose down -v
 ```
+
 * Stop docker compose and remove images
-```
+
+```bash
 docker-compose down --rmi local
 ```
+
 * Restart only one service
-```
+
+```bash
 docker-compose restart service1
 ```
+
 * Monitoring
-```
+
+```bash
 docker-compose ps
 docker-compose top
+```
+
+* Logs from the container
+
+```bash
+docker compose logs 'container_name'
+```
+
+* Tail the logs
+
+```bash
+docker compose logs -f 'container_name'
 ```
 
 ### Associated Makefile
 
 * Example
-```
+
+```Makefile
 start-dev:
   docker-compose up
 
@@ -537,7 +562,7 @@ build-dev:
   * One that just make a file or directory persistent (named volumes) without making them accessible on the fs
   * One for bookmarking a directory in the docker container
 
-```
+```Dockerfile
 volumes:
   - nginx/config:/etc/nginx/config
   - psql-data:/var/lib/postgres/data
