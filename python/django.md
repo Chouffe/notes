@@ -616,7 +616,7 @@ from django.core.mail import send_mail
 
 
 @shared_task
-def send_feedback_email(email_address: str, message: str) -> None:
+def send_feedback_email_task(email_address: str, message: str) -> None:
     """Send an email when the feedback form has been submitted."""
     sleep(20)  # Simulate expensive operations that freeze Django
     send_mail(
