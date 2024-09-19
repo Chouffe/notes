@@ -553,6 +553,35 @@ setup to integrate them into the project. Often, it is required to add the
 package to the list of `INSTALLED_APPS` setting. Some packages may need other
 changes like additions to the URLconf.
 
+## Celery
+
+Celery is a __distributed task queue__ for UNIX systems.
+Django generally integrates with Celery by offloading time intensive tasks to
+Celery. The web app can continue to respond quickly while the task is performed
+in the background.
+
+To receive tasks from a program and send results to a backend, a __message
+broker__ is required for communication. __Redis__ and __RabbitMQ__ are two
+message brokers that are often used with Celery.
+
+Main use cases:
+
+- __Offloading work__ from the app to distributed processes. Eg. email sending,
+image processing, text processing, data analysis, ML inference, report
+generation, etc.
+- __Scheduling task execution at a specific time__, sometimes as recurring
+events.
+
+### Celery Workers
+
+worker processes that run tasks independently from one another and outside of
+the context of the main service.
+
+### Celery Beat
+
+A scheduler that orchestrates when to run tasks. Can be used to schedule
+periodic tasks as well. It adds a time based scheduler for Celery workers.
+
 ## Resources
 
 - [Official Tutorials](https://docs.djangoproject.com/en/5.1/intro/tutorial01/)
@@ -571,3 +600,4 @@ changes like additions to the URLconf.
   - [How to upgrade Django to a newer version](https://docs.djangoproject.com/en/5.1/howto/upgrade-version/)
   - [How to provide initial data for models](https://docs.djangoproject.com/en/5.1/howto/initial-data/)
   - [How to override templates](https://docs.djangoproject.com/en/5.1/howto/overriding-templates/)
+- [RealPython: Asynchronous Tasks with Celery and Django](https://realpython.com/asynchronous-tasks-with-django-and-celery/)
