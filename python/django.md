@@ -83,6 +83,20 @@ create an admin user:
 python manage.py createsuperuser
 ```
 
+## Admin Commands
+
+Django provides a [number of admin commands](https://docs.djangoproject.com/en/5.0/ref/django-admin/#available-commands).
+
+The most commons are:
+
+- migrate
+- startproject
+- startapp
+- dumpdata
+- makemigrations
+
+Users can also create their own admin commands by subtyping `BaseCommand`.
+
 ## Models
 
 __Note:__ A model is the single, definitive source of information about your
@@ -656,9 +670,53 @@ The Celery process outputs some logs about the task handling.
 A scheduler that orchestrates when to run tasks. Can be used to schedule
 periodic tasks as well. It adds a time based scheduler for Celery workers.
 
+To configure a celery beat, set the following in the `settings.py` project
+file:
+
+```python
+CELERY_BEAT_SCHEDULE = {
+    "sample_task": {
+        "task": "core.tasks.sample_task",
+        "schedule": crontab(minute="*/1"),
+    },
+    "send_email_report": {
+        "task": "core.tasks.send_email_report",
+        "schedule": crontab(hour="*/1"),
+    },
+}
+```
+
+Below is the definition of the tasks:
+
+```python
+from celery import shared_task
+from celery.utils.log import get_task_logger
+from django.core.management import call_command
+
+logger = get_task_logger(__name__)
+
+@shared_task
+def sample_task():
+    logger.info("The sample task just ran.")
+
+
+@shared_task
+def send_email_report():
+    # Possible to call a django management command from a Celery task
+    call_command("email_report", )
+```
+
+### Monitoring Celery
+
+Celery tasks can be monitored with [Flower](https://flower.readthedocs.io/en/latest/).
+
 ### Documentation
 
 - [Using Celery with Django](https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html#using-celery-with-django)
+- [Django Celery Periodic Tasks](https://testdriven.io/blog/django-celery-periodic-tasks/)
+- [Django + Celery Series](https://testdriven.io/blog/django-and-celery/#flower-dashboard)
+- [Working with Celery and Django Database Transactions](https://testdriven.io/blog/celery-database-transactions/)
+- [Automatically Retrying failed Celery tasks](https://testdriven.io/blog/retrying-failed-celery-tasks/)
 
 ## Resources
 
