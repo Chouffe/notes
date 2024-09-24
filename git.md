@@ -39,6 +39,71 @@ on it is hard.
 
 ## Commands
 
+### Switch
+
+`switch` and `restore` replace the overloaded `checkout` command and make it more explicit.
+
+- create a new branch named `my-new-feature` and switch to it
+
+```bash
+git switch -c my-new-feature
+```
+
+- detach HEAD state
+
+```bash
+git switch -d f8c540805b7e16753c65619ca3d7514178353f39
+```
+
+- switch to the `develop` branch
+
+```bash
+git switch develop
+```
+
+- switch to latest branch
+
+```bash
+git switch -
+```
+
+- restore staged changes from the index
+
+```bash
+git restore --staged .
+```
+
+### Restore
+
+This command implements the behaviour of `checkout` when running against a
+file. One can restore the state of a file to a specified git revision.
+
+- restore the file `hello.c` to the HEAD state
+
+```bash
+git restore hello.c
+```
+
+- same as using `git reset`
+
+```bash
+git restore --staged hello.c
+```
+
+- discard all files in the current directory
+
+```bash
+git restore .
+```
+
+- restore the file `index.js` from the `master` branch
+
+```bash
+git restore --source master index.js
+```
+
+### Misc
+
 - Remove hunks interactively from the worktree
 
 ```bash
