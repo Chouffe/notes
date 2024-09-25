@@ -1,5 +1,42 @@
 # Git
 
+## Commits conventions
+
+| type  | description                                          | use cases                                                                                                         |
+|-------|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| feat  | introduces a new feature                             | new code (exclude configuration and fixes)                                                                        |
+| fix   | fixes a bug                                          | modify exisiting code (exclude configuration)                                                                     |
+| chore | includes a technical or preventive maintenance task  | modify or add files, enabling a feature flag, upgrade versions, configuration formatting, architecture files, etc |
+| test  | add missing tests or correct existing ones           | only for the types of files that follow the test format                                                           |
+| style | changes that do not affect the semantics of the code | related to formatting or cleaning                                                                                 |
+
+__Note__: If any type commit include a Breaking Change we need to add a bang
+(!) after the type name.
+
+Example
+
+```txt
+feat!: my awesome feature broke something
+```
+
+```txt
+<type>[scope(optional)]: <description> (Max 72 chars per line)
+[body(optional)]
+[footer(optional)]
+```
+
+Examples
+
+```txt
+feat[utils]: add schema generator tool  
+This need to be used from now in all schemas related task
+ft @john @camilia
+```
+
+```txt
+chore: upgrade project version to 2.6.1
+```
+
 ## Merge vs Rebase
 
 TL;DR:
