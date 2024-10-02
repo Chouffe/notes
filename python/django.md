@@ -710,6 +710,10 @@ def send_email_report():
 
 Celery tasks can be monitored with [Flower](https://flower.readthedocs.io/en/latest/).
 
+### Celery Task Types
+
+- __QueueOnce__: Ensuring that a task is only executed once, even if it is triggered multiple times.
+
 ### Documentation
 
 - [Using Celery with Django](https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html#using-celery-with-django)
@@ -737,3 +741,4 @@ Celery tasks can be monitored with [Flower](https://flower.readthedocs.io/en/lat
   - [How to provide initial data for models](https://docs.djangoproject.com/en/5.1/howto/initial-data/)
   - [How to override templates](https://docs.djangoproject.com/en/5.1/howto/overriding-templates/)
 - [RealPython: Asynchronous Tasks with Celery and Django](https://realpython.com/asynchronous-tasks-with-django-and-celery/)
+- [Understanding Django - Matt Layman](https://www.mattlayman.com/understand-django/)
