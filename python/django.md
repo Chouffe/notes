@@ -722,6 +722,453 @@ Celery tasks can be monitored with [Flower](https://flower.readthedocs.io/en/lat
 - [Working with Celery and Django Database Transactions](https://testdriven.io/blog/celery-database-transactions/)
 - [Automatically Retrying failed Celery tasks](https://testdriven.io/blog/retrying-failed-celery-tasks/)
 
+## Django Rest Framework - DRF
+
+### Serializers
+
+Serializers help serizalizing and deserializing model instances into
+representations such as json. They work similarly to Django's forms.
+
+The `ModelSerializer` provide shortcuts for creating serializers based on a
+Model class. They provide default implementations for the `create` and `save`
+methods.
+
+serialize an object:
+
+```python
+serializer = SnippetSerializer(snippet)
+serializer.data
+# {'id': 2, 'title': '', 'code': 'print("hello, world")\n', 'linenos': False, 'language': 'python', 'style': 'friendly'}
+```
+
+serialize the data as json:
+
+```python
+content = JSONRenderer().render(serializer.data)
+```
+
+deserialization
+
+```python
+import io
+
+stream = io.BytesIO(content)
+data = JSONParser().parse(stream)
+
+serializer = SnippetSerializer(data=data)
+serializer.validated_data
+
+# Can also save the object
+serializer.save()
+```
+
+serialize a queryset:
+
+```python
+serializer = SnippetSerializer(Snippet.objects.all(), many=True)
+```
+
+inspect the representation of a serializer:
+
+```python
+from snippets.serializers import SnippetSerializer
+serializer = SnippetSerializer()
+print(repr(serializer))
+# SnippetSerializer():
+#    id = IntegerField(label='ID', read_only=True)
+#    title = CharField(allow_blank=True, max_length=100, required=False)
+#    code = CharField(style={'base_template': 'textarea.html'})
+#    linenos = BooleanField(required=False)
+#    language = ChoiceField(choices=[('Clipper', 'FoxPro'), ('Cucumber', 'Gherkin'), ('RobotFramework', 'RobotFramework'), ('abap', 'ABAP'), ('ada', 'Ada')...
+#    style = ChoiceField(choices=[('autumn', 'autumn'), ('borland', 'borland'), ('bw', 'bw'), ('colorful', 'colorful')...
+```
+
+readonly fields can be added so that they cannot be updated. Useful when having model relationships
+
+```python
+owner = serializers.ReadOnlyField(source='owner.username')
+```
+
+### DRF Requests
+
+DRF introduces a `Request` object that extends the `HttpRequest` and provides
+more flexible request parsing.
+
+#### Parsing
+
+`request.data` instead of `request.POST`
+`request.get_query_params` instead of `request.GET`
+
+### DRF Response
+
+DRF introduces a `Response` object which extends `TemplateResponse` that takes
+unrendered content and uses content negotation to determine the correct content
+type to return to the client.
+
+### DRF Views
+
+DRF provides two wrappers to write API views:
+
+- `@api_view` decorator for working with function based views.
+- `APIView` class for working with class-based views.
+
+#### Function based view
+
+```python
+@api_view(['GET', 'PUT', 'DELETE'])
+def snippet_detail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        snippet = Snippet.objects.get(pk=pk)
+    except Snippet.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = SnippetSerializer(snippet)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = SnippetSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+```
+
+#### Class based view
+
+##### Class based view bare
+
+The `APIView` class can be subtyped to implement the different HTTP methods
+(get, post, put, ...). Fetching the objects and returning the HTTP codes have
+to be done manually.
+
+```python
+class SnippetDetail(APIView):
+    """
+    Retrieve, update or delete a snippet instance.
+    """
+    def get_object(self, pk):
+        try:
+            return Snippet.objects.get(pk=pk)
+        except Snippet.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = SnippetSerializer(snippet)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = SnippetSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+```
+
+##### Class based view with Mixins
+
+Mixins are available to abstract common operations (retrieve, update, destroy)
+on model objects. The HTTP status codes do not need to be explicited but a
+queryset and a serializer_class needs to be declared.
+
+```python
+class SnippetDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+```
+
+One can go even more generic by using generic class based views like so:
+
+```python
+class SnippetList(generics.ListCreateAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+```
+
+the `perform_create` method can be added to override how the instance save is managed.
+
+```python
+class SnippetList(generics.ListCreateAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+```
+
+### DRF Authentication
+
+REST framework provides several authentication schemes out of the box, and also
+allows you to implement custom schemes.
+Authentication always runs at the very start of the view, before the permission
+and throttling checks occur, and before any other code is allowed to proceed.
+
+- The `request.user` property will typically be set to an instance of the
+contrib.auth package's User class.
+- The `request.auth` property is used for any additional authentication
+information, for example, it may be used to represent an authentication token
+that the request was signed with.
+
+adding login to the Browsable API
+
+```python
+urlpatterns += [
+    path('api-auth/', include('rest_framework.urls')),
+]
+```
+
+all the authentication methods are listed [here](https://www.django-rest-framework.org/api-guide/authentication/)
+
+setting the authentication scheme in `setttings.py` for applying globally across all views
+
+```python
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+```
+
+setting the authentication mechanism at the view level
+
+```python
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+
+# class based
+class ExampleView(APIView):
+    ...
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    ...
+
+# function based
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def example_view(request, format=None):
+    content = {
+        'user': str(request.user),  # `django.contrib.auth.User` instance.
+        'auth': str(request.auth),  # None
+    }
+    return Response(content)
+```
+
+#### HTTP status codes
+
+When an unauthenticated request is denied permission, there are two different
+error codes that may be appropriate:
+
+- HTTP 401 Unauthorized
+- HTTP 403 Permission Denied
+
+- [Basic Authentication](https://www.django-rest-framework.org/api-guide/authentication/#basicauthentication)
+- [TokenAuthentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
+- [SessionAuthentication](https://www.django-rest-framework.org/api-guide/authentication/#sessionauthentication)
+- [JWTAuthentication](https://www.django-rest-framework.org/api-guide/authentication/#json-web-token-authentication)
+- [Custom Authentication](https://www.django-rest-framework.org/api-guide/authentication/#custom-authentication)
+
+### DRF Permissions
+
+#### View Level permissions
+
+permissions can be added to views.
+
+```python
+from rest_framework import permissions
+
+class SnippetList(generics.ListCreateAPIView):
+    ...
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+```
+
+#### Object Level permissions
+
+custom permissions can be created to add to views:
+
+```python
+# permissions.py
+from rest_framework import permissions
+
+
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an object to edit it.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Read permissions are allowed to any request,
+        # so we'll always allow GET, HEAD or OPTIONS requests.
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # Write permissions are only allowed to the owner of the snippet.
+        return obj.owner == request.user
+```
+
+```python
+# views.py
+from rest_framework import permissions
+from snippets.permissions import IsOwnerOrReadOnly
+
+class SnippetList(generics.ListCreateAPIView):
+    ...
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
+```
+
+#### CLI testing
+
+make a successful request by including the username and password of one of the
+users we created (if basic authentication is enabled)
+
+```bash
+http -a admin:password123 POST http://127.0.0.1:8000/snippets/ code="print(789)"
+```
+
+### Relationships and Hyperlinked APIs
+
+A way to improve the cohesion and discoverability of the API, by using
+hyperlinking for relationships.
+
+#### Hyperlinking an API
+
+Many different choices to represent a relationship between two entities:
+
+- Using primary keys.
+- Using hyperlinking between entities.
+- Using a unique identifying slug field on the related entity.
+- Using the default string representation of the related entity.
+- Nesting the related entity inside the parent representation.
+- Some other custom representation.
+
+REST framework supports all of these styles.
+
+### ViewSets
+
+DRF provides an abstraction to deal with views and automate the url
+configuration to follow consistent route naming conventions: the `ViewSet`
+class.
+
+They provide a similar API as `View` classes except that they provide methods
+such as `retrieve` or `update` (but no method like `get` or `post`).
+
+The `ReadOnlyModelViewSet` provides the default read-only operations
+
+```python
+from rest_framework import viewsets
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    This viewset automatically provides `list` and `retrieve` actions.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+```
+
+add an extra handler with the decorator `@action`
+
+```python
+class SnippetViewSet(viewsets.ModelViewSet):
+    """
+    This ViewSet automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+
+    Additionally we also provide an extra `highlight` action.
+    """
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
+
+    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    def highlight(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
+```
+
+#### Manual URL binding
+
+binding URLs to ViewSets can be done manually like so:
+
+```python
+# urls.py
+snippet_list = SnippetViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+snippet_detail = SnippetViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+...
+urlpatterns = format_suffix_patterns([
+    ...
+    path('snippets/', snippet_list, name='snippet-list'),
+    path('snippets/<int:pk>/', snippet_detail, name='snippet-detail'),
+    ...
+])
+```
+
+#### Automatic URL binding
+
+routers can be used to automatically bind urls to viewsets.
+
+```python
+from rest_framework.routers import DefaultRouter
+
+from snippets import views
+
+# Create a router and register our ViewSets with it.
+router = DefaultRouter()
+router.register(r'snippets', views.SnippetViewSet, basename='snippet')
+router.register(r'users', views.UserViewSet, basename='user')
+
+# The API URLs are now determined automatically by the router.
+urlpatterns = [
+    path('', include(router.urls)),
+]
+```
+
+### DRF Resources
+
+- [Official Tutorials](https://www.django-rest-framework.org/tutorial/1-serialization/)
+- [DRF API guide](https://www.django-rest-framework.org/api-guide/requests/)
+
 ## Resources
 
 - [Official Tutorials](https://docs.djangoproject.com/en/5.1/intro/tutorial01/)
