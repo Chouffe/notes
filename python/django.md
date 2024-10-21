@@ -325,7 +325,16 @@ a specific template.
 In Django, web pages and other content are delivered by views. A view is
 represented by a python function. URLs are matched to the requested views.
 
-### Generic Views
+### Function Based Views
+
+the common decorators are:
+
+- `login_required`
+- `user_passes_test`
+
+Similar mixins are available for class based generic views
+
+### Class Based Generic Views
 
 Documentation on generic views [here](https://docs.djangoproject.com/en/5.1/topics/class-based-views/).
 
@@ -559,6 +568,31 @@ one can serve anything from stylesheets to images.
 
 Documentation for managing static files in Django
 [here](https://docs.djangoproject.com/en/5.1/howto/static-files/).
+
+### User Authentication
+
+In the Django auth system, identity is tracked with a `User` model.
+Django’s built-in auth system authenticates users with passwords.
+Django includes a `LoginView` class-based view that can handle the appropriate steps.
+
+A set of default views are available with the default routes
+
+```python
+# project/urls.py
+
+from django.urls import include, path
+
+urlpatterns = [
+    ...
+    path("accounts/", include("django.contrib.auth.urls")),
+]
+```
+
+It is required to [provide templates](https://docs.djangoproject.com/en/5.1/topics/auth/default/#all-authentication-views)
+for login/logout/password reset, etc..
+
+a [Django app](https://django-allauth.readthedocs.io/en/latest/) is available
+to add social login
 
 ## Third Party Packages
 
@@ -1166,8 +1200,45 @@ urlpatterns = [
 
 ### DRF Resources
 
+
 - [Official Tutorials](https://www.django-rest-framework.org/tutorial/1-serialization/)
 - [DRF API guide](https://www.django-rest-framework.org/api-guide/requests/)
+
+## Admin Site
+
+Django includes a web administrative interface that can help programmers and
+non-programmers alike. This administrative interface is usually called the
+Django admin, for short.
+
+register a model in the admin
+
+```python
+# application/admin.py
+from django.contrib import admin
+
+from .models import Book
+
+class BookAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Book, BookAdmin)
+```
+
+Only staff users can access the admin - ie `is_staff` is set to `True`.
+
+### Customizing a Model in the Admin
+
+common attributes used for customizing the admin form:
+
+- `date_hierarchy`
+- `list_display`
+- `list_filter`
+- `ordering`
+- `search_fields`
+- `inlines`
+- `actions`
+
+here is the comprehensive documentation ofr all the [ModelAdmin Options](https://docs.djangoproject.com/en/5.1/ref/contrib/admin/#modeladmin-options)
 
 ## Resources
 
