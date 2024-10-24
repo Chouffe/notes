@@ -64,10 +64,18 @@ SET SEARCH_PATH TO "temp-arthur-dev"
 \du
 ```
 
-* Connect to a DB
+* Connect to a DB - an optional user can be specified (can be useful when
+connecting as another user)
 
 ```sql
-\c databaseName
+\c databaseName [user]
+```
+
+* Show connection info:
+
+```sql
+\conninfo
+You are connected to database "foo" as user "bar" on host "localhost" (address "::1") at port "5432".
 ```
 
 * Enable timing of commands
