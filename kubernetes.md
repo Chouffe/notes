@@ -16,63 +16,90 @@
 ## minikube - Local only
 
 * program for managing the local VM
-* `kubectl` for managing containers in the node - used locally and in production environment
+* `kubectl` for managing containers in the node - used locally and in
+production environment
 * Required packages for local dev: kubetcl + virtualbox + minikube
 * Start minikube
-```
+
+```bash
 minikube start
 ```
+
 * Check status
-```
+
+```bash
 minikube status
 ```
+
 * Get the `ip` of the VM
-```
+
+```bash
 minikube ip
 ```
-* Reconfigure `docker-cli` to use your docker server for the current termnial - Not a permanent change
-```
+
+* Reconfigure `docker-cli` to use your docker server for the current termnial -
+Not a permanent change
+
+```bash
 eval $(minikube docker-env)
 ```
+
 * Minikube Dashboard
-```
+
+```bash
 minikube dashboard
 ```
 
 ## kubectl
 
-* feed a config file to Kubectl to change the current configuration of our cluster
-```
+* feed a config file to Kubectl to change the current configuration of the cluster
+
+```bash
 kubectl apply -f <filename>
 ```
+
 * feed a folder of config files to kubernetes
-```
+
+```bash
 kubectl apply -f <folder>
 ```
+
 * print the status of all running pods
-```
+
+```bash
 kubectl get pods/services/deployments
 ```
+
 * print additional status of running objects
-```
+
+```bash
 kubectl get pods -o wide
 ```
+
 * describe object
-```
+
+```bash
 kubectl describe pods/services <object-name>
 ```
+
 * delete an object based on a file
-```
+
+```bash
 kubectl delete -f <config-file>
 ```
+
 * delete an object based on an object type and a name
-```
+
+```bash
 kubectl delete deployment client-deployment
 ```
+
 * Get logs from a pod
-```
+
+```bash
 kubectl logs client-deployment-7988c5b747-2zxjb
 ```
+
 * update a pod when a docker image is updated in a docker registry
   * `Solution 1`: Manually delete pods to get the deployment to recreate them with the latest version
     * Very dangerous in production! one can delete all the wrong pods
@@ -82,7 +109,8 @@ kubectl logs client-deployment-7988c5b747-2zxjb
     * Very similar the former solution
     * It is imperative... :(
     * It is the best of the bad solutions
-```
+
+```bash
 docker image build -t chouffe/multi-client:git-sha .
 # kubectl set image <object-type>/<object-name> <container-name>=<new-image-to-use>
 kubectl set image deployment/client-deployment client=chouffe/multi-client:v1
@@ -97,7 +125,8 @@ kubectl set image deployment/client-deployment client=chouffe/multi-client:v1
 * Any config file is parsed and evaluated by `kubectl` to create `Objects`
   * `StatefulSet`
   * `ReplicaController`
-  * `Deployment`: Maintains a set of identical pods, ensuring that they have the correct config and that the right number exists
+  * `Deployment`: Maintains a set of identical pods, ensuring that they have
+  the correct config and that the right number exists
     * Monitors the state of each pod
     * Good for dev and production
   * `Pod`: run a container - smallest thing to create to run a container
@@ -146,7 +175,7 @@ spec:
 
 ### Pod
 
-```
+```yml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -163,7 +192,7 @@ spec:
 
 ### Deployment
 
-```
+```yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -191,9 +220,10 @@ spec:
 * `Kubernetes ingress`: is also a project led by the company `nginx` for Kubernetes
 * `Nginx Ingress`: particular implementation of Ingress - `ingress-nginx`
   * Setup is dependent on environment (local, GC, AWS, Azure)
-  * Similar to a deployment: The `Ingress Controller` constantly works to make sure the desired state is reached
+  * Similar to a deployment: The `Ingress Controller` constantly works to make
+  sure the desired state is reached
 
-```
+```yml
 apiVersion: extensions/b1beta1
 kind: Ingress
 metadata:
@@ -217,13 +247,15 @@ spec:
 
 ### NodePort
 
-* Only good for dev only
+* Only good for development
 * No declaration to the `pod` directly
 * It uses the `selector` and `labels components` scheme to link objects together
 * `ports`: mapping of arrays
   * `containerPort` and `targetPort` must match
   * `port`: another pod can use this to connect to it
-  * `nodePort`: (random between 30000 and 32767 if not assigned) to access the container from the host
+  * `nodePort`: (random between 30000 and 32767 if not assigned) to access the
+  container from the host
+
 ```client-node-port.yml
 apiVersion: v1
 kind: Service
@@ -246,6 +278,7 @@ spec:
 ### Misc
 
 * Collocate config files
+
 ```
 config1
 ---
@@ -254,7 +287,8 @@ config2
 
 ## Volumes, Persistent Volumes and PVCs
 
-* `Volume`: An object that allows a container to store data at the pod level - not exactly the same thing as a Docker volume
+* `Volume`: An object that allows a container to store data at the pod level -
+not exactly the same thing as a Docker volume
   * If the pod is replaced by k8s or dies, data is lost...
   * A volume is not appropriate for storing data for a database
 * `Persistent Volume`
@@ -277,7 +311,7 @@ config2
   * AzureFile
   * ...
 
-```
+```yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -290,7 +324,7 @@ spec:
       storage: 2Gi
 ```
 
-```
+```bash
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -328,7 +362,7 @@ spec:
   * Can not be sticked into the config file!
 * Environment variable should be passed as strings
 
-```
+```yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -358,15 +392,17 @@ spec:
 * Object Type: `Secrets`
 * Securely stores a piece of information in the cluster, such as database password
 * Can be done with an imperative command
-```
+
+```sh
 kubectl create secret generic <secret-name> --from-literal key=value
 
 # Real example
 kubectl create secret generic pgpassword --from-literal PGPASSWORD=password12345
 ```
+
 * Can store TLS keys and docker-registry
 
-```
+```yml
 ...
           env:
             - name: PGPASSWORD
@@ -375,7 +411,8 @@ kubectl create secret generic pgpassword --from-literal PGPASSWORD=password12345
                 name: pgpassword
                 key: PGPASSWORD
 ```
-```
+
+```yml
 ...
       containers:
         - name: postgres
