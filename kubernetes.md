@@ -13,22 +13,42 @@
 * Containers and services get restarted automatically
 * Deployment is decalarative with config files (in production)
 
+## Taxonomy
+
+- __Node__: VM or physical computer that serves as a worker machine in a K8s cluster.
+- __Pod__: A group of one or more Containers tied together. A pod is an ephemeral resource.
+- __Control Plane__: Coordinates all activities in the cluster such as scheduling applications, maintaining application states, scaling up and down, and rolling out new versions.
+- __Deployment__: recommended way to manage the creation and scaling of pods. The Deployment instructs Kubernetes how to create and update instances of your application.
+
 ## minikube - Local only
 
 * program for managing the local VM
 * `kubectl` for managing containers in the node - used locally and in
 production environment
 * Required packages for local dev: kubetcl + virtualbox + minikube
+
 * Start minikube
 
 ```bash
 minikube start
 ```
 
+* Stop minikube
+
+```bash
+minikube stop
+```
+
 * Check status
 
 ```bash
 minikube status
+```
+
+* Open the dasboard
+
+```bash
+minikube dashboard
 ```
 
 * Get the `ip` of the VM
@@ -50,7 +70,21 @@ eval $(minikube docker-env)
 minikube dashboard
 ```
 
+* List addons
+
+```bash
+minikube addons list
+```
+
+* Enable an addon
+
+```bash
+minikube addons enable metrics-server
+```
+
 ## kubectl
+
+The common format of a kubectl command is: `kubectl action resource`
 
 * feed a config file to Kubectl to change the current configuration of the cluster
 
@@ -68,6 +102,36 @@ kubectl apply -f <folder>
 
 ```bash
 kubectl get pods/services/deployments
+```
+
+* list events
+
+```bash
+kubectl get events
+```
+
+* list deployments
+
+```bash
+kubectl get deployments --namespace das-server
+```
+
+* list namespaces
+
+```bash
+kubectl get namespace
+```
+
+* specify a given namespace
+
+```bash
+kubectl get pods --namespace das-server
+```
+
+* view config
+
+```bash
+kubectl config view
 ```
 
 * print additional status of running objects
@@ -98,6 +162,34 @@ kubectl delete deployment client-deployment
 
 ```bash
 kubectl logs client-deployment-7988c5b747-2zxjb
+```
+
+* expose a pod to the public internet - it creates a service using a loadbalancer
+
+```bash
+kubectl expose deployment hello-node --type=LoadBalancer --port=8080
+```
+
+__Note__: In a cloud provider, an external IP should be created, with minikube
+one needs to run the following command `minikube service hello-node` to
+generate it.
+
+* list services
+
+```bash
+kubectl get services
+```
+
+* clean up the service
+
+```bash
+kubectl delete service hello-node
+```
+
+* clean up the deployment
+
+```bash
+kubectl delete deployment hello-node
 ```
 
 * update a pod when a docker image is updated in a docker registry
@@ -431,3 +523,9 @@ kubectl create secret generic pgpassword --from-literal PGPASSWORD=password12345
 * Local test on minikube
 * Create a Github/Travis flow to build images and deploy
 * Deploy to a cloud provider
+
+## Resources
+
+- [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- [Services](https://kubernetes.io/docs/concepts/services-networking/service/)
+- [Deploying Applications](https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/)
