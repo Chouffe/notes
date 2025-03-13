@@ -2,10 +2,9 @@
 
 ## Vocabulary
 
-* `image`:
+* `image`: blueprint for packaging an environment and some code
 * `container`: running instance of an image
 * `service`: container in production
-* `stack`:
 * `task`: single container running in a service
 
 ## Installation
@@ -662,13 +661,26 @@ build-dev:
   docker-compose build
 ```
 
+### dockerignore
+
+Add a `.dockerignore` file to tell the Dockerfile which files to exclude from
+being copied over.
+
+Some common entries for a `.dockerignore` file:
+
+```txt
+node_modules/
+Dockerfile
+.git
+```
+
 ### Volumes
 
 * Persistent storage for docker containers
 * 3 types of volumes
   * One that maps a file or directory to one inside the container
   * One that just make a file or directory persistent (named volumes) without making them accessible on the fs
-  * One for bookmarking a directory in the docker container
+  * One for bookmarking a directory in the docker container (unnamed volumes)
 
 ```Dockerfile
 volumes:
@@ -677,14 +689,48 @@ volumes:
   - /app/node_modules
 ```
 
+__Note__: unnamed volumes are useful to tell docker to keep some folders inside
+a directory when using a bind mount (eg. `node_modules`)
+
+__Note__: It is possible to specify that bind mount is read only, which means
+that the docker container cannot write to it but only read from it.
+
+```bash
+docker run ... -v "./feedback/:/app/feedback/:ro"
+```
+
+inspect a volume:
+
+```bash
+docker volume inspect name_of_the_volume
+```
+
+remove all unused volumes:
+
+```bash
+docker volume prune -a
+```
+
+### Arguments
+
+Build-time ARGuments.
+Enable variables at image build time. Not available at run time (CMD or any
+application code). One can set them via `--build-arg` at build time.
+
 ### Environment Variables
+
+Runtime ENVironment variables.
 
 * Specify a file that contains them. One declaration per line.
 
-```Dockerfile
+```.env
 ENV=production
 APPLICATION_URL=http://ismydependencysafe
 SECRET_KEY  # Taken from the computer at runtime
+```
+
+```bash
+docker run ... --env-file ./.env
 ```
 
 * Declaring them directly in docker-compose.yml
@@ -702,10 +748,59 @@ services:
     ...
 ```
 
-### Networks
+Can be set via `--env` or `-e` when running docker.
+
+In a Dockerfile:
+
+```Dockerfile
+...
+ENV PORT 80
+
+EXPOSE $PORT
+```
+
+### Networking
 
 * If no network is specified, all containers are in the same network
 * Containers can reference each others by names in the same network
+
+There are different networking scenarios:
+
+* network requests
+* local host machine communication
+* container to container communication
+
+#### Networking: Network Requests (WWW)
+
+This works out of the box - it is possible to communicate to outside APIs and
+WWW.
+
+#### Networking: Local Host Maching Communication
+
+- replace `localhost` by `host.docker.internal` which is a docker specified hostname.
+
+#### Networking: Container to Container Communication - cross container networking
+
+- cumbersome and not recommended: inspect the container with and get the IP address:
+
+```bash
+docker inspect mongodb
+```
+
+- create a container network to allow cross container communication:
+
+Within a Docker network, all containers can communicate with each other and IPs
+are automatically resolved.
+
+```bash
+docker run --network my_network ...
+```
+
+__Note__: On needs to first create the network manually with the command
+`docker network create my_network`
+
+__Note__: The host or IP address can be referenced by name in the different
+containers that are on the same network.
 
 ### Resources
 
@@ -976,6 +1071,14 @@ docker container prune
 docker volume prune
 docker network prune
 ```
+
+## Best practices
+
+### Best practices for Dockerfiles
+
+- Use the `EXPOSE` command to document that a process in the container
+will expose this port. One still needs to expose the port with `-p`
+when running the docker container.
 
 ## Resources
 
