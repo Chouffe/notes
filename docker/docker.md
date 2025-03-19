@@ -315,50 +315,6 @@ HEALTHCHECK --interval=5s --timeout=3s \
   CMD pg_isready -U postgres || exit 1
 ```
 
-## Service
-
-* List tasks associated with an app
-
-```sh
-docker service ps <service>
-```
-
-* Scaling the service/app
-
-```sh
-# Edit the number of replicas in your docker-compose.yml file
-# Edit the config in general
-
-# Perfom an in-place update
-$ docker stack deploy -c docker-compose.yml <image
-```
-
-## Stack
-
-* List stacks or apps
-
-```sh
-docker stack ls
-```
-
-* Run the specified compose file
-
-```sh
-docker stack deploy -c <composefile> <appname>
-```
-
-* Take down the app
-
-```sh
-docker stack rm <name>
-```
-
-* Take down the swarm
-
-```sh
-docker swarm leave --force
-```
-
 ## Build
 
 * Create image using current directory's Dockerfile
@@ -407,8 +363,6 @@ docker restart docker-nginx
 ```sh
 docker build -t haskell-dev --target builder .
 ```
-
-## Tips
 
 * Inspect what volumes are mounted in a running container
 
@@ -497,171 +451,7 @@ docker run --rm -ti -v "$PWD/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro" -
 docker run --rm postgres:10.5 env
 ```
 
-## Docker Compose
-
-* Configure relationships between containers
-* Save docker container run settings in one file
-* Create one liner developer environment startups
-  1. yaml file to specify containers, networks and volumes
-  2. CLI tool `docker-compose` used for local dev/test automation with the yaml files
-* In production, use docker swarm (docker-compose.yml can be used with it)
-
-### YAML
-
-* `version`: if not specified, it defaults to version 1
-* `services`: containers configs
-  * `servicename`: DNS name inside network
-  * `image`
-  * `command`: replace the docker CMD specified by the image
-  * `environment`: same as -e in docker container run
-  * `volumes`: same as -v in docker container run
-  * `ports`: same as -p in docker container run
-* `volumes`: same as docker volume create
-* `networks`: same as docker network create
-
-```yaml
-version: '3.1'  # if no version is specificed then v1 is assumed. Recommend v2 minimum
-
-services:  # containers. same as docker run
-  servicename: # a friendly name. this is also DNS name inside network
-    image: # Optional if you use build:
-    command: # Optional, replace the default CMD specified by the image
-    environment: # Optional, same as -e in docker run
-    volumes: # Optional, same as -v in docker run
-  servicename2:
-
-volumes: # Optional, same as docker volume create
-
-networks: # Optional, same as docker network create
-```
-
-```yaml
-version: '2'
-
-services:
-
-  wordpress:
-    image: wordpress
-    ports:
-      - 8080:80
-    environment:
-      WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DB_USER: example
-      WORDPRESS_DB_PASSWORD: examplePW
-      WORDPRESS_SUPER_SECRET  # Taken from your computer at runtime
-    volumes:
-      - ./wordpress-data:/var/www/html
-
-  mysql:
-    image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: examplerootPW
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: example
-      MYSQL_PASSWORD: examplePW
-    volumes:
-      - mysql-data:/var/lib/mysql
-
-volumes:
-  mysql-data:
-```
-
-### CLI
-
-If all your projeccts had a Dockerfile and a docker-compose.yml, then new
-developer onboarding would be: `git clone ... && docker-compose up`
-
-* Start docker compose: setup volumes/networks and start all containers:
-
-```bash
-docker-compose up -d
-```
-
-* Stop docker compose: stop all containers and remove volumes/networks
-
-```bash
-docker-compose down
-```
-
-* Stop docker compose and tear down volumes
-
-```bash
-docker-compose down -v
-```
-
-* Stop docker compose and remove images
-
-```bash
-docker-compose down --rmi local
-```
-
-* Restart only one service
-
-```bash
-docker-compose restart service1
-```
-
-* Monitoring
-
-```bash
-docker-compose ps
-docker-compose top
-```
-
-* Logs from the container
-
-```bash
-docker compose logs 'container_name'
-```
-
-* Tail the logs
-
-```bash
-docker compose logs -f 'container_name'
-```
-
-### Associated Makefile
-
-* Example
-
-```Makefile
-start-dev:
-  docker-compose up
-
-start-prod:
-  docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
-
-stop-compose:
-  @eval docker stop $$(docker ps -a -q)
-  docker-compose down
-
-ssh-nginx:
-  docker exec -it nginx_server bash
-
-ssh-django-web:
-  docker exec -it django_web bash
-
-ssh-db:
-  docker exec -it db bash
-
-ssh-es:
-  docker exec -it es bash
-
-ssh-kibana:
-  docker exec -it kibana bash
-
-check-network-config-details:
-  docker network inspect bookme_default
-
-build-prod:
-  docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
-
-build-dev:
-  docker-compose build
-```
-
-### dockerignore
+## dockerignore
 
 Add a `.dockerignore` file to tell the Dockerfile which files to exclude from
 being copied over.
@@ -674,7 +464,7 @@ Dockerfile
 .git
 ```
 
-### Volumes
+## Volumes
 
 * Persistent storage for docker containers
 * 3 types of volumes
@@ -682,7 +472,7 @@ Dockerfile
   * One that just make a file or directory persistent (named volumes) without making them accessible on the fs
   * One for bookmarking a directory in the docker container (unnamed volumes)
 
-```Dockerfile
+```docker-compose.yaml
 volumes:
   - nginx/config:/etc/nginx/config
   - psql-data:/var/lib/postgres/data
@@ -759,7 +549,7 @@ ENV PORT 80
 EXPOSE $PORT
 ```
 
-### Networking
+## Networking
 
 * If no network is specified, all containers are in the same network
 * Containers can reference each others by names in the same network
@@ -770,16 +560,16 @@ There are different networking scenarios:
 * local host machine communication
 * container to container communication
 
-#### Networking: Network Requests (WWW)
+### Networking: Network Requests (WWW)
 
 This works out of the box - it is possible to communicate to outside APIs and
 WWW.
 
-#### Networking: Local Host Maching Communication
+### Networking: Local Host Maching Communication
 
 - replace `localhost` by `host.docker.internal` which is a docker specified hostname.
 
-#### Networking: Container to Container Communication - cross container networking
+### Networking: Container to Container Communication - cross container networking
 
 - cumbersome and not recommended: inspect the container with and get the IP address:
 
@@ -802,205 +592,12 @@ __Note__: On needs to first create the network manually with the command
 __Note__: The host or IP address can be referenced by name in the different
 containers that are on the same network.
 
-### Resources
+## Resources
 
 * [Setting up a simple Proxy Server Using Docker and Django](https://www.codementor.io/samueljames/nginx-setting-up-a-simple-proxy-server-using-docker-and-python-django-f7hy4e6jv)
 * [Docker Cheatsheet](https://github.com/wsargent/docker-cheat-sheet)
 
-## Docker Swarm
 
-* initialize a swarm
-  * PKI and security automation
-  * Raft DB created to store root CA, configs and secrets
-
-```sh
-docker swarm init
-```
-
-### Nodes
-
-* List nodes
-
-```sh
-docker node ls
-```
-
-### Service
-
-* Create a service
-
-```sh
-docker service create alpine ping 8.8.8.8
-```
-
-* Monitoring
-
-```sh
-docker service ps <name>
-```
-
-* Scale up a service. Look at `docker service update --help` for a list of options available
-
-```sh
-docker service update <name/id> --replicas 3
-```
-
-### Secrets Storage
-
-* Easiest secure solution for storing secrets in Swarm
-* What is a secret?
-  * Usernames and passwords
-  * TLS certificates and keys
-  * API key
-  * SSH keys
-  * Any data you would prefer not be "on front page of news"
-* Supports generic strings or binary contents up to 500Kb in size
-* Only stored on disk on Manager nodes
-* Secrets are assigned to Services (who is allowed to see/use the secrets)
-* They look like files in container but are actually in-memory fs
-  * `/run/secrets/<secret_name>`
-  * `/run/secrets/<secret_alias>`
-* Local `docker-compose` can use file-based secrets, but not secure
-
-* create a new secret
-
-```sh
-docker secret create psql_user psql_user.txt
-```
-
-* create a new secret from pipes
-
-```sh
-echo "myDBpassWORD" | docker secret create psql_pass -
-```
-
-* Eg
-
-```sh
-docker service create \
-  --name psql \
-  --secret psql_user \
-  --secret psql_pass \
-  -e POSTGRES_PASSWORD_FILE=/run/secrets/psql_pass \
-  -e POSTGRES_USER_FILE=/run/secrets/psql_user \
-  postgres
-```
-
-* In Docker Compose file
-
-```sh
-version: "3.1" # At least 3.1 to use Secrets with Stacks
-
-services:
-  psql:
-    image: postgres
-    secrets:
-      - psql_user
-      - psql_password
-    environment:
-      POSTGRES_PASSWORD_FILE: /run/secrets/psql_password
-      POSTGRES_USER_FILE: /run/secrets/psql_user
-secrets:
-  psql_user:
-    file: ./psql_user.txt
-  psql_password:
-    file: ./psql_password.txt
-```
-
-* Check if the Secrets have been set properly
-
-```sh
-docker container exec <name> ls -l /run/secrets
-```
-
-* Local Secrets in Docker Compose for local development is done automatically: totally not secure but works out of the box
-  * Only works with file based one for now with the `file` key
-
-### Swarm Updates
-
-* Just update the image used to a newer version
-
-```sh
-docker service update --image myapp:1.2.1 <servicename>
-```
-
-* Adding an environment variable and remove a port
-
-```sh
-docker service update --env-add NODE_ENV=production --publish-rm 8080
-```
-
-## Docker Stacks
-
-* Stacks accept Compose files for services, networks and volumes
-* Stack is only for one Swarm
-
-```sh
-docker stack deploy
-```
-
-* New `deploy` key in Compose file that is specific to Stacks
-* Cannot do the `build` command. It should not happen on your CI system anyway
-* Compose ignores `deploy`; Swarm ignores `build`
-* `docker-compose` cli not needed on Swarm server
-
-### Commands
-
-* List stacks
-
-```sh
-docker stack ls
-```
-
-* Remove a stack
-
-```sh
-docker stack rm <name>
-```
-
-* Deploy a stack
-
-```sh
-docker stack -c <config> <name>
-```
-
-* Monitoring
-
-```sh
-docker stack ps <name>
-```
-
-```sh
-docker stack services <name>
-```
-
-## Full App Lifecycle with Compose
-
-* local `docker-compose up` for dev env
-* Remote `docker-compose up` for CI env
-* Remote `docker stack deploy` for prod env
-* The following docker-compose files can be created:
-  * `docker-compose.yml`
-  * `docker-compose.override.yml`: automatically gets applied to docker-compose
-  * `docker-compose.test.yml`
-  * `docker-compose.prod.yml`
-  * `Dockerfile`
-
-```sh
-docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d
-```
-
-* Look at the generated yaml config file
-
-```sh
-docker-compose -f docker-compose.yml -f docker-compose.test.yml config
-```
-
-* For creating and updating stacks one could use the following output.yml
-
-```sh
-docker-compose -f docker-compse.yml -f docker-compose.prod.yml config > output.yml
-```
 
 ## Container Registries
 
@@ -1076,10 +673,14 @@ docker network prune
 
 ### Best practices for Dockerfiles
 
-- Use the `EXPOSE` command to document that a process in the container
+Best practices:
+
+* Use the `EXPOSE` command to document that a process in the container
 will expose this port. One still needs to expose the port with `-p`
 when running the docker container.
+* Use an `ENTRYPOINT` for utility containers
 
 ## Resources
 
 - [AWS and Docker Tutorial beginner](https://docker-curriculum.com/)
+- [Udemy Course](https://www.udemy.com/course/docker-kubernetes-the-practical-guide)
