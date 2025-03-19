@@ -592,13 +592,6 @@ __Note__: On needs to first create the network manually with the command
 __Note__: The host or IP address can be referenced by name in the different
 containers that are on the same network.
 
-## Resources
-
-* [Setting up a simple Proxy Server Using Docker and Django](https://www.codementor.io/samueljames/nginx-setting-up-a-simple-proxy-server-using-docker-and-python-django-f7hy4e6jv)
-* [Docker Cheatsheet](https://github.com/wsargent/docker-cheat-sheet)
-
-
-
 ## Container Registries
 
 * Secure by default: Docker will not talk to registry without HTTPS
@@ -682,5 +675,7 @@ when running the docker container.
 
 ## Resources
 
-- [AWS and Docker Tutorial beginner](https://docker-curriculum.com/)
-- [Udemy Course](https://www.udemy.com/course/docker-kubernetes-the-practical-guide)
+* [AWS and Docker Tutorial beginner](https://docker-curriculum.com/)
+* [Udemy Course](https://www.udemy.com/course/docker-kubernetes-the-practical-guide)
+* [Setting up a simple Proxy Server Using Docker and Django](https://www.codementor.io/samueljames/nginx-setting-up-a-simple-proxy-server-using-docker-and-python-django-f7hy4e6jv)
+* [Docker Cheatsheet](https://github.com/wsargent/docker-cheat-sheet)
