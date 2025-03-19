@@ -323,10 +323,6 @@ HEALTHCHECK --interval=5s --timeout=3s \
 docker build -t friendlyhello .
 ```
 
-## Production
-
-* [Use Compose in Production](https://docs.docker.com/compose/production/)
-
 ## Nginx and Docker
 
 * [Resource](https://www.digitalocean.com/community/tutorials/how-to-run-nginx-in-a-docker-container-on-ubuntu-14-04)
@@ -655,11 +651,11 @@ docker system df
 
 ```sh
 # Remove everything that is not running
-docker system prune
-docker image prune
-docker container prune
-docker volume prune
-docker network prune
+docker system prune -a
+docker image prune -a
+docker container prune -a
+docker volume prune -a
+docker network prune -a
 ```
 
 ## Best practices
@@ -673,9 +669,19 @@ will expose this port. One still needs to expose the port with `-p`
 when running the docker container.
 * Use an `ENTRYPOINT` for utility containers
 
+### Production
+
+* Never use bind mounts in production
+* Containerized apps might need a build step (optimization for instance)
+* Multi-container projects might need to be split (or should be split) across
+multiple hosts / remote machines
+* Trade-offs between control and responsibility might be worth it (EC2 vs ECS
+vs Kubernetes)
+
 ## Resources
 
 * [AWS and Docker Tutorial beginner](https://docker-curriculum.com/)
 * [Udemy Course](https://www.udemy.com/course/docker-kubernetes-the-practical-guide)
 * [Setting up a simple Proxy Server Using Docker and Django](https://www.codementor.io/samueljames/nginx-setting-up-a-simple-proxy-server-using-docker-and-python-django-f7hy4e6jv)
 * [Docker Cheatsheet](https://github.com/wsargent/docker-cheat-sheet)
+* [Use Compose in Production](https://docs.docker.com/compose/production/)

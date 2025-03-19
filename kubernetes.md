@@ -529,3 +529,8 @@ kubectl create secret generic pgpassword --from-literal PGPASSWORD=password12345
 - [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 - [Services](https://kubernetes.io/docs/concepts/services-networking/service/)
 - [Deploying Applications](https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/)
+
+## Tools
+
+* [k9s](https://github.com/derailed/k9s)
+* [kubectx: switch context fast](https://github.com/ahmetb/kubectx)
