@@ -671,7 +671,11 @@ when running the docker container.
 
 ### Production
 
-* Never use bind mounts in production
+Ensure that every image runs without any extra, surrounding configuration or code.
+
+* Never use bind mounts in production: A container should work standalone, you
+should not have source code on your remote machine - use `COPY` instead of bind
+mounts.
 * Containerized apps might need a build step (optimization for instance)
 * Multi-container projects might need to be split (or should be split) across
 multiple hosts / remote machines
@@ -685,3 +689,7 @@ vs Kubernetes)
 * [Setting up a simple Proxy Server Using Docker and Django](https://www.codementor.io/samueljames/nginx-setting-up-a-simple-proxy-server-using-docker-and-python-django-f7hy4e6jv)
 * [Docker Cheatsheet](https://github.com/wsargent/docker-cheat-sheet)
 * [Use Compose in Production](https://docs.docker.com/compose/production/)
+
+## Tools
+
+* [Lazydocker](https://github.com/jesseduffield/lazydocker)
